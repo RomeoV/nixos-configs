@@ -1,7 +1,7 @@
 { lib, ... }: {
   networking = {
     hostName = "mycloud-nixos-2";
-    domain = "romeov.me";
+    # domain = "romeov.me";
     firewall = {
       enable = true;
       allowedTCPPorts = [
@@ -86,4 +86,24 @@
     '';
   systemd.services.headscale.serviceConfig.TimeoutStopSec = "15s";
 
+  # Use nginx and ACME (Let's encrypt) to enable https
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+    clientMaxBodySize = "40M";
+    virtualHosts = {
+      "immich.romeov.me" = {
+         enableACME = true;
+         forceSSL = true;
+         locations."/" = {
+         proxyPass = "http://0.0.0.0:3001";
+        };
+      };
+    };
+  };
+  security.acme = {
+    acceptTerms = true;
+    certs."immich.romeov.me".email = "contact@romeov.me";
+  };
 }

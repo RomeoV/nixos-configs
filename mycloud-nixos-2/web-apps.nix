@@ -12,7 +12,7 @@
 
   services.redlib = {
     enable = true;
-    address = "127.0.0.1";
+    address = "0.0.0.0";
     port = 8081;
   };
   systemd.services.redlib.environment = {
@@ -23,7 +23,7 @@
   };
 
   services.gotosocial = {
-    enable = true;
+    enable = false;
     # setupPostgresqlDB = true;
     settings.host = "gts.romeov.me";
     settings.port = 8089;
@@ -53,6 +53,5 @@
     host = "0.0.0.0";
     mediaLocation = "/mnt/storage-box/immich";
   };
-
 
 }
