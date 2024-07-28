@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, nixpkgs, nixpkgs-unstable, agenix, ... }: {
+{ pkgs, pkgs-unstable, agenix, ... }: {
   imports =   [
     ./hardware-configuration.nix
     ./networking.nix # generated at runtime by nixos-infect
