@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixpkgs-immich, pkgs-immich, ... }:
 
 {
   services.nextcloud = {
@@ -34,5 +34,25 @@
       enable = true;
       port = 8090;
   };
+
+
+
+  # Using immich from another nixpkgs fork.
+  # See https://lgug2z.com/articles/selectivey-using-service-modules-from-nixos-unstable/
+
+  # We would usually disable this, but immich isn't defined yet at all.
+  disabledModules = [
+    "services/web-apps/atuin.nix"
+  ];
+  imports = [
+    "${nixpkgs-immich}/nixos/modules/services/web-apps/immich.nix"
+  ];
+  services.immich = {
+    enable = true;
+    package = pkgs-immich.immich;
+    host = "0.0.0.0";
+    mediaLocation = "/mnt/storage-box/immich";
+  };
+
 
 }

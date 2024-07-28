@@ -58,6 +58,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-immich": {
+      "locked": {
+        "lastModified": 1721949326,
+        "narHash": "sha256-4En/oLY5c/YK4oGQIqagcKPfgDG2RrHZCNtthmpgrBk=",
+        "owner": "jvanbruegge",
+        "repo": "nixpkgs",
+        "rev": "7290604575975813a9cf845be6690744ae528d61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jvanbruegge",
+        "ref": "immich",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1722062969,
@@ -129,6 +145,7 @@
       "inputs": {
         "agenix": "agenix",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-immich": "nixpkgs-immich",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "redlib": "redlib"
       }
