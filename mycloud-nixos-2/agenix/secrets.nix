@@ -10,4 +10,5 @@ in {
   "backblaze_env.age".publicKeys = [ Lenovo-P1 JuiceSSH system1 system2 mycloud-nixos-2 ];
   "backblaze_password.age".publicKeys = [ Lenovo-P1 JuiceSSH system1 system2 mycloud-nixos-2 ];
   "backblaze_repo.age".publicKeys = [ Lenovo-P1 JuiceSSH system1 system2 mycloud-nixos-2 ];
+  "mlflow-artifacts-key.age".publicKeys = [ Lenovo-P1 JuiceSSH system1 system2 mycloud-nixos-2 ];
 }
