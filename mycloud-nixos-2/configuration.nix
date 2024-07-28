@@ -2,8 +2,6 @@
   imports =   [
     ./hardware-configuration.nix
     ./networking.nix # generated at runtime by nixos-infect
-    # (import /etc/nixos/redlib_service.nix {inherit lib config pkgs_unstable; })
-    # (import /etc/nixos/immich.nix {inherit lib config pkgs_unstable; })
   ];
 
   system.stateVersion = "24.05";
