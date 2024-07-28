@@ -13,7 +13,11 @@
     nixosConfigurations.mycloud-nixos-2 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        ./configuration.nix 
+        ./hardware-configuration.nix
+        ./networking.nix # generated at runtime by nixos-infect
+        ./system-configuration.nix
+        ./secrets-management.nix
+        ./web-apps.nix
         agenix.nixosModules.default
         redlib.nixosModules.default
       ];

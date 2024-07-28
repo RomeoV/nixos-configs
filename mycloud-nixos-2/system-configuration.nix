@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, agenix, ... }: {
+{ pkgs, pkgs-unstable, agenix, ... }: {
   system.stateVersion = "24.05";
 
   nix.settings.experimental-features = "nix-command flakes";
