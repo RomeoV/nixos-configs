@@ -82,17 +82,17 @@
       pkgs-unstable.redlib
   ];
 
-  # services.redlib = {
-  #   enable = true;
-  #   address = "127.0.0.1";
-  #   port = 8081;
-  # };
-  # systemd.services.redlib.environment = {
-  #   REDLIB_DEFAULT_SHOW_NSFW = "on";
-  #   REDLIB_DEFAULT_USE_HLS = "on";
-  #   REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION = "on";
-  #   REDLIB_DEFAULT_AUTOPLAY_VIDEOS = "on";
-  # };
+  services.redlib = {
+    enable = true;
+    address = "127.0.0.1";
+    port = 8081;
+  };
+  systemd.services.redlib.environment = {
+    REDLIB_DEFAULT_SHOW_NSFW = "on";
+    REDLIB_DEFAULT_USE_HLS = "on";
+    REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION = "on";
+    REDLIB_DEFAULT_AUTOPLAY_VIDEOS = "on";
+  };
 
   services.gotosocial = {
     enable = true;
