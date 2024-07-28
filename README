@@ -1,0 +1,11 @@
+
+## Deploy from non-NixOS computer
+Just run 
+
+```sh
+nix-shell -p '(nixos{}).nixos-rebuild'
+nixos-rebuild switch --flake .#mycloud-nixos-2 --target-host hetzner2
+```
+If you run into cache errors, add the flag `--option eval-cache false`.
+
+
