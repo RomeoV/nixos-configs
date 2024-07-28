@@ -1,21 +1,7 @@
-{ config, lib, nixpkgs, nixpkgs-unstable, agenix, ... }:
-let
-  pkgs = nixpkgs.pkgs;
-  pkgs_unstable = nixpkgs-unstable.pgks;
-in {
-# let
-#   unstable = import <nixos-unstable> {};
-#   pkgs_unstable = unstable.pkgs;
-#   pkgs_master = (import (builtins.fetchTarball {
-#     url = "https://github.com/NixOS/nixpkgs/archive/403d5963cc5ca2de87bc891dd9090c9995dc7a97.tar.gz";
-#     sha256 = "1vpk02gjnv0map8n5s0i20y3g8alqm9477vxqjv4ddma1bwzr61l";
-#   }) {}).pkgs;
-# in {
+{ config, lib, pkgs, pkgs-unstable, nixpkgs, nixpkgs-unstable, agenix, ... }: {
   imports =   [
     ./hardware-configuration.nix
     ./networking.nix # generated at runtime by nixos-infect
-    # agenix.modules.age
-    # <agenix/modules/age.nix>  # requires `nix-channel --add https://github.com/ryantm/agenix/archive/main.tar.gz agenix`
     # (import /etc/nixos/redlib_service.nix {inherit lib config pkgs_unstable; })
     # (import /etc/nixos/immich.nix {inherit lib config pkgs_unstable; })
   ];
@@ -85,16 +71,17 @@ in {
   };
 
   environment.systemPackages = [
-      (pkgs.callPackage <agenix/pkgs/agenix.nix> {})
+      # (pkgs.callPackage <agenix/pkgs/agenix.nix> {})
+      agenix.default
       pkgs.helix
       pkgs.headscale
       pkgs.rclone
       pkgs.bottom
       # pkgs.onlyoffice-documentserver
       # pkgs.docker-compose  
-      pkgs.podman-compose  
+      # pkgs.podman-compose
       pkgs.waypipe
-      pkgs_unstable.redlib
+      pkgs-unstable.redlib
   ];
 
   # services.redlib = {
@@ -161,15 +148,15 @@ in {
   #   backblaze_password.file = ./backblaze_password.age;
   # };
 
-  services.nextcloud = {
-    enable = true;
-    package = pkgs.nextcloud28;
-    hostName = "storage.romeov.me";
-    https = true;
-    config.adminpassFile = config.age.secrets.nextcloud_admin_pass.path;
-    # config.adminpassFile = "/etc/nixos/nextcloud_pass";
-    home="/storage/nextcloud";
-  };
+  # services.nextcloud = {
+  #   enable = true;
+  #   package = pkgs.nextcloud28;
+  #   hostName = "storage.romeov.me";
+  #   https = true;
+  #   config.adminpassFile = config.age.secrets.nextcloud_admin_pass.path;
+  #   # config.adminpassFile = "/etc/nixos/nextcloud_pass";
+  #   home="/storage/nextcloud";
+  # };
 
   # services.invidious = let
   #   customVersions = {

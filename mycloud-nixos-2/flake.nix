@@ -18,9 +18,11 @@
         # redlib.nixosModules.default
       ];
       specialArgs = {
-        pkg = nixpkgs.legacyPackages.x86_64-linux;
-        pkgs_unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
         agenix = agenix.packages.x86_64-linux;
+        # same as `nixpkgs=nixpgs; nixpkgs-unstable=nixpkgs-unstable;`
+        inherit nixpkgs nixpkgs-unstable;
         # redlib = redlib.packages.x86_64-linux;
       };
     };
