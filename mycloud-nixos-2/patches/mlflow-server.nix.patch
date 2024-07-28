@@ -1,0 +1,12 @@
+diff --git a/pkgs/servers/mlflow-server/default.nix b/pkgs/servers/mlflow-server/default.nix
+index 6916b3b65547..1f0bb60ad784 100644
+--- a/pkgs/servers/mlflow-server/default.nix
++++ b/pkgs/servers/mlflow-server/default.nix
+@@ -9,6 +9,7 @@ py.toPythonApplication
+     propagatedBuildInputs = old.propagatedBuildInputs ++ [
+       py.boto3
+       py.mysqlclient
++      py.setuptools
+     ];
+ 
+     postPatch = (old.postPatch or "") + ''
