@@ -35,6 +35,14 @@
       port = 8090;
   };
 
+  services.myMlflowServer = {
+    enable = true;
+    port = 5000;
+    host = "0.0.0.0";  # Listen on all interfaces
+    artifactRoot = "/mnt/mlflow-artifacts/mlflow-atifacts";
+    # extraArgs = [ "--backend-store-uri" "sqlite:///var/lib/mlflow/mlflow.db" ];
+  };
+
 
 
   # Using immich from another nixpkgs fork.

@@ -19,6 +19,7 @@
           ./system-configuration.nix
           ./secrets-management.nix
           ./web-apps.nix
+          ./mlflow-service.nix
           agenix.nixosModules.default
           redlib.nixosModules.default
         ];
