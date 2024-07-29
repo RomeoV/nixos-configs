@@ -1,19 +1,5 @@
 { pkgs, pkgs-unstable, agenix, ... }: {
 
-  # nixpkgs.overlays = [ (final: prev: {
-  #   mlflow-server = prev.mlflow-server.overrideAttrs (old: {
-  #     patches = (old.patches or []) ++ [ ./patches/mlflow-server.nix.patch ];
-  #   });
-  # }
-  # )];
-  nixpkgs.config = {
-    packageOverrides = pkgs: {
-      mlflow-server = pkgs.mlflow-server.overrideAttrs (oldAttrs: {
-        patches = (oldAttrs.patches or []) ++ [ ./patches/mlflow-server.nix.patch ];
-      });
-    };
-  };
-
   system.stateVersion = "24.05";
 
   nix.settings.experimental-features = "nix-command flakes";
@@ -74,7 +60,7 @@
       pkgs.bottom
       pkgs.waypipe
       pkgs-unstable.redlib
-      pkgs.mlflow-server
+      (pkgs.callPackage ./my-mlflow-server.nix {})
   ];
 
 
