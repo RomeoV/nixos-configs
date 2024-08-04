@@ -1,63 +1,71 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
+{ config, lib, pkgs-master, ... }:
 let
-  cfg = config.services.myMlflowServer;
-in {
-  options.services.myMlflowServer = {
+  cfg = config.services.mlflow-server;
+in
+{
+  options.services.mlflow-server = with lib; {
     enable = mkEnableOption "MLflow server";
-    port = mkOption {
-      type = types.port;
-      default = 5000;
-      description = "Port on which MLflow server will listen";
+    package = mkOption {
+      type = types.package;
+      default = pkgs-master.mlflow-server;
+      description = "The MLflow server package to use";
     };
     host = mkOption {
       type = types.str;
-      default = "127.0.0.1";
-      description = "Hostname or IP address to bind";
+      default = "0.0.0.0";
+      description = "The host to bind to";
+    };
+    port = mkOption {
+      type = types.port;
+      default = 5000;
+      description = "The port to listen on";
     };
     basedir = mkOption {
       type = types.str;
-      description = "Root directory for storage";
+      description = "The basedir path for all artifacts.";
     };
-    # artifactRoot = mkOption {
-    #   type = types.str;
-    #   description = "Root directory for artifact storage";
-    # };
+    backendStore = mkOption {
+      type = types.str;
+      description = "The backend store URI";
+    };
+    defaultArtifactRoot = mkOption {
+      type = types.str;
+      description = "The default artifact root";
+    };
     extraArgs = mkOption {
       type = types.listOf types.str;
       default = [];
-      description = "Extra arguments to pass to MLflow server";
+      description = "Extra arguments to pass to mlflow server";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     systemd.services.mlflow-server = {
       description = "MLflow Server";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      preStart = ''
-        mkdir -p ${cfg.basedir}
-        chown mlflow:mlflow ${cfg.basedir}
-      '';
       serviceConfig = {
-        ExecStart = ''
-          ${pkgs.callPackage ./my-mlflow-server.nix {}}/bin/mlflow server --host ${cfg.host} --port ${toString cfg.port} \
-          ${toString cfg.extraArgs}
-        '';
-        Restart = "on-failure";
+        ExecStart = "${cfg.package}/bin/mlflow server --host ${cfg.host} --port ${toString cfg.port} ${lib.escapeShellArgs cfg.extraArgs}";
+        Restart = "always";
         User = "mlflow";
         Group = "mlflow";
-        WorkingDirectory = cfg.basedir;  # Set the working directory
+        WorkingDirectory = "/var/lib/mlflow";
+        # StateDirectory = "mlflow";
       };
     };
 
     users.users.mlflow = {
       isSystemUser = true;
       group = "mlflow";
+      description = "MLflow server user";
+      # home = "/var/lib/mlflow";
+      # createHome = true;
     };
 
     users.groups.mlflow = {};
+
+    systemd.tmpfiles.rules = [
+      "d /var/lib/mlflow 0755 mlflow mlflow -"
+    ];
   };
 }
