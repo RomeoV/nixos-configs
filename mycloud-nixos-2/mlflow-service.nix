@@ -17,10 +17,14 @@ in {
       default = "127.0.0.1";
       description = "Hostname or IP address to bind";
     };
-    artifactRoot = mkOption {
+    basedir = mkOption {
       type = types.str;
-      description = "Root directory for artifact storage";
+      description = "Root directory for storage";
     };
+    # artifactRoot = mkOption {
+    #   type = types.str;
+    #   description = "Root directory for artifact storage";
+    # };
     extraArgs = mkOption {
       type = types.listOf types.str;
       default = [];
@@ -33,11 +37,19 @@ in {
       description = "MLflow Server";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
+      preStart = ''
+        mkdir -p ${cfg.basedir}
+        chown mlflow:mlflow ${cfg.basedir}
+      '';
       serviceConfig = {
-        ExecStart = "${pkgs.callPackage ./my-mlflow-server.nix {}}/bin/mlflow server --host ${cfg.host} --port ${toString cfg.port} --artifacts-destination ${cfg.artifactRoot} ${toString cfg.extraArgs}";
+        ExecStart = ''
+          ${pkgs.callPackage ./my-mlflow-server.nix {}}/bin/mlflow server --host ${cfg.host} --port ${toString cfg.port} \
+          ${toString cfg.extraArgs}
+        '';
         Restart = "on-failure";
         User = "mlflow";
         Group = "mlflow";
+        WorkingDirectory = cfg.basedir;  # Set the working directory
       };
     };
 
