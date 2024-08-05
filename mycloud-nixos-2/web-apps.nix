@@ -35,11 +35,12 @@
       port = 8090;
   };
 
-  services.myMlflowServer = {
+  services.mlflow-server = {
     enable = true;
     port = 5000;
     host = "0.0.0.0";  # Listen on all interfaces
-    artifactRoot = "/mnt/mlflow-artifacts/mlflow-atifacts";
+    basedir = "/mnt/mlflow-artifacts";
+    # artifactRoot = "/mnt/mlflow-artifacts/mlartifacts";
     # extraArgs = [ "--backend-store-uri" "sqlite:///var/lib/mlflow/mlflow.db" ];
   };
 
@@ -50,7 +51,7 @@
 
   # We would usually disable this, but immich isn't defined yet at all.
   disabledModules = [
-    "services/web-apps/atuin.nix"
+    # "services/web-apps/atuin.nix"
   ];
   imports = [
     "${nixpkgs-immich}/nixos/modules/services/web-apps/immich.nix"

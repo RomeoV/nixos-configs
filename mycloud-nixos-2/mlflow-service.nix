@@ -2,12 +2,15 @@
 let
   cfg = config.services.mlflow-server;
   pythonEnv = cfg.python.withPackages (ps: with ps; [
+    boto3
+    mysqlclient
     mlflow
     gunicorn
   ]);
   mlflowWrapper = pkgs.writeShellScriptBin "mlflow-wrapper" ''
     #!${pkgs.runtimeShell}
     export PATH=${pythonEnv}/bin:$PATH
+    export PYTHONPATH="${pythonEnv}/${cfg.python.sitePackages}:$PYTHONPATH"
     exec mlflow server \
       --host ${cfg.host} \
       --port ${toString cfg.port} \
@@ -19,7 +22,7 @@ in
     enable = mkEnableOption "MLflow server";
     python = mkOption {
       type = types.package;
-      default = pkgs-master.python3;
+      default = pkgs-master.python312;
       description = "The MLflow server package to use";
     };
     host = mkOption {
@@ -57,13 +60,14 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        # ExecStart = "${cfg.package}/bin/mlflow server --host ${cfg.host} --port ${toString cfg.port} ${lib.escapeShellArgs cfg.extraArgs}";
         ExecStart = "${mlflowWrapper}/bin/mlflow-wrapper";
         Restart = "always";
         User = "mlflow";
         Group = "mlflow";
         WorkingDirectory = "/var/lib/mlflow";
-        # StateDirectory = "mlflow";
+        StateDirectory = "mlflow";
+        BindPaths = [ "/nix/var/nix/daemon-socket" ];
+        BindReadOnlyPaths = [ "/nix/store" ];
       };
     };
 
@@ -72,8 +76,8 @@ in
       isSystemUser = true;
       group = "mlflow";
       description = "MLflow server user";
-      # home = "/var/lib/mlflow";
-      # createHome = true;
+      home = "/var/lib/mlflow";
+      createHome = true;
     };
 
     users.groups.mlflow = {};
