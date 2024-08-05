@@ -1,13 +1,25 @@
-{ config, lib, pkgs-master, ... }:
+{ config, lib, pkgs, pkgs-master, ... }:
 let
   cfg = config.services.mlflow-server;
+  pythonEnv = cfg.python.withPackages (ps: with ps; [
+    mlflow
+    gunicorn
+  ]);
+  mlflowWrapper = pkgs.writeShellScriptBin "mlflow-wrapper" ''
+    #!${pkgs.runtimeShell}
+    export PATH=${pythonEnv}/bin:$PATH
+    exec mlflow server \
+      --host ${cfg.host} \
+      --port ${toString cfg.port} \
+      ${lib.escapeShellArgs cfg.extraArgs}
+  '';
 in
 {
   options.services.mlflow-server = with lib; {
     enable = mkEnableOption "MLflow server";
-    package = mkOption {
+    python = mkOption {
       type = types.package;
-      default = pkgs-master.mlflow-server;
+      default = pkgs-master.python3;
       description = "The MLflow server package to use";
     };
     host = mkOption {
@@ -45,7 +57,8 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/mlflow server --host ${cfg.host} --port ${toString cfg.port} ${lib.escapeShellArgs cfg.extraArgs}";
+        # ExecStart = "${cfg.package}/bin/mlflow server --host ${cfg.host} --port ${toString cfg.port} ${lib.escapeShellArgs cfg.extraArgs}";
+        ExecStart = "${mlflowWrapper}/bin/mlflow-wrapper";
         Restart = "always";
         User = "mlflow";
         Group = "mlflow";
@@ -53,6 +66,7 @@ in
         # StateDirectory = "mlflow";
       };
     };
+
 
     users.users.mlflow = {
       isSystemUser = true;
