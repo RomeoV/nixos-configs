@@ -63,7 +63,7 @@
   };
 
   services.headscale = {
-    enable = false;
+    enable = true;
     port = 8083;
     settings = {
       serverUrl = "https://headscale.romeov.me";
@@ -105,6 +105,13 @@
          forceSSL = true;
          locations."/" = {
            proxyPass = "http://localhost:${toString config.services.redlib.port}";
+        };
+      };
+      "headscale.romeov.me" = {
+         enableACME = true;
+         forceSSL = true;
+         locations."/" = {
+           proxyPass = "http://localhost:${toString config.services.headscale.port}";
         };
       };
     };
