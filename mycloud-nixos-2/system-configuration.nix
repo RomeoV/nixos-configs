@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, agenix, ... }: {
+{ pkgs, pkgs-unstable, agenix, config, ... }: {
 
   system.stateVersion = "24.05";
 
@@ -73,9 +73,9 @@
       file = agenix/hetzner_private_key.age;
       owner = "root";
     };
-    backblaze_env.file = agenix/backblaze_env.age;
+    backblaze_env_2.file = agenix/backblaze_env_2.age;
     backblaze_repo.file = agenix/backblaze_repo.age;
-    backblaze_password.file = agenix/backblaze_password.age;
+    backblaze_password_2.file = agenix/backblaze_password_2.age;
     mlflow-artifacts-key.file = agenix/mlflow-artifacts-key.age;
     paperless-admin-password.file = agenix/paperless-admin-password.age;
   };
@@ -130,25 +130,24 @@
   #   ];
   # };
 
-  # services.restic.backups = {
-  #   daily = {
-  #     initialize = true;
+  services.restic.backups = {
+    daily = {
+      initialize = true;
 
-  #     environmentFile = config.age.secrets."backblaze_env".path;
-  #     repositoryFile = config.age.secrets."backblaze_repo".path;
-  #     passwordFile = config.age.secrets."backblaze_password".path;
+      environmentFile = config.age.secrets."backblaze_env_2".path;
+      repositoryFile = config.age.secrets."backblaze_repo".path;
+      passwordFile = config.age.secrets."backblaze_password_2".path;
 
-  #     paths = [
-  #       "/etc/nixos"
-  #       "/storage/immich"
-  #       "/storage/nextcloud"
-  #     ];
+      paths = [
+        "/mnt/storage-box/immich"
+        "/var/lib"
+      ];
 
-  #     pruneOpts = [
-  #       "--keep-daily 7"
-  #       "--keep-weekly 5"
-  #       "--keep-monthly 12"
-  #     ];
-  #   };
-  # };
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 5"
+        "--keep-monthly 12"
+      ];
+    };
+  };
 }
