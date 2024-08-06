@@ -77,6 +77,7 @@
     backblaze_repo.file = agenix/backblaze_repo.age;
     backblaze_password.file = agenix/backblaze_password.age;
     mlflow-artifacts-key.file = agenix/mlflow-artifacts-key.age;
+    paperless-admin-password.file = agenix/paperless-admin-password.age;
   };
 
 
