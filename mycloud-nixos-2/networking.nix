@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ lib, config, ... }: {
   networking = {
     hostName = "mycloud-nixos-2";
     # domain = "romeov.me";
@@ -63,7 +63,7 @@
   };
 
   services.headscale = {
-    enable = true;
+    enable = false;
     port = 8083;
     settings = {
       serverUrl = "https://headscale.romeov.me";
@@ -96,14 +96,33 @@
       "immich.romeov.me" = {
          enableACME = true;
          forceSSL = true;
+         # useACMEHost = "romeov.me";
          locations."/" = {
-         proxyPass = "http://0.0.0.0:3001";
+           proxyPass = "http://localhost:${toString config.services.immich.port}";
+        };
+      };
+      "redlib.romeov.me" = {
+         enableACME = true;
+         forceSSL = true;
+         # useACMEHost = "romeov.me";
+         locations."/" = {
+           proxyPass = "http://localhost:${toString config.services.redlib.port}";
         };
       };
     };
   };
   security.acme = {
     acceptTerms = true;
-    certs."immich.romeov.me".email = "contact@romeov.me";
+    # certs."immich.romeov.me".email = "contact@romeov.me";
+    # certs."redlib.romeov.me".email = "contact@romeov.me";
+    defaults.email = "contact@romeov.me";
+    # certs."romeov.me".extraDomainNames = [
+    #   # "gts.romeov.me"
+    #   # "headscale.romeov.me"
+    #   "redlib.romeov.me"
+    #   # "storage.romeov.me"
+    #   # "nitter.romeov.me"
+    #   "immich.romeov.me"
+    # ];
   };
 }
