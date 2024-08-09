@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, agenix, config, ... }: {
+{ inputs, pkgs, pkgs-unstable, agenix, config, ... }: {
 
   system.stateVersion = "24.05";
 
@@ -13,8 +13,15 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--no-write-lock-file"
+      "-L" # print build logs
+    ];
+    dates = "02:00";
     randomizedDelaySec = "10min";
-    dates = "Mon,Fri 04:40";
   };
   nix.gc = {
     automatic = true;
