@@ -14,6 +14,7 @@
     user = u380790
     port = 23
     key_file = ''+config.age.secrets.hetzner_private_key.path+''
+
     shell_type = unix
     md5sum_command = md5 -r
     sha1sum_command = sha1 -r
