@@ -90,7 +90,7 @@ in {
       # pkgs.docker-compose  
       pkgs.podman-compose  
       pkgs.waypipe
-      # unstable.pkgs.redlib
+      unstable.pkgs.redlib
   ];
 
   ## get ready for docker compose
@@ -127,17 +127,17 @@ in {
   #   LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION = "on";
   #   LIBREDDIT_DEFAULT_AUTOPLAY_VIDEOS = "on";
   # };
-  # services.redlib = {
-  #   enable = true;
-  #   address = "127.0.0.1";
-  #   port = 8081;
-  # };
-  # systemd.services.redlib.environment = {
-  #   REDLIB_DEFAULT_SHOW_NSFW = "on";
-  #   REDLIB_DEFAULT_USE_HLS = "on";
-  #   REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION = "on";
-  #   REDLIB_DEFAULT_AUTOPLAY_VIDEOS = "on";
-  # };
+  services.redlib = {
+    enable = true;
+    address = "127.0.0.1";
+    port = 8081;
+  };
+  systemd.services.redlib.environment = {
+    REDLIB_DEFAULT_SHOW_NSFW = "on";
+    REDLIB_DEFAULT_USE_HLS = "on";
+    REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION = "on";
+    REDLIB_DEFAULT_AUTOPLAY_VIDEOS = "on";
+  };
 
   # services.mlflow-server = {
   #   enable = true;
@@ -160,11 +160,11 @@ in {
   };
 
   services.gotosocial = {
-    enable = false;
+    enable = true;
     # setupPostgresqlDB = true;
     settings.host = "gts.romeov.me";
     settings.port = 8089;
-    # storage-local-base-path = "/storage/gotosocial";
+    # storage-local-base-path = "/mnt/storage-box/gotosocial";
   };
 
 
@@ -333,17 +333,17 @@ in {
       #    proxyPass = "http://127.0.0.1:2283";
       #   };
       # };
-      #"gts.romeov.me" = with config.services.gotosocial.settings; {
-      #  useACMEHost = "romeov.me";
-      #  forceSSL = true;
-      #  locations = {
-      #    "/" = {
-      #      recommendedProxySettings = true;
-      #      proxyWebsockets = true;
-      #      proxyPass = "http://${bind-address}:${toString port}";
-      #    };
-      #  };
-      #};
+      "gts.romeov.me" = with config.services.gotosocial.settings; {
+        useACMEHost = "romeov.me";
+        forceSSL = true;
+        locations = {
+          "/" = {
+            recommendedProxySettings = true;
+            proxyWebsockets = true;
+            proxyPass = "http://${bind-address}:${toString port}";
+          };
+        };
+      };
       # "grafana.romeov.me" = {
       #   locations."/" = {
       #       proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
