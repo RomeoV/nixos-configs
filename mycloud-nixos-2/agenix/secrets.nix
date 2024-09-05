@@ -11,6 +11,7 @@ in {
   "backblaze_repo.age".publicKeys = [ Lenovo-P1 JuiceSSH mycloud-nixos mycloud-nixos-2];
   "backblaze_env_2.age".publicKeys = [ Lenovo-P1 JuiceSSH mycloud-nixos-2 ];
   "backblaze_password_2.age".publicKeys = [ Lenovo-P1 JuiceSSH mycloud-nixos-2 ];
+  "backblaze_repo_2.age".publicKeys = [ Lenovo-P1 JuiceSSH mycloud-nixos-2];
   "mlflow-artifacts-key.age".publicKeys = [ Lenovo-P1 JuiceSSH mycloud-nixos mycloud-nixos-2 ];
   "paperless-admin-password.age".publicKeys = [ Lenovo-P1 mycloud-nixos mycloud-nixos-2 ];
 }

@@ -11,7 +11,7 @@
   time.timeZone = "America/Los_Angeles";
 
   system.autoUpgrade = {
-    enable = true;
+    enable = false;
     allowReboot = true;
     randomizedDelaySec = "10min";
     dates = "Mon,Fri 04:40";
@@ -74,7 +74,7 @@
       owner = "root";
     };
     backblaze_env_2.file = agenix/backblaze_env_2.age;
-    backblaze_repo.file = agenix/backblaze_repo.age;
+    backblaze_repo_2.file = agenix/backblaze_repo_2.age;
     backblaze_password_2.file = agenix/backblaze_password_2.age;
     mlflow-artifacts-key.file = agenix/mlflow-artifacts-key.age;
     paperless-admin-password.file = agenix/paperless-admin-password.age;
@@ -135,7 +135,7 @@
       initialize = true;
 
       environmentFile = config.age.secrets."backblaze_env_2".path;
-      repositoryFile = config.age.secrets."backblaze_repo".path;
+      repositoryFile = config.age.secrets."backblaze_repo_2".path;
       passwordFile = config.age.secrets."backblaze_password_2".path;
 
       paths = [
