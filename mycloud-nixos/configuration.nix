@@ -32,6 +32,7 @@ in {
     randomizedDelaySec = "10min";
     dates = "Mon,Fri 04:40";
   };
+  system.copySystemConfiguration = true;
   nix.gc = {
     automatic = true;
     dates = "weekly";
