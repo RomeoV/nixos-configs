@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, agenix, config, ... }: {
+{ inputs, pkgs, pkgs-unstable, agenix, config, ... }: {
 
   system.stateVersion = "24.05";
 
@@ -10,11 +10,24 @@
 
   time.timeZone = "America/Los_Angeles";
 
+  # see https://discourse.nixos.org/t/best-practices-for-auto-upgrades-of-flake-enabled-nixos-systems/31255/2
   system.autoUpgrade = {
-    enable = false;
-    allowReboot = true;
-    randomizedDelaySec = "10min";
-    dates = "Mon,Fri 04:40";
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--update-input"
+      "nixpkgs-unstable"
+      "--update-input"
+      "agenix"
+      "--update-input"
+      "nixpkgs-immich"
+      "--no-write-lock-file"
+      "-L" # print build logs
+    ];
+    dates = "02:00";
+    randomizedDelaySec = "45min";
   };
   nix.gc = {
     automatic = true;

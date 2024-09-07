@@ -11,7 +11,7 @@
     nixpkgs-immich.url = "github:jvanbruegge/nixpkgs/immich";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-master, agenix, redlib, nixpkgs-immich }: {
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixpkgs-master, agenix, redlib, nixpkgs-immich }: {
       nixosConfigurations.mycloud-nixos-2 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -28,6 +28,7 @@
           # same as `nixpkgs=nixpgs; nixpkgs-unstable=nixpkgs-unstable;`
           inherit nixpkgs nixpkgs-unstable nixpkgs-master;
           inherit nixpkgs-immich;
+          inherit inputs;
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
           pkgs_unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;  # for compat with redlib
