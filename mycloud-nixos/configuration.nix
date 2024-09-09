@@ -193,8 +193,8 @@ in {
      	} ],
         "ssh": [ {
             "action": "accept",
-            "src": ["*"],
-            "dst": ["mycloud-nixos"]
+            "src": ["romeo-p1", "pixel-6"],
+            "dst": ["mycloud-nixos", "mycloud-nixos-2"]
         } ] }
     '';
   systemd.services.headscale.serviceConfig.TimeoutStopSec = "15s";
