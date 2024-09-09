@@ -7,8 +7,10 @@
       allowedTCPPorts = [
         80
         443
+        22000  # syncthing: TCP and/or UDP for sync traffic, see https://wiki.nixos.org/wiki/Syncthing
         # config.services.grafana.settings.server.http_port
       ];
+      allowedUDPPorts = [ 22000 21027 ];  # syncthing: for discovery, see https://wiki.nixos.org/wiki/Syncthing
       trustedInterfaces = [
         "tailscale0"
       ];

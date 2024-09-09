@@ -91,6 +91,8 @@
     backblaze_password_2.file = agenix/backblaze_password_2.age;
     mlflow-artifacts-key.file = agenix/mlflow-artifacts-key.age;
     paperless-admin-password.file = agenix/paperless-admin-password.age;
+    syncthing-key.file = agenix/syncthing-key.age;
+    syncthing-cert.file = agenix/syncthing-cert.age;
   };
 
 
