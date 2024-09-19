@@ -11,7 +11,7 @@ in {
     ./hardware-configuration.nix
     ./networking.nix # generated at runtime by nixos-infect
     <agenix/modules/age.nix>  # requires `nix-channel --add https://github.com/ryantm/agenix/archive/main.tar.gz agenix`
-    (import /etc/nixos/redlib_service.nix {inherit lib config pkgs_unstable; })
+    (import ./redlib_service.nix {inherit lib config pkgs_unstable; })
     # (import /etc/nixos/immich.nix {inherit lib config pkgs_unstable; })
     # (import /etc/nixos/mlflow-service.nix {inherit lib config; })
   ];
