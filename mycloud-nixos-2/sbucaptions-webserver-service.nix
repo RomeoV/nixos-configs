@@ -1,24 +1,33 @@
-{ config, sbucaptions-webserver, inputs, ... }:
+{ config, lib, pkgs, sbucaptions-webserver, ... }:
+with lib;
+let
+  cfg = config.services.sbucaptions-webserver;
+  args = concatStringsSep " " ([
+    "--port ${toString cfg.port}"
+    "--host ${cfg.address}"
+  ]);
+in
 {
   options = {
     services.sbucaptions-webserver = {
       enable = mkEnableOption (lib.mdDoc "sbucaptions webserver");
 
-      # package = mkPackageOption pkgs "redlib" { };
+      # package = mkPackageOption sbucaptions-webserver "sbucaptions-webserver" { };
 
-      # address = mkOption {
-      #   default = "0.0.0.0";
-      #   example = "127.0.0.1";
-      #   type =  types.str;
-      #   description = lib.mdDoc "The address to listen on";
-      # };
+      address = mkOption {
+        default = "0.0.0.0";
+        example = "127.0.0.1";
+        type =  types.str;
+        description = lib.mdDoc "The address to listen on";
+      };
 
-      # port = mkOption {
-      #   default = 8080;
-      #   example = 8000;
-      #   type = types.port;
-      #   description = lib.mdDoc "The port to listen on";
-      # };
+      port = mkOption {
+        default = 8096;
+        example = 8000;
+        type = types.port;
+        description = lib.mdDoc "The port to listen on";
+      };
+
 
       # openFirewall = mkOption {
       #   type = types.bool;
@@ -30,16 +39,18 @@
   };
 
   config = mkIf cfg.enable {
-    systemd.services.sbucaption-webserver-service = {
+    systemd.services.sbucaptions-webserver-service = {
       description = "sbucaptions_webserver service";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = "${sbucaptions-webserver.packages.${pkgs.system}.default}/bin/sbucaptions_webserver";
+        ExecStart = "${sbucaptions-webserver.packages.${pkgs.system}.default}/bin/sbucaptions_webserver ${args}";
+        # ExecStart = "${lib.getExe cfg.package} ${args}";
         Environment = [
-          "SBUCAPTIONS_DIR=/mnt/storage-box/ksvd-results/data/sbucaptions"
+          "SBUCAPTIONS_DIR=/storage/sbucaptions"
           "X_MATRIX_PATH=/mnt/storage-box/ksvd-results/encodings/X_mat.npy"
+          "CONCEPT_DESCRIPTION_DIR=/mnt/storage-box/ksvd-results/both_summaries_vlm"
         ];
 
         DynamicUser = true;
@@ -73,5 +84,5 @@
         UMask = "0077";
       };
     };
-  }
+  };
 }
