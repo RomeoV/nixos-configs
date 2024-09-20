@@ -57,7 +57,7 @@ in
         AmbientCapabilities = lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         Restart = "on-failure";
         RestartSec = "2s";
-        # Hardening
+        # # Hardening
         CapabilityBoundingSet = if (cfg.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
@@ -80,8 +80,8 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
-        UMask = "0077";
+        # SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+        # UMask = "0077";
       };
     };
   };

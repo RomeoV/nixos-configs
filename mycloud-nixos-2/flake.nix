@@ -9,9 +9,10 @@
     agenix.inputs.darwin.follows = "";
     redlib.url = "github:RomeoV/redlib";
     nixpkgs-immich.url = "github:jvanbruegge/nixpkgs/immich";
+    sbucaptions-webserver.url = "git+ssh://git@github.com/RomeoV/sbucaptions-webserver";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixpkgs-master, agenix, redlib, nixpkgs-immich }: {
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixpkgs-master, agenix, redlib, nixpkgs-immich, sbucaptions-webserver }: {
       nixosConfigurations.mycloud-nixos-2 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -21,6 +22,7 @@
           ./secrets-management.nix
           ./web-apps.nix
           ./mlflow-service.nix
+          ./sbucaptions-webserver-service.nix
           agenix.nixosModules.default
           redlib.nixosModules.default
         ];
@@ -28,6 +30,7 @@
           # same as `nixpkgs=nixpgs; nixpkgs-unstable=nixpkgs-unstable;`
           inherit nixpkgs nixpkgs-unstable nixpkgs-master;
           inherit nixpkgs-immich;
+          inherit sbucaptions-webserver;
           inherit inputs;
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
