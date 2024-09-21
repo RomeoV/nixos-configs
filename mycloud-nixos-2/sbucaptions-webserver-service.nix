@@ -46,7 +46,7 @@ in
     users.groups.sbucaptions_webserver = {};
 
     systemd.tmpfiles.rules = [
-      "d /storage/sbucaptions 0755 sbucaptions_webserver sbucaptions_webserver -"
+      "d /sbucaptions-storage/sbucaptions 0755 sbucaptions_webserver sbucaptions_webserver -"
     ];
 
     systemd.services.sbucaptions-webserver-service = {
@@ -58,15 +58,11 @@ in
         ExecStart = "${sbucaptions-webserver.packages.${pkgs.system}.default}/bin/sbucaptions_webserver ${args}";
         # ExecStart = "${lib.getExe cfg.package} ${args}";
         Environment = [
-          "SBUCAPTIONS_EXTRACTED_DIR=/storage/sbucaptions_extracted"
+          "SBUCAPTIONS_EXTRACTED_DIR=/sbucaptions-storage/sbucaptions_extracted"
           "X_MATRIX_PATH=/mnt/storage-box/ksvd-results/encodings/X_mat.npy"
-<<<<<<< HEAD
-          "CONCEPT_DESCRIPTION_DIR=/storage/both_summaries_vlm"
-=======
           "CONCEPT_DESCRIPTION_DIR=/sbucaptions-storage/both_batch_summaries_vlm"
->>>>>>> 72be046 (fixup! (sbucaptions): Use local json files.)
         ];
-        WorkingDirectory = "/storage/sbucaptions";
+        WorkingDirectory = "/sbucaptions-storage/sbucaptions";
 
         # DynamicUser = true;
         User = "sbucaptions_webserver";
