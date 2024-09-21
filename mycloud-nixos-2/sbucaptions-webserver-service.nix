@@ -39,6 +39,16 @@ in
   };
 
   config = mkIf cfg.enable {
+    users.users.sbucaptions_webserver = {
+      isSystemUser = true;
+      group = "sbucaptions_webserver";
+    };
+    users.groups.sbucaptions_webserver = {};
+
+    systemd.tmpfiles.rules = [
+      "d /storage/sbucaptions 0755 sbucaptions_webserver sbucaptions_webserver -"
+    ];
+
     systemd.services.sbucaptions-webserver-service = {
       description = "sbucaptions_webserver service";
       wantedBy = [ "multi-user.target" ];
@@ -52,8 +62,11 @@ in
           "X_MATRIX_PATH=/mnt/storage-box/ksvd-results/encodings/X_mat.npy"
           "CONCEPT_DESCRIPTION_DIR=/mnt/storage-box/ksvd-results/both_summaries_vlm"
         ];
+        WorkingDirectory = "/storage/sbucaptions";
 
-        DynamicUser = true;
+        # DynamicUser = true;
+        User = "sbucaptions_webserver";
+        Group = "sbucaptions_webserver";
         AmbientCapabilities = lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         Restart = "on-failure";
         RestartSec = "2s";
