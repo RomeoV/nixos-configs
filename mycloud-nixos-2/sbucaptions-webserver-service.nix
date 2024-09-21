@@ -59,7 +59,7 @@ in
         # ExecStart = "${lib.getExe cfg.package} ${args}";
         Environment = [
           "SBUCAPTIONS_EXTRACTED_DIR=/sbucaptions-storage/sbucaptions_extracted"
-          "X_MATRIX_PATH=/mnt/storage-box/ksvd-results/encodings/X_mat.npy"
+          "X_MATRIX_PATH=/sbucaptions-storage/CLIPVisionTransformer_sbucaptions_encodings_X.npy"
           "CONCEPT_DESCRIPTION_DIR=/sbucaptions-storage/both_batch_summaries_vlm"
         ];
         WorkingDirectory = "/sbucaptions-storage/sbucaptions";
