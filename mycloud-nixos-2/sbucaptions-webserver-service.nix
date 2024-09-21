@@ -60,7 +60,11 @@ in
         Environment = [
           "SBUCAPTIONS_EXTRACTED_DIR=/storage/sbucaptions_extracted"
           "X_MATRIX_PATH=/mnt/storage-box/ksvd-results/encodings/X_mat.npy"
-          "CONCEPT_DESCRIPTION_DIR=/mnt/storage-box/ksvd-results/both_summaries_vlm"
+<<<<<<< HEAD
+          "CONCEPT_DESCRIPTION_DIR=/storage/both_summaries_vlm"
+=======
+          "CONCEPT_DESCRIPTION_DIR=/sbucaptions-storage/both_batch_summaries_vlm"
+>>>>>>> 72be046 (fixup! (sbucaptions): Use local json files.)
         ];
         WorkingDirectory = "/storage/sbucaptions";
 
