@@ -274,11 +274,11 @@
         "poetry2nix": "poetry2nix"
       },
       "locked": {
-        "lastModified": 1726945455,
-        "narHash": "sha256-FPQxm/4iENsBQINw2G34Uc8kvXotItyrVpZt4tiRAKw=",
+        "lastModified": 1726945891,
+        "narHash": "sha256-5u5Zq7yAmQs6Mcw9lizjh+A3QR/FM6s7w6I5k3iUFJ0=",
         "ref": "refs/heads/master",
-        "rev": "1af8396e942939bc8b6c52b1998f37017fa182a8",
-        "revCount": 102,
+        "rev": "538245db63906fdcd2f6906aa477025ed8db30b1",
+        "revCount": 103,
         "type": "git",
         "url": "ssh://git@github.com/RomeoV/sbucaptions-webserver"
       },
