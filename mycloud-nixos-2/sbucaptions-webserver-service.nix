@@ -58,7 +58,7 @@ in
         ExecStart = "${sbucaptions-webserver.packages.${pkgs.system}.default}/bin/sbucaptions_webserver ${args}";
         # ExecStart = "${lib.getExe cfg.package} ${args}";
         Environment = [
-          "SBUCAPTIONS_DIR=/storage/sbucaptions"
+          "SBUCAPTIONS_EXTRACTED_DIR=/storage/sbucaptions_extracted"
           "X_MATRIX_PATH=/mnt/storage-box/ksvd-results/encodings/X_mat.npy"
           "CONCEPT_DESCRIPTION_DIR=/mnt/storage-box/ksvd-results/both_summaries_vlm"
         ];
