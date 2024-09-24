@@ -326,6 +326,18 @@ in {
          proxyWebsockets = true;
         };
       };
+      "disentangling-sbucaptions.romeov.me" = {
+          forceSSL = true;
+          useACMEHost = "romeov.me";
+          locations."/" = {
+            # tailscale internal forwarding.
+            proxyPass = "http://100.64.0.10:8096";
+            extraConfig = ''
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+            '';
+          };
+      };
       # "immich.romeov.me" = {
       #    ## Force HTTP redirect to HTTPS
       #    forceSSL = true;
