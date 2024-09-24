@@ -327,6 +327,7 @@ in {
         };
       };
       "disentangling-sbucaptions.romeov.me" = {
+          # enableACME = true;
           forceSSL = true;
           useACMEHost = "romeov.me";
           locations."/" = {
