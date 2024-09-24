@@ -109,13 +109,14 @@
            proxyPass = "http://localhost:${toString config.services.redlib.port}";
         };
       };
-      "disentangling-sbucaptions.romeov.me" = {
-          enableACME = true;
-          forceSSL = true;
-          locations."/" = {
-            proxyPass = "http://localhost:${toString config.services.sbucaptions-webserver.port}";
-          };
-      };
+      # "disentangling-sbucaptions.romeov.me" = {
+      #     enableACME = true;
+      #     forceSSL = true;
+      #     locations."/" = {
+      #       proxyPass = "http://localhost:${toString config.services.sbucaptions-webserver.port}";
+      #     };
+      # };
+
       # "headscale.romeov.me" = {
       #    enableACME = true;
       #    forceSSL = true;
