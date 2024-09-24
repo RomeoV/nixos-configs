@@ -109,13 +109,14 @@
            proxyPass = "http://localhost:${toString config.services.redlib.port}";
         };
       };
-      # "disentangling-sbucaptions.romeov.me" = {
-      #     enableACME = true;
-      #     forceSSL = true;
-      #     locations."/" = {
-      #       proxyPass = "http://localhost:${toString config.services.sbucaptions-webserver.port}";
-      #     };
-      # };
+      "disentangling-sbucaptions.romeov.me" = {
+          # useACMEHost = "romeov.me";
+          enableACME = true;
+          forceSSL = true;
+          locations."/" = {
+            proxyPass = "http://localhost:${toString config.services.sbucaptions-webserver.port}";
+          };
+      };
 
       # "headscale.romeov.me" = {
       #    enableACME = true;
@@ -128,6 +129,10 @@
   };
   security.acme = {
     acceptTerms = true;
-    defaults.email = "contact@romeov.me";
+    defaults = {
+      email = "contact@romeov.me";
+      dnsProvider = "porkbun";
+      credentialsFile = config.age.secrets.porkbun-secret-api-key-both.path;
+    };
   };
 }
