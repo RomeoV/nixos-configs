@@ -26,6 +26,12 @@
     };
   };
 
+  services.sbucaptions-webserver = {
+    enable = true;
+    address = "0.0.0.0";
+    port = 8096;
+  };
+
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud29;

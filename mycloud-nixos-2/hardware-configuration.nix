@@ -46,6 +46,9 @@
       "vfs-cache-mode=writes"
     ];
   };
-
-  
+  fileSystems."/sbucaptions-storage" =
+    { device = "/dev/disk/by-id/scsi-0HC_Volume_101330357";
+      fsType = "ext4";
+      neededForBoot = false;
+    };
 }
