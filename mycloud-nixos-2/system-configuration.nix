@@ -22,7 +22,7 @@
       "--update-input"
       "agenix"
       "--update-input"
-      "nixpkgs-immich"
+      "nixpkgs-master"
       "--no-write-lock-file"
       "-L" # print build logs
     ];

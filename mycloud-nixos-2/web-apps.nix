@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs-immich, pkgs-immich, ... }:
+{ config, pkgs, nixpkgs-master, pkgs-master, ... }:
 
 {
 
@@ -90,11 +90,11 @@
 
   # We would usually disable this, but immich isn't defined yet at all.
   imports = [
-    "${nixpkgs-immich}/nixos/modules/services/web-apps/immich.nix"
+    "${nixpkgs-master}/nixos/modules/services/web-apps/immich.nix"
   ];
   services.immich = {
-    enable = true;
-    package = pkgs-immich.immich;
+    enable = false;
+    package = pkgs-master.immich;
     host = "0.0.0.0";
     mediaLocation = "/mnt/storage-box/immich";
   };
