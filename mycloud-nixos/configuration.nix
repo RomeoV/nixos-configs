@@ -348,6 +348,20 @@ in {
       #    proxyPass = "http://127.0.0.1:2283";
       #   };
       # };
+      "disentangling-sbucaptions.xyz" = {
+          enableACME = true;
+          forceSSL = true;
+          acmeRoot = null;
+          # useACMEHost = "romeov.me";
+          locations."/" = {
+            # tailscale internal forwarding.
+            proxyPass = "http://100.64.0.10:8096";
+            extraConfig = ''
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+            '';
+          };
+      };
       "gts.romeov.me" = with config.services.gotosocial.settings; {
         useACMEHost = "romeov.me";
         forceSSL = true;
