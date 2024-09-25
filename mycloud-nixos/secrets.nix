@@ -9,4 +9,5 @@ in {
   "backblaze_env.age".publicKeys = [ Lenovo-P1 JuiceSSH system1 system2 ];
   "backblaze_password.age".publicKeys = [ Lenovo-P1 JuiceSSH system1 system2 ];
   "backblaze_repo.age".publicKeys = [ Lenovo-P1 JuiceSSH system1 system2 ];
+  "porkbun-secret-api-key-both.age".publicKeys = [ Lenovo-P1 mycloud-nixos mycloud-nixos-2 ];
 }
