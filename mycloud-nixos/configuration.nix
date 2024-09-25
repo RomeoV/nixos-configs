@@ -407,7 +407,11 @@ in {
   };
   security.acme = {
     acceptTerms = true;
-    defaults.email = "contact@romeov.me";
+    defaults = {
+      email = "contact@romeov.me";
+      dnsProvider = "porkbun";
+      credentialsFile = config.age.secrets.porkbun-secret-api-key-both.path;
+    };
     certs."romeov.me".extraDomainNames = [
      "gts.romeov.me"
      "headscale.romeov.me"
