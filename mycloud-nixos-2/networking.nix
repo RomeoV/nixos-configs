@@ -113,6 +113,7 @@
           # useACMEHost = "romeov.me";
           enableACME = true;
           forceSSL = true;
+          acmeRoot = null;
           locations."/" = {
             proxyPass = "http://localhost:${toString config.services.sbucaptions-webserver.port}";
           };

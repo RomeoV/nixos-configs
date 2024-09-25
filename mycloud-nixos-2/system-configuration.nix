@@ -94,7 +94,7 @@
     paperless-admin-password.file = agenix/paperless-admin-password.age;
     syncthing-key.file = agenix/syncthing-key.age;
     syncthing-cert.file = agenix/syncthing-cert.age;
-    porkbun-secret-api-file-both.file = agenix/porkbun-secret-api-key-both.age;
+    porkbun-secret-api-key-both.file = agenix/porkbun-secret-api-key-both.age;
   };
 
 
