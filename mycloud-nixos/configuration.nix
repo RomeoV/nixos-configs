@@ -146,20 +146,20 @@ in {
   # };
 
 
-  services.nitter = {
-    enable = false;
-    server = {
-      port = 8082;
-      https = true;
-      hostname = "nitter.romeov.me";
-    };
-    preferences = {
-      replaceTwitter = "nitter.romeov.me";
-      hlsPlayback = true;
-      muteVideos = true;
-      hideTweetStats = true;
-    };
-  };
+  # services.nitter = {
+  #   enable = false;
+  #   server = {
+  #     port = 8082;
+  #     https = true;
+  #     hostname = "nitter.romeov.me";
+  #   };
+  #   preferences = {
+  #     replaceTwitter = "nitter.romeov.me";
+  #     hlsPlayback = true;
+  #     muteVideos = true;
+  #     hideTweetStats = true;
+  #   };
+  # };
 
   services.gotosocial = {
     enable = true;
@@ -217,6 +217,7 @@ in {
     backblaze_env.file = ./backblaze_env.age;
     backblaze_repo.file = ./backblaze_repo.age;
     backblaze_password.file = ./backblaze_password.age;
+    porkbun-secret-api-key-both.file = ./porkbun-secret-api-key-both.age;
   };
   services.nextcloud = {
     enable = true;                   
@@ -307,15 +308,15 @@ in {
           proxyPass = "http://127.0.0.1:8081";
         };
       };
-      "nitter.romeov.me" = {
-        ## Force HTTP redirect to HTTPS
-        forceSSL = true;
-        ## LetsEncrypt
-        useACMEHost = "romeov.me";
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8082";
-        };
-      };
+      # "nitter.romeov.me" = {
+      #   ## Force HTTP redirect to HTTPS
+      #   forceSSL = true;
+      #   ## LetsEncrypt
+      #   useACMEHost = "romeov.me";
+      #   locations."/" = {
+      #     proxyPass = "http://127.0.0.1:8082";
+      #   };
+      # };
       "headscale.romeov.me" = {
          ## Force HTTP redirect to HTTPS
          forceSSL = true;
@@ -327,9 +328,10 @@ in {
         };
       };
       "disentangling-sbucaptions.romeov.me" = {
-          # enableACME = true;
+          enableACME = true;
           forceSSL = true;
-          useACMEHost = "romeov.me";
+          acmeRoot = null;
+          # useACMEHost = "romeov.me";
           locations."/" = {
             # tailscale internal forwarding.
             proxyPass = "http://100.64.0.10:8096";
@@ -339,15 +341,6 @@ in {
             '';
           };
       };
-      # "immich.romeov.me" = {
-      #    ## Force HTTP redirect to HTTPS
-      #    forceSSL = true;
-      #    ## LetsEncrypt
-      #    useACMEHost = "romeov.me";
-      #    locations."/" = {
-      #    proxyPass = "http://127.0.0.1:2283";
-      #   };
-      # };
       "disentangling-sbucaptions.xyz" = {
           enableACME = true;
           forceSSL = true;
@@ -360,6 +353,21 @@ in {
               proxy_set_header Host $host;
               proxy_set_header X-Real-IP $remote_addr;
             '';
+          };
+      };
+      "immich.romeov.me" = {
+          ## Force HTTP redirect to HTTPS
+          enableACME = true;
+          forceSSL = true;
+          acmeRoot = null;
+          ## LetsEncrypt
+          # useACMEHost = "romeov.me";
+          locations."/" = {
+             proxyPass = "http://100.64.0.10:3001";
+             extraConfig = ''
+               proxy_set_header Host $host;
+               proxy_set_header X-Real-IP $remote_addr;
+             '';
           };
       };
       "gts.romeov.me" = with config.services.gotosocial.settings; {
@@ -390,31 +398,6 @@ in {
                 rewrite ^.*$ https://page.romeov.me permanent;
             '';
           };
-          # "/.well-known/webfinger" = {
-          #   extraConfig = ''
-          #       rewrite ^.*$ https://gts.romeov.me/.well-known/webfinger permanent;
-          #   '';
-          # };
-          # "/.well-known/host-meta" = {
-          #   extraConfig = ''
-          #     rewrite ^.*$ https://gts.romeov.me/.well-known/host-meta permanent;
-          #   '';
-          # };
-          # "/.well-known/nodeinfo" = {
-          #   extraConfig = ''
-          #     rewrite ^.*$ https://gts.romeov.me/.well-known/nodeinfo permanent;
-          #   '';
-          # };
-
-          # "/" = {
-          #   recommendedProxySettings = true;
-          #   proxyWebsockets = true;
-          # };
-          # "/well-known" = {
-          #   recommendedProxySettings = true;
-          #   proxyWebsockets = true;
-          #   # globalRedirect = "gts.romeov.me";
-          # };
         };
       };
     };
@@ -431,7 +414,7 @@ in {
      "headscale.romeov.me"
      "libreddit.romeov.me"
      "storage.romeov.me"
-     "nitter.romeov.me"
+     # "disentangling-sbucaptions.romeov.me"
      # "immich.romeov.me"
     ];
   };
