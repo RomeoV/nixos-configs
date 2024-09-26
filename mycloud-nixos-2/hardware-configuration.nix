@@ -38,10 +38,10 @@
     fsType = "rclone";
     neededForBoot = false;
     options = [
-      "nodev"
-      "nofail"
-      "allow_other"
-      "args2env"
+      "nodev"        # don't interpret special characters (?)
+      "nofail"       # continue booting if it fails
+      "allow_other"  # all users can access this mount
+      "args2env"     # pass configuraiton options as environment variables (!). rclone specific.
       ("config="+config.age.secrets.mlflow-artifacts-key.path)
       "vfs-cache-mode=writes"
     ];
