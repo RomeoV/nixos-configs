@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs-master, pkgs-master, ... }:
+{ config, pkgs, nixpkgs-unstable, pkgs-unstable, ... }:
 
 {
 
@@ -85,16 +85,14 @@
     };
   };
 
-  # Using immich from another nixpkgs fork.
-  # See https://lgug2z.com/articles/selectivey-using-service-modules-from-nixos-unstable/
-
   # We would usually disable this, but immich isn't defined yet at all.
   imports = [
-    "${nixpkgs-master}/nixos/modules/services/web-apps/immich.nix"
+    "${nixpkgs-unstable}/nixos/modules/services/web-apps/immich.nix"
   ];
   services.immich = {
     enable = true;
-    package = pkgs-master.immich;
+    machine-learning.enable = false;
+    package = pkgs-unstable.immich;
     host = "0.0.0.0";
     port = 3001;
     mediaLocation = "/mnt/storage-box/immich";
