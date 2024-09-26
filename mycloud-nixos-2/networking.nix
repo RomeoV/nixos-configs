@@ -98,6 +98,7 @@
       "immich.romeov.me" = {
          enableACME = true;
          forceSSL = true;
+         acmeRoot = null;
          locations."/" = {
            proxyPass = "http://localhost:${toString config.services.immich.port}";
         };

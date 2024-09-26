@@ -93,9 +93,10 @@
     "${nixpkgs-master}/nixos/modules/services/web-apps/immich.nix"
   ];
   services.immich = {
-    enable = false;
+    enable = true;
     package = pkgs-master.immich;
     host = "0.0.0.0";
+    port = 3001;
     mediaLocation = "/mnt/storage-box/immich";
   };
 
