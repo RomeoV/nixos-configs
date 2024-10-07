@@ -34,6 +34,7 @@
           pkgs_unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;  # for compat with redlib
           agenix = agenix.packages.x86_64-linux;
           redlib = redlib.packages.x86_64-linux;
+          rootPath = ./.;
         };
       };
     };

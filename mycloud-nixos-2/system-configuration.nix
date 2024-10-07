@@ -1,4 +1,4 @@
-{ inputs, pkgs, pkgs-unstable, agenix, config, ... }: {
+{ inputs, pkgs, pkgs-unstable, agenix, config, rootPath, ... }: {
 
   system.stateVersion = "24.05";
 
@@ -13,7 +13,7 @@
   # see https://discourse.nixos.org/t/best-practices-for-auto-upgrades-of-flake-enabled-nixos-systems/31255/2
   system.autoUpgrade = {
     enable = true;
-    flake = inputs.self.outPath;
+    flake = "path:${rootPath}";
     flags = [
       "--update-input"
       "nixpkgs"
@@ -21,8 +21,6 @@
       "nixpkgs-unstable"
       "--update-input"
       "agenix"
-      "--update-input"
-      "nixpkgs-master"
       "--no-write-lock-file"
       "-L" # print build logs
     ];
