@@ -42,6 +42,14 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEcP5JDW+JKSD04YGd+giu8oGCVGKjh7ZSap0UbNUYhP JuiceSSH"
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIJbduBCVxs/ZTKkHXdGZ0LIzj0cUWvdLtmLcWO3ZA3I/AAAABHNzaDo= romeo@Romeo-P1"
   ];
+  programs.ssh.extraConfig = ''
+  Host github
+    AddKeysToAgent yes
+    Hostname github.com
+    IdentitiesOnly yes
+    IdentityFile '' + config.age.secrets.github-key.path + ''
+
+  '';
 
   # see https://xeiaso.net/blog/paranoid-nixos-2021-07-18/, "Audit tracing"
   security.auditd.enable = true;
@@ -93,6 +101,7 @@
     syncthing-key.file = agenix/syncthing-key.age;
     syncthing-cert.file = agenix/syncthing-cert.age;
     porkbun-secret-api-key-both.file = agenix/porkbun-secret-api-key-both.age;
+    github-key.file = agenix/github-key.age;
   };
 
 

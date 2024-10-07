@@ -246,11 +246,11 @@
         "rev": "ea12ee93a37abd5cdece9e15e9eba0b9fe63e3ff",
         "revCount": 105,
         "type": "git",
-        "url": "ssh://git@github.com/RomeoV/sbucaptions-webserver"
+        "url": "ssh://git@github/RomeoV/sbucaptions-webserver"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/RomeoV/sbucaptions-webserver"
+        "url": "ssh://git@github/RomeoV/sbucaptions-webserver"
       }
     },
     "systems": {

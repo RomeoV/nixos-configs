@@ -17,4 +17,5 @@ in {
   "syncthing-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
   "syncthing-cert.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
   "porkbun-secret-api-key-both.age".publicKeys = [ Lenovo-P1 mycloud-nixos mycloud-nixos-2 ];
+  "github-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
 }
