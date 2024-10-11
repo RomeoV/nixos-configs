@@ -79,7 +79,7 @@
       pkgs.rclone
       pkgs.bottom
       pkgs.waypipe
-      pkgs-unstable.redlib
+      pkgs.redlib
       (pkgs.callPackage ./my-mlflow-server.nix {})
   ];
 
