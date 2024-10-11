@@ -92,7 +92,7 @@ in {
       # pkgs.docker-compose  
       pkgs.podman-compose  
       pkgs.waypipe
-      unstable.pkgs.redlib
+      # unstable.pkgs.redlib
   ];
 
   ## get ready for docker compose
@@ -129,17 +129,17 @@ in {
   #   LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION = "on";
   #   LIBREDDIT_DEFAULT_AUTOPLAY_VIDEOS = "on";
   # };
-  services.redlib = {
-    enable = true;
-    address = "127.0.0.1";
-    port = 8081;
-  };
-  systemd.services.redlib.environment = {
-    REDLIB_DEFAULT_SHOW_NSFW = "on";
-    REDLIB_DEFAULT_USE_HLS = "on";
-    REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION = "on";
-    REDLIB_DEFAULT_AUTOPLAY_VIDEOS = "on";
-  };
+  # services.redlib = {
+  #   enable = true;
+  #   address = "127.0.0.1";
+  #   port = 8081;
+  # };
+  # systemd.services.redlib.environment = {
+  #   REDLIB_DEFAULT_SHOW_NSFW = "on";
+  #   REDLIB_DEFAULT_USE_HLS = "on";
+  #   REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION = "on";
+  #   REDLIB_DEFAULT_AUTOPLAY_VIDEOS = "on";
+  # };
 
   # services.mlflow-server = {
   #   enable = true;
@@ -301,11 +301,15 @@ in {
       };
       "libreddit.romeov.me" = {
         ## Force HTTP redirect to HTTPS
+        enableACME = true;
         forceSSL = true;
-        ## LetsEncrypt
-        useACMEHost = "romeov.me";
+        acmeRoot = null;
         locations."/" = {
-          proxyPass = "http://127.0.0.1:8081";
+            proxyPass = "http://100.64.0.10:8081";
+            extraConfig = ''
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+            '';
         };
       };
       # "nitter.romeov.me" = {
