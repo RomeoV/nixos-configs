@@ -68,7 +68,7 @@
 
   services.mlflow-server = {
     enable = true;
-    port = 5000;
+    port = 8091;
     host = "0.0.0.0";  # Listen on all interfaces
     basedir = "/mnt/mlflow-artifacts";
     # artifactRoot = "/mnt/mlflow-artifacts/mlartifacts";
