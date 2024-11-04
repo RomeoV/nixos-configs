@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }: 
 let
-  unstable = import <nixos-unstable> {};
-  pkgs_unstable = unstable.pkgs;
-  pkgs_master = (import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/403d5963cc5ca2de87bc891dd9090c9995dc7a97.tar.gz";
-    sha256 = "1vpk02gjnv0map8n5s0i20y3g8alqm9477vxqjv4ddma1bwzr61l"; 
-  }) {}).pkgs;
+  pkgs = (import <nixos> {}).pkgs;
+  pkgs_unstable = (import <nixos-unstable> {}).pkgs;
+  # pkgs_master = (import (builtins.fetchTarball {
+  #   url = "https://github.com/NixOS/nixpkgs/archive/403d5963cc5ca2de87bc891dd9090c9995dc7a97.tar.gz";
+  #   sha256 = "1vpk02gjnv0map8n5s0i20y3g8alqm9477vxqjv4ddma1bwzr61l";
+  # }) {}).pkgs;
 in {
   imports =   [
     ./hardware-configuration.nix
