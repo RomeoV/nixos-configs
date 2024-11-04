@@ -207,17 +207,17 @@ in {
 
   age.secrets = {
     nextcloud_admin_pass = {
-      file = ./nextcloud_admin_pass.age;
+      file = ./agenix/nextcloud_admin_pass.age;
       owner = "nextcloud";
     };
     hetzner_private_key = {
-      file = ./hetzner_private_key.age;
+      file = ./agenix/hetzner_private_key.age;
       owner = "root";
     };
-    backblaze_env.file = ./backblaze_env.age;
-    backblaze_repo.file = ./backblaze_repo.age;
-    backblaze_password.file = ./backblaze_password.age;
-    porkbun-secret-api-key-both.file = ./porkbun-secret-api-key-both.age;
+    backblaze_env.file = ./agenix/backblaze_env.age;
+    backblaze_repo.file = ./agenix/backblaze_repo.age;
+    backblaze_password.file = ./agenix/backblaze_password.age;
+    porkbun-secret-api-key-both.file = ./agenix/porkbun-secret-api-key-both.age;
   };
   services.nextcloud = {
     enable = true;                   
