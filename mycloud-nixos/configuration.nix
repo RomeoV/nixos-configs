@@ -176,6 +176,7 @@ in {
     settings = {
       serverUrl = "https://headscale.romeov.me";
       acl_policy_path = "/etc/headscale/tailnet_policy_file.json";
+      dns_config.domains = [ "mycloud-nixos-2" ];
       # dns_config = { baseDomain = "romeov.me"; };
       # logtail.enabled = false; 
     };
