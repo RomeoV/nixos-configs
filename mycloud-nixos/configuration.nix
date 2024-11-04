@@ -332,6 +332,13 @@ in {
          proxyWebsockets = true;
         };
       };
+      "mlflow.mycloud-nixos-2" = {
+        enableACME = false;
+        forceSSL = false;
+        locations."/" = {
+          proxyPass = "http://100.64.0.10:8091";
+        };
+      };
       "disentangling-sbucaptions.romeov.me" = {
           enableACME = true;
           forceSSL = true;
