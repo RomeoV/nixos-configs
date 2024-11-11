@@ -32,7 +32,7 @@
     dates = "weekly";
     options = "--delete-older-than 90d";
   };
-  services.journald.extraConfig = "SystemMaxUse=1000M";
+  services.journald.extraConfig = "SystemMaxUse=4000M";
 
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
