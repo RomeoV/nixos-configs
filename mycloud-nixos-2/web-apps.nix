@@ -86,14 +86,19 @@
   };
 
   # We have to use redis from nixpkgs-unstable right now to sync immich and redis and avoid an error.
-  disabledModules = [ "services/databases/redis.nix" ];  # Disable original module
+  disabledModules = [
+    "services/databases/redis.nix"
+    "services/databases/postgresql.nix"
+  ];  # Disable original module
   # We would usually disable this, but immich isn't defined yet at all.
   imports = [
     "${nixpkgs-unstable}/nixos/modules/services/web-apps/immich.nix"
     "${nixpkgs-unstable}/nixos/modules/services/databases/redis.nix"
+    "${nixpkgs-unstable}/nixos/modules/services/databases/postgresql.nix"
   ];
 
   # services.redis.package = pkgs-unstable.redis;
+  # services.postgresql.package = pkgs-unstable.postgresql;
   services.immich = {
     enable = true;
     machine-learning.enable = false;
