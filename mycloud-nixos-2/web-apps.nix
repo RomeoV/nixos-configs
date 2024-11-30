@@ -92,7 +92,6 @@
   ];  # Disable original module
   # We would usually disable this, but immich isn't defined yet at all.
   imports = [
-    "${nixpkgs-unstable}/nixos/modules/services/web-apps/immich.nix"
     "${nixpkgs-unstable}/nixos/modules/services/databases/redis.nix"
     "${nixpkgs-unstable}/nixos/modules/services/databases/postgresql.nix"
   ];

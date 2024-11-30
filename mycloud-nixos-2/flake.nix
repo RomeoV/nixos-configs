@@ -24,7 +24,6 @@
           # ./mlflow-service.nix
           ./sbucaptions-webserver-service.nix
           agenix.nixosModules.default
-          redlib.nixosModules.default
         ];
         specialArgs = {
           # same as `nixpkgs=nixpgs; nixpkgs-unstable=nixpkgs-unstable;`
