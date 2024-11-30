@@ -98,7 +98,7 @@
   ];
 
   # services.redis.package = pkgs-unstable.redis;
-  # services.postgresql.package = pkgs-unstable.postgresql;
+  services.postgresql.package = pkgs-unstable.postgresql;
   services.immich = {
     enable = true;
     machine-learning.enable = false;
