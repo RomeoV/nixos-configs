@@ -1,4 +1,10 @@
-{ inputs, nixpkgs-unstable, pkgs, pkgs-unstable, agenix, config, rootPath, ... }: {
+{ inputs
+, pkgs
+# , nixpkgs-unstable
+# , pkgs-unstable
+, agenix
+, config
+, rootPath, ... }: {
 
   system.stateVersion = "24.05";
 
@@ -17,8 +23,8 @@
     flags = [
       "--update-input"
       "nixpkgs"
-      "--update-input"
-      "nixpkgs-unstable"
+      # "--update-input"
+      # "nixpkgs-unstable"
       "--update-input"
       "agenix"
       "--no-write-lock-file"

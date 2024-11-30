@@ -1,4 +1,6 @@
-{ config, pkgs, nixpkgs-unstable, pkgs-unstable, ... }:
+{ config, pkgs
+  # , nixpkgs-unstable, pkgs-unstable
+  , ... }:
 
 {
 
