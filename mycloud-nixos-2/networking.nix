@@ -120,13 +120,13 @@
             proxyPass = "http://localhost:${toString config.services.sbucaptions-webserver.port}";
           };
       };
-      "mlflow.${toString config.networking.hostName}" = {
-        enableACME = false;
-        forceSSL = false;
-        locations."/" = {
-          proxyPass = "http://localhost:${toString config.services.mlflow-server.port}";
-        };
-      };
+      # "mlflow.${toString config.networking.hostName}" = {
+      #   enableACME = false;
+      #   forceSSL = false;
+      #   locations."/" = {
+      #     proxyPass = "http://localhost:${toString config.services.mlflow-server.port}";
+      #   };
+      # };
 
       # "headscale.romeov.me" = {
       #    enableACME = true;

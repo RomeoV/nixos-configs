@@ -80,7 +80,7 @@
       pkgs.bottom
       pkgs.waypipe
       pkgs.redlib
-      (pkgs.callPackage ./my-mlflow-server.nix {})
+      # (pkgs.callPackage ./my-mlflow-server.nix {})
   ];
 
 
