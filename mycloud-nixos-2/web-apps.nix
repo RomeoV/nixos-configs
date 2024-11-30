@@ -34,7 +34,7 @@
 
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud29;
+    package = pkgs.nextcloud30;
     hostName = "storage.romeov.me";
     https = true;
     config.adminpassFile = config.age.secrets.nextcloud_admin_pass.path;
