@@ -106,20 +106,7 @@
 
 
 
-
-
-  disabledModules = [
-    "services/monitoring/netdata.nix"
-  ];  # Disable original module
-  # We would usually disable this, but immich isn't defined yet at all.
-  imports = [
-    "${nixpkgs-unstable}/nixos/modules/services/monitoring/netdata.nix"
-  ];
-  services.netdata = {
-    enable = true;
-    # withNetworkViewer = false;
-    package = pkgs-unstable.netdata;
-  };
+  services.netdata.enable = true;
 
   services.restic.backups = {
     daily = {
