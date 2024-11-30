@@ -1,4 +1,6 @@
-{ config, lib, pkgs, pkgs-master, ... }:
+{ config, lib, pkgs
+# , pkgs-master
+, ... }:
 let
   cfg = config.services.mlflow-server;
   pythonEnv = cfg.python.withPackages (ps: with ps; [
@@ -22,7 +24,7 @@ in
     enable = mkEnableOption "MLflow server";
     python = mkOption {
       type = types.package;
-      default = pkgs-master.python3;
+      default = pkgs.python3;
       description = "The MLflow server package to use";
     };
     host = mkOption {

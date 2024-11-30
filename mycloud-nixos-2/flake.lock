@@ -116,7 +116,7 @@
         "type": "github"
       }
     },
-    "nixpkgs-master": {
+    "nixpkgs-mlflow": {
       "locked": {
         "lastModified": 1722807230,
         "narHash": "sha256-8Hg2naH7nSqMzZFWYsxWUyB5La8xjzL3MoS9Xmda7s8=",
@@ -244,7 +244,7 @@
       "inputs": {
         "agenix": "agenix",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-master": "nixpkgs-master",
+        "nixpkgs-mlflow": "nixpkgs-mlflow",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "redlib": "redlib",
         "sbucaptions-webserver": "sbucaptions-webserver"

@@ -1,4 +1,5 @@
 { config, pkgs
+  , pkgs-mlflow
   # , nixpkgs-unstable, pkgs-unstable
   , ... }:
 
@@ -68,14 +69,15 @@
       port = 8090;
   };
 
-  # services.mlflow-server = {
-  #   enable = true;
-  #   port = 8091;
-  #   host = "0.0.0.0";  # Listen on all interfaces
-  #   basedir = "/mnt/mlflow-artifacts";
-  #   # artifactRoot = "/mnt/mlflow-artifacts/mlartifacts";
-  #   # extraArgs = [ "--backend-store-uri" "sqlite:///var/lib/mlflow/mlflow.db" ];
-  # };
+  services.mlflow-server = {
+    enable = true;
+    python = pkgs-mlflow.python3;
+    port = 8091;
+    host = "0.0.0.0";  # Listen on all interfaces
+    basedir = "/mnt/mlflow-artifacts";
+    # artifactRoot = "/mnt/mlflow-artifacts/mlartifacts";
+    # extraArgs = [ "--backend-store-uri" "sqlite:///var/lib/mlflow/mlflow.db" ];
+  };
 
   services.paperless = {
     enable = true;
