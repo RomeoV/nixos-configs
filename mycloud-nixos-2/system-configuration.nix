@@ -105,24 +105,6 @@
   };
 
 
-  # services.invidious = let
-  #   customVersions = {
-  #     invidious = {
-  #       rev = " eda7444ca46dbc3941205316baba8030fe0b2989";
-  #       hash = "sha256-b673695aa2704b880562399ac78659ad23b7940d";
-  #       version = "0.20.1-unstable-2024-04-26";
-  #     };
-  #     videojs.hash = "sha256-jED3zsDkPN8i6GhBBJwnsHujbuwlHdsVpVqa1/pzSH4=";
-  #   };
-  #   myInvidious = pkgs.invidious.overrideAttrs (oldAttrs: rec {
-  #     versions = builtins.toJSON customVersions;
-  #   });
-  # in {
-  #     enable = true;
-  #     port = 8090;
-  #     settings.db.user = "invidious";
-  #     package = pkgs_master.invidious;
-  # };
 
 
 
