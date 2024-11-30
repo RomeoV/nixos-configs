@@ -120,33 +120,6 @@
     # withNetworkViewer = false;
     package = pkgs-unstable.netdata;
   };
-  # # Set up some logging
-  # services.grafana = {
-  #   enable = true;
-  #   # settings.server.domain = "grafana.romeov.me";
-  #   settings.server.http_port = 3000;
-  #   # settings.server.http_addr = "127.0.0.1;0.0.0.0";
-  #   settings.server.http_addr = "0.0.0.0";
-  # };
-  # services.prometheus = {
-  #   enable = true;
-  #   port = 9001;
-  #   exporters = {
-  #     node = {
-  #       enable = true;
-  #       enabledCollectors = [ "systemd" ];
-  #       port = 9002;
-  #     };
-  #   };
-  #   scrapeConfigs = [
-  #     {
-  #       job_name = "prometheus-collect-data";
-  #       static_configs = [{
-  #         targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-  #       }];
-  #     }
-  #   ];
-  # };
 
   services.restic.backups = {
     daily = {
