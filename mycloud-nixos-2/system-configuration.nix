@@ -1,4 +1,4 @@
-{ inputs, pkgs, pkgs-unstable, agenix, config, rootPath, ... }: {
+{ inputs, nixpkgs-unstable, pkgs, pkgs-unstable, agenix, config, rootPath, ... }: {
 
   system.stateVersion = "24.05";
 
@@ -126,6 +126,18 @@
 
 
 
+  disabledModules = [
+    "services/monitoring/netdata.nix"
+  ];  # Disable original module
+  # We would usually disable this, but immich isn't defined yet at all.
+  imports = [
+    "${nixpkgs-unstable}/nixos/modules/services/monitoring/netdata.nix"
+  ];
+  services.netdata = {
+    enable = true;
+    # withNetworkViewer = false;
+    package = pkgs-unstable.netdata;
+  };
   # # Set up some logging
   # services.grafana = {
   #   enable = true;
