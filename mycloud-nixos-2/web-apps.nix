@@ -98,12 +98,18 @@
   # Replace package in service
   # services.redis.package = pkgs-unstable.redis;
 
+
+  users.users.immich = {
+    uid = 993;
+    group = "immich";
+  };
+  users.groups.immich.gid = 992;
   services.immich = {
     enable = true;
-    machine-learning.enable = false;
+    machine-learning.enable = true;
     host = "0.0.0.0";
     port = 3001;
-    mediaLocation = "/mnt/storage-box/immich";
+    mediaLocation = "/mnt/immich";
   };
 
 }

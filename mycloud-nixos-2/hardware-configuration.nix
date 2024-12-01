@@ -21,18 +21,23 @@
 '';
   # we have to move the backblaze config into a age file because the key must be provided plain-text,
   # i.e. we can't pass something like `secrets.mlflow-artifacts-key.path` to the file.
-  fileSystems."/mnt/storage-box" = {
-    device = "storage-box:";
+  fileSystems."/mnt/immich" = {
+    device = "storage-box:immich";
     fsType = "rclone";
     neededForBoot = false;
     options = [
       "nodev"
       "nofail"
       "allow_other"
-      "args2env"
+      "default_permissions"
+      # "args2env"
+      "uid=${toString config.users.users.immich.uid}"
+      "gid=${toString config.users.groups.immich.gid}"
       "config=/etc/rclone-mnt.conf"
+      "vfs-cache-mode=full"
     ];
   };
+
   fileSystems."/mnt/mlflow-artifacts" = {
     device = "mlflow_artifacts:mlflow-artifacts";
     fsType = "rclone";
@@ -42,10 +47,11 @@
       "nofail"       # continue booting if it fails
       "allow_other"  # all users can access this mount
       "args2env"     # pass configuraiton options as environment variables (!). rclone specific.
-      ("config="+config.age.secrets.mlflow-artifacts-key.path)
+      "config=${config.age.secrets.mlflow-artifacts-key.path}"
       "vfs-cache-mode=writes"
     ];
   };
+
   fileSystems."/sbucaptions-storage" =
     { device = "/dev/disk/by-id/scsi-0HC_Volume_101330357";
       fsType = "ext4";
