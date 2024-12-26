@@ -108,6 +108,7 @@
     syncthing-cert.file = agenix/syncthing-cert.age;
     porkbun-secret-api-key-both.file = agenix/porkbun-secret-api-key-both.age;
     github-key.file = agenix/github-key.age;
+    rclone-config-immich-object-storage.file = agenix/rclone-config-immich-object-storage.age;
   };
 
 

@@ -38,6 +38,26 @@
     ];
   };
 
+  fileSystems."/mnt/immich-library" = {
+    device = "immich-object-storage:immich-library2";
+    fsType = "rclone";
+    neededForBoot = false;
+    options = [
+      "nodev"  # Disallows access to special device files.
+      "nofail"  # Allows the system to boot even if the mount fails.
+      "allow_other"  # Allows users other than the owner of the mountpoint to access the mounted filesystem.
+      "default_permissions"  # Enables permission checking for the mounted filesystem, using the standard Unix permission rules.
+      # "args2env"
+      "uid=${toString config.users.users.immich.uid}"
+      "gid=${toString config.users.groups.immich.gid}"
+      "config=${config.age.secrets.rclone-config-immich-object-storage.path}"
+      "vfs-cache-mode=full"
+      "use-server-modtime"
+    ];
+  };
+  # TODO: Now symlink /mnt/immich/library to /mnt/immich-library.
+  # Then we can move everything from /mnt/immich to disk.
+
   fileSystems."/mnt/mlflow-artifacts" = {
     device = "mlflow_artifacts:mlflow-artifacts";
     fsType = "rclone";
