@@ -104,7 +104,7 @@
            proxyPass = "http://localhost:${toString config.services.immich.port}";
         };
         extraConfig = ''
-          clientMaxBodySize 1G;
+          client_max_body_size 1G;
         '';
       };
       "redlib.romeov.me" = {
