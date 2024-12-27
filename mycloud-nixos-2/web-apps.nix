@@ -109,7 +109,7 @@
     machine-learning.enable = true;
     host = "0.0.0.0";
     port = 3001;
-    mediaLocation = "/mnt/immich";
+    mediaLocation = "/var/lib/immich";  # default
   };
 
 }

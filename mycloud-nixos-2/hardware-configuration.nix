@@ -58,6 +58,15 @@
   # TODO: Now symlink /mnt/immich/library to /mnt/immich-library.
   # Then we can move everything from /mnt/immich to disk.
 
+  systemd.tmpfiles.rules = [
+    # The `-` are placeholders for user, group, mode, and age, which can be omitted in this case.
+    "L ${config.services.immich.mediaLocation}/library - - - - /mnt/immich-library/library"
+    "L ${config.services.immich.mediaLocation}/thumbs - - - - /mnt/immich-library/thumbs"
+    "L ${config.services.immich.mediaLocation}/encoded-video - - - - /mnt/immich-library/encoded-video"
+    "L ${config.services.immich.mediaLocation}/profile - - - - /mnt/immich-library/profile"
+    "L ${config.services.immich.mediaLocation}/backups - - - - /mnt/immich-library/backups"
+  ];
+
   fileSystems."/mnt/mlflow-artifacts" = {
     device = "mlflow_artifacts:mlflow-artifacts";
     fsType = "rclone";
