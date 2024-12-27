@@ -21,6 +21,7 @@
           ./system-configuration.nix
           ./secrets-management.nix
           ./web-apps.nix
+          ./nginx.nix
           ./mlflow-service.nix
           ./sbucaptions-webserver-service.nix
           agenix.nixosModules.default
