@@ -60,33 +60,29 @@
     };
   };
 
-  services.tailscale = {
-    enable = true;
-  };
-
+  services.tailscale.enable = true;
   services.headscale = {
-    enable = false;
+    enable = true;
     port = 8083;
     settings = {
       serverUrl = "https://headscale.romeov.me";
-      acl_policy_path = "/etc/headscale/tailnet_policy_file.json";
-      # dns_config = { baseDomain = "romeov.me"; };
-      dns_config.domains = [ "mycloud-nixos-2" ];
-      # logtail.enabled = false;
+      policy.path = "/etc/headscale/tailnet_policy_file.json";
+      dns.base_domain = "romeov.me";
     };
   };
   environment.etc."headscale/tailnet_policy_file.json".text = ''
       { "acls": [ {
-          "action": "accept",
-          "src": ["*"],
-          "dst": ["*:*"]
-      } ],
+     	    "action": "accept",
+     	    "src": ["*"],
+     	    "dst": ["*:*"]
+     	} ],
         "ssh": [ {
             "action": "accept",
-            "src": ["*"],
-            "dst": ["mycloud-nixos"]
+            "src": ["romeo-p1", "pixel-6"],
+            "dst": ["mycloud-nixos", "mycloud-nixos-2"]
         } ] }
     '';
+  # headscale sometimes takes forever to shut down...
   systemd.services.headscale.serviceConfig.TimeoutStopSec = "15s";
 
   # Use nginx and ACME (Let's encrypt) to enable https
@@ -122,6 +118,17 @@
           locations."/" = {
             proxyPass = "http://localhost:${toString config.services.sbucaptions-webserver.port}";
           };
+      };
+      "headscale.romeov.me" = let
+          hostname = config.services.headscale.address;
+          port = toString config.services.headscale.port;
+        in {
+         forceSSL = true;
+         enableACME = true;
+         locations."/" = {
+           proxyPass = "http://${hostname}:${port}";
+           proxyWebsockets = true;
+        };
       };
       # "mlflow.${toString config.networking.hostName}" = {
       #   enableACME = false;
