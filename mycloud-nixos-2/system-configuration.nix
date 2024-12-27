@@ -1,11 +1,8 @@
-{ inputs
-, pkgs
-# , nixpkgs-unstable
-# , pkgs-unstable
+{ pkgs
 , agenix
 , config
-, rootPath, ... }: {
-
+, rootPath
+, ... }: {
   system.stateVersion = "24.05";
 
   nix.settings.experimental-features = "nix-command flakes";
@@ -101,9 +98,6 @@
       pkgs.mlflow-server
       pkgs.du-dust
   ];
-
-
-
 
   services.netdata.enable = false;
 
