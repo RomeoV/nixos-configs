@@ -35,6 +35,7 @@
       "gid=${toString config.users.groups.immich.gid}"
       "config=/etc/rclone-mnt.conf"
       "vfs-cache-mode=full"
+      "vfs-cache-max-size=4G"
     ];
   };
 
@@ -52,11 +53,10 @@
       "gid=${toString config.users.groups.immich.gid}"
       "config=${config.age.secrets.rclone-config-immich-object-storage.path}"
       "vfs-cache-mode=full"
+      "vfs-cache-max-size=4G"
       "use-server-modtime"
     ];
   };
-  # TODO: Now symlink /mnt/immich/library to /mnt/immich-library.
-  # Then we can move everything from /mnt/immich to disk.
 
   systemd.tmpfiles.rules = [
     # The `-` are placeholders for user, group, mode, and age, which can be omitted in this case.
