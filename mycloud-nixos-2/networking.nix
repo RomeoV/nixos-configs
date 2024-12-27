@@ -14,9 +14,6 @@
       trustedInterfaces = [
         "tailscale0"
       ];
-      extraCommands = ''
-          iptables -A INPUT -s 180.101.88.232 -j DROP
-        '';
     };
 
     # The restwas populated at runtime with the networking
