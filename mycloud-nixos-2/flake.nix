@@ -8,7 +8,7 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.darwin.follows = "";
     redlib.url = "github:RomeoV/redlib";
-    sbucaptions-webserver.url = "git+ssh://git@github/RomeoV/sbucaptions-webserver";
+    sbucaptions-webserver.url = "git+ssh://git@github/RomeoV/sbucaptions-webserver?rev=ea12ee93a37abd5cdece9e15e9eba0b9fe63e3ff";
     # sbucaptions-webserver.inputs.nixpkgs.follows = "nixpkgs";
   };
 
