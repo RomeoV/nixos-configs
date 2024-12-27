@@ -103,6 +103,9 @@
          locations."/" = {
            proxyPass = "http://localhost:${toString config.services.immich.port}";
         };
+        extraConfig = ''
+          clientMaxBodySize 1G;
+        '';
       };
       "redlib.romeov.me" = {
          enableACME = true;
