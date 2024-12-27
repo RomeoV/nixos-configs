@@ -104,7 +104,7 @@
 
 
 
-  services.netdata.enable = true;
+  services.netdata.enable = false;
 
   services.restic.backups = {
     daily = {
