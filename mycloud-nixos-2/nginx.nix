@@ -24,13 +24,22 @@
            proxyPass = "http://localhost:${toString config.services.redlib.port}";
         };
       };
-      "disentangling-sbucaptions.romeov.me" = {
-          # useACMEHost = "romeov.me";
+      "disentangling-sbucaptions.romeov.me" = let
+          port = toString config.services.sbucaptions-webserver.port;
+        in {
           enableACME = true;
           forceSSL = true;
-          acmeRoot = null;
           locations."/" = {
-            proxyPass = "http://localhost:${toString config.services.sbucaptions-webserver.port}";
+            proxyPass = "http://localhost:${port}";
+          };
+      };
+      "disentangling-sbucaptions.xyz" = let
+          port = toString config.services.sbucaptions-webserver.port;
+        in {
+          enableACME = true;
+          forceSSL = true;
+          locations."/" = {
+            proxyPass = "http://localhost:${port}";
           };
       };
       "headscale.romeov.me" = let
