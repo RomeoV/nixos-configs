@@ -63,6 +63,18 @@
   security.audit.rules = [
     "-a exit,always -F arch=b64 -S execve"
   ];
+  services.logrotate = {
+    enable = true;
+    settings = {
+      header = {
+        dateext = true;
+      };
+      "/var/log/audit/audit.log" = {
+        frequency = "monthly";  # this is also the default
+        rotate = 3;
+      };
+    };
+  };
 
   programs = {
     mosh.enable = true;
