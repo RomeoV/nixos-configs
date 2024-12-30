@@ -36,7 +36,7 @@
   };
 
   services.nextcloud = {
-    enable = true;
+    enable = false;
     package = pkgs.nextcloud30;
     hostName = "storage.romeov.me";
     https = true;
