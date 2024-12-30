@@ -99,17 +99,22 @@
   };
   systemd.services.paperless.serviceConfig.TimeoutStopSec = "15s";
 
-  users.users.immich = {
-    uid = 993;
-    group = "immich";
-  };
-  users.groups.immich.gid = 992;
   services.immich = {
     enable = true;
     machine-learning.enable = true;
     host = "0.0.0.0";
     port = 3001;
+    # We keep upload there, but then symlink some dirs to mounted object storage
     mediaLocation = "/var/lib/immich";  # default
+  };
+  users.users.immich = {
+    uid = 993;
+    group = "immich";
+  };
+  users.groups.immich.gid = 993;
+  systemd.services.immich-server = {
+    requires = [ "mnt-immich\\x2dlibrary.mount" ];
+    after = [ "mnt-immich\\x2dlibrary.mount" ];
   };
 
 }
