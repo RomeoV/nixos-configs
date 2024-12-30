@@ -41,7 +41,16 @@
     hostName = "storage.romeov.me";
     https = true;
     config.adminpassFile = config.age.secrets.nextcloud_admin_pass.path;
-    # home="/storage/nextcloud";
+    datadir = "/mnt/nextcloud-storage";
+  };
+  users.users.nextcloud = {
+    uid = 994;
+    group = "nextcloud";
+  };
+  users.groups.nextcloud.gid = 994;
+  systemd.services.nextcloud-setup = {
+    requires = [ "mnt-nextcloud\\x2dstorage.mount" ];
+    after = [ "mnt-nextcloud\\x2dstorage.mount" ];
   };
 
   services.redlib = {

@@ -22,6 +22,8 @@
   # we have to move the backblaze config into a age file because the key must be provided plain-text,
   # i.e. we can't pass something like `secrets.mlflow-artifacts-key.path` to the file.
 
+  # We end up storing everything for immich by default in /var/lib/immich, but then symlink some dirs from there to this mount!
+  # This is because the immich module doesn't separate between something like =homeDir= and =dataDir=.
   fileSystems."/mnt/immich-library" = {
     device = "immich-object-storage:immich-library2";
     fsType = "rclone";
@@ -40,7 +42,6 @@
       "use-server-modtime"
     ];
   };
-
   systemd.tmpfiles.rules = [
     # The `-` are placeholders for user, group, mode, and age, which can be omitted in this case.
     "L ${config.services.immich.mediaLocation}/library - - - - /mnt/immich-library/library"
@@ -49,6 +50,29 @@
     "L ${config.services.immich.mediaLocation}/profile - - - - /mnt/immich-library/profile"
     "L ${config.services.immich.mediaLocation}/backups - - - - /mnt/immich-library/backups"
   ];
+
+  fileSystems."/mnt/nextcloud-storage" = {
+    device = "immich-object-storage:nextcloud-storage";
+    fsType = "rclone";
+    neededForBoot = false;
+    options = [
+      "nodev"  # Disallows access to special device files.
+      "nofail"  # Allows the system to boot even if the mount fails.
+      "allow_other"  # Allows users other than the owner of the mountpoint to access the mounted filesystem.
+      "default_permissions"  # Enables permission checking for the mounted filesystem, using the standard Unix permission rules.
+      # "args2env"
+      "uid=${toString config.users.users.nextcloud.uid}"
+      "gid=${toString config.users.groups.nextcloud.gid}"
+      "config=${config.age.secrets.rclone-config-immich-object-storage.path}"
+      "vfs-cache-mode=full"
+      "vfs-cache-max-size=4G"
+      "use-server-modtime"
+    ];
+  };
+  # systemd.services."mnt-nextcloud\\x2dstorage.mount" = {
+  #   before = [ "nextcloud-setup.service" ];
+  #   requiredBy = [ "nextcloud-setup.service" ];
+  # };
 
   fileSystems."/mnt/mlflow-artifacts" = {
     device = "mlflow_artifacts:mlflow-artifacts";
