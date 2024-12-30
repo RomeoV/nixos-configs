@@ -162,7 +162,7 @@ in {
   # };
 
   services.gotosocial = {
-    enable = true;
+    enable = false;
     # setupPostgresqlDB = true;
     settings.host = "gts.romeov.me";
     settings.port = 8089;
@@ -171,7 +171,7 @@ in {
 
 
   services.headscale = {
-    enable = true;
+    enable = false;
     port = 8083;
     settings = {
       serverUrl = "https://headscale.romeov.me";
@@ -222,7 +222,8 @@ in {
   };
   services.nextcloud = {
     enable = true;                   
-    package = pkgs_unstable.nextcloud29;
+    # package = pkgs_unstable.nextcloud29;
+    package = pkgs.nextcloud30;
     hostName = "storage.romeov.me";
     https = true;
     config.adminpassFile = config.age.secrets.nextcloud_admin_pass.path;
@@ -288,7 +289,7 @@ in {
   };
   # Use nginx and ACME (Let's encrypt) to enable https
   services.nginx = {
-    enable = true;
+    enable = false;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     clientMaxBodySize = "40M";
