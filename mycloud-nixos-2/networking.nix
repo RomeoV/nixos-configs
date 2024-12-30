@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ lib, config, ... }: {
   networking = {
     hostName = "mycloud-nixos-2";
     # domain = "romeov.me";
@@ -18,10 +18,12 @@
 
     # The restwas populated at runtime with the networking
     # details gathered from the active system.
-    nameservers = [ "2a01:4ff:ff00::add:2"
-                    "2a01:4ff:ff00::add:1"
-                    "185.12.64.1"
-                  ];
+    nameservers = config.services.headscale.settings.dns.nameservers.global ++ [
+      "100.64.0.100"  # Tailscale DNS
+      "2a01:4ff:ff00::add:2"
+      "2a01:4ff:ff00::add:1"
+      "185.12.64.1"
+    ];
     defaultGateway = "172.31.1.1";
     defaultGateway6 = {
       address = "fe80::1";
@@ -64,7 +66,11 @@
     settings = {
       serverUrl = "https://headscale.romeov.me";
       policy.path = "/etc/headscale/tailnet_policy_file.json";
-      dns.base_domain = "mycloud";
+      dns = {
+        base_domain = "mycloud";
+        search_domains = [ "mycloud" ];
+        nameservers.global = [ "100.64.0.254" ];
+      };
     };
   };
   environment.etc."headscale/tailnet_policy_file.json".text = ''
@@ -72,7 +78,7 @@
      	    "action": "accept",
      	    "src": ["*"],
      	    "dst": ["*:*"]
-     	} ],
+      } ],
         "ssh": [ {
             "action": "accept",
             "src": ["romeo-p1", "pixel-6"],
