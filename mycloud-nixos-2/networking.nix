@@ -64,7 +64,7 @@
     settings = {
       serverUrl = "https://headscale.romeov.me";
       policy.path = "/etc/headscale/tailnet_policy_file.json";
-      dns.base_domain = "romeov.me";
+      dns.base_domain = "mycloud";
     };
   };
   environment.etc."headscale/tailnet_policy_file.json".text = ''
