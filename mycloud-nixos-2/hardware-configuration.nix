@@ -21,23 +21,6 @@
 '';
   # we have to move the backblaze config into a age file because the key must be provided plain-text,
   # i.e. we can't pass something like `secrets.mlflow-artifacts-key.path` to the file.
-  fileSystems."/mnt/immich" = {
-    device = "storage-box:immich";
-    fsType = "rclone";
-    neededForBoot = false;
-    options = [
-      "nodev"
-      "nofail"
-      "allow_other"
-      "default_permissions"
-      # "args2env"
-      "uid=${toString config.users.users.immich.uid}"
-      "gid=${toString config.users.groups.immich.gid}"
-      "config=/etc/rclone-mnt.conf"
-      "vfs-cache-mode=full"
-      "vfs-cache-max-size=4G"
-    ];
-  };
 
   fileSystems."/mnt/immich-library" = {
     device = "immich-object-storage:immich-library2";

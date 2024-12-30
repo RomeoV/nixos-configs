@@ -65,7 +65,7 @@
   };
 
   services.invidious = {
-      enable = true;
+      enable = false;
       port = 8090;
   };
 
@@ -80,7 +80,7 @@
   };
 
   services.paperless = {
-    enable = true;
+    enable = false;
     address = "0.0.0.0";
     port = 28981;
     passwordFile = config.age.secrets.paperless-admin-password.path;
@@ -88,16 +88,7 @@
       PAPERLESS_OCR_LANGUAGE = "deu+eng";
     };
   };
-
-  # disabledModules = [
-  #   "services/databases/redis.nix"
-  # ];  # Disable original module
-  # imports = [
-  #   "${nixpkgs-unstable}/nixos/modules/services/databases/redis.nix"
-  # ];  # Import unstable module
-  # Replace package in service
-  # services.redis.package = pkgs-unstable.redis;
-
+  systemd.services.paperless.serviceConfig.TimeoutStopSec = "15s";
 
   users.users.immich = {
     uid = 993;

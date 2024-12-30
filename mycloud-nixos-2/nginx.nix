@@ -9,7 +9,7 @@
       "immich.romeov.me" = {
          enableACME = true;
          forceSSL = true;
-         acmeRoot = null;
+         # acmeRoot = null;
          locations."/" = {
            proxyPass = "http://localhost:${toString config.services.immich.port}";
         };
@@ -58,14 +58,6 @@
       #   forceSSL = false;
       #   locations."/" = {
       #     proxyPass = "http://localhost:${toString config.services.mlflow-server.port}";
-      #   };
-      # };
-
-      # "headscale.romeov.me" = {
-      #    enableACME = true;
-      #    forceSSL = true;
-      #    locations."/" = {
-      #      proxyPass = "http://localhost:${toString config.services.headscale.port}";
       #   };
       # };
     };
