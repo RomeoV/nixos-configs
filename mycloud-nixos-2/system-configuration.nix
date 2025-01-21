@@ -14,6 +14,7 @@
   time.timeZone = "America/Los_Angeles";
 
   # see https://discourse.nixos.org/t/best-practices-for-auto-upgrades-of-flake-enabled-nixos-systems/31255/2
+  # and https://github.com/NixOS/nixpkgs/issues/349734
   system.autoUpgrade = {
     enable = true;
     flake = "path:${rootPath}";
