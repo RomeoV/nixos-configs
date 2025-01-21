@@ -19,7 +19,7 @@
     # The restwas populated at runtime with the networking
     # details gathered from the active system.
     nameservers = [  # config.services.headscale.settings.dns.nameservers.global ++
-      "100.64.0.100"  # Tailscale DNS
+      # "100.64.0.100"  # Tailscale DNS
       "2a01:4ff:ff00::add:2"
       "2a01:4ff:ff00::add:1"
       "185.12.64.1"
