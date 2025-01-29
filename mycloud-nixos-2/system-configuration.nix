@@ -2,6 +2,7 @@
 , agenix
 , config
 , rootPath
+, isdPkgs
 , ... }: {
   system.stateVersion = "24.05";
 
@@ -98,6 +99,7 @@
       pkgs.redlib
       pkgs.mlflow-server
       pkgs.du-dust
+      isdPkgs.isd
   ];
 
   services.netdata.enable = false;

@@ -15,9 +15,13 @@
     };
     sbucaptions-webserver.url = "git+ssh://git@github/RomeoV/sbucaptions-webserver?rev=ea12ee93a37abd5cdece9e15e9eba0b9fe63e3ff";
     # sbucaptions-webserver.inputs.nixpkgs.follows = "nixpkgs";
+    isd = {
+      url = "github:isd-project/isd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-mlflow, agenix, redlib, sbucaptions-webserver }: {
+  outputs = inputs @ { self, nixpkgs, nixpkgs-mlflow, agenix, redlib, sbucaptions-webserver, isd}: {
       nixosConfigurations.mycloud-nixos-2 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -39,6 +43,7 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           pkgs-mlflow = nixpkgs-mlflow.legacyPackages.x86_64-linux;
           agenix = agenix.packages.x86_64-linux;
+          isdPkgs = isd.packages.x86_64-linux;
           rootPath = ./.;
         };
       };
