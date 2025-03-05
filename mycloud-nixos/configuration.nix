@@ -424,11 +424,11 @@ in {
     };
     certs."romeov.me".extraDomainNames = [
      "gts.romeov.me"
-     "headscale.romeov.me"
      "libreddit.romeov.me"
      "storage.romeov.me"
      # "disentangling-sbucaptions.romeov.me"
      # "immich.romeov.me"
+     # "headscale.romeov.me"
     ];
   };
 
