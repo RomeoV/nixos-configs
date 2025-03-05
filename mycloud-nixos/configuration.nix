@@ -289,7 +289,7 @@ in {
   };
   # Use nginx and ACME (Let's encrypt) to enable https
   services.nginx = {
-    enable = false;
+    enable = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     clientMaxBodySize = "40M";
@@ -301,19 +301,19 @@ in {
         ## LetsEncrypt
         useACMEHost = "romeov.me";
       };
-      "libreddit.romeov.me" = {
-        ## Force HTTP redirect to HTTPS
-        enableACME = true;
-        forceSSL = true;
-        acmeRoot = null;
-        locations."/" = {
-            proxyPass = "http://100.64.0.10:8081";
-            extraConfig = ''
-              proxy_set_header Host $host;
-              proxy_set_header X-Real-IP $remote_addr;
-            '';
-        };
-      };
+      # "libreddit.romeov.me" = {
+      #   ## Force HTTP redirect to HTTPS
+      #   enableACME = true;
+      #   forceSSL = true;
+      #   acmeRoot = null;
+      #   locations."/" = {
+      #       proxyPass = "http://100.64.0.10:8081";
+      #       extraConfig = ''
+      #         proxy_set_header Host $host;
+      #         proxy_set_header X-Real-IP $remote_addr;
+      #       '';
+      #   };
+      # };
       # "nitter.romeov.me" = {
       #   ## Force HTTP redirect to HTTPS
       #   forceSSL = true;
@@ -323,77 +323,77 @@ in {
       #     proxyPass = "http://127.0.0.1:8082";
       #   };
       # };
-      "headscale.romeov.me" = {
-         ## Force HTTP redirect to HTTPS
-         forceSSL = true;
-         ## LetsEncrypt
-         useACMEHost = "romeov.me";
-         locations."/" = {
-         proxyPass = "http://127.0.0.1:8083";
-         proxyWebsockets = true;
-        };
-      };
-      "mlflow.mycloud-nixos-2" = {
-        enableACME = false;
-        forceSSL = false;
-        locations."/" = {
-          proxyPass = "http://100.64.0.10:8091";
-        };
-      };
-      "disentangling-sbucaptions.romeov.me" = {
-          enableACME = true;
-          forceSSL = true;
-          acmeRoot = null;
-          # useACMEHost = "romeov.me";
-          locations."/" = {
-            # tailscale internal forwarding.
-            proxyPass = "http://100.64.0.10:8096";
-            extraConfig = ''
-              proxy_set_header Host $host;
-              proxy_set_header X-Real-IP $remote_addr;
-            '';
-          };
-      };
-      "disentangling-sbucaptions.xyz" = {
-          enableACME = true;
-          forceSSL = true;
-          acmeRoot = null;
-          # useACMEHost = "romeov.me";
-          locations."/" = {
-            # tailscale internal forwarding.
-            proxyPass = "http://100.64.0.10:8096";
-            extraConfig = ''
-              proxy_set_header Host $host;
-              proxy_set_header X-Real-IP $remote_addr;
-            '';
-          };
-      };
-      "immich.romeov.me" = {
-          ## Force HTTP redirect to HTTPS
-          enableACME = true;
-          forceSSL = true;
-          acmeRoot = null;
-          ## LetsEncrypt
-          # useACMEHost = "romeov.me";
-          locations."/" = {
-             proxyPass = "http://100.64.0.10:3001";
-             extraConfig = ''
-               proxy_set_header Host $host;
-               proxy_set_header X-Real-IP $remote_addr;
-             '';
-          };
-      };
-      "gts.romeov.me" = with config.services.gotosocial.settings; {
-        useACMEHost = "romeov.me";
-        forceSSL = true;
-        locations = {
-          "/" = {
-            recommendedProxySettings = true;
-            proxyWebsockets = true;
-            proxyPass = "http://${bind-address}:${toString port}";
-          };
-        };
-      };
+      # "headscale.romeov.me" = {
+      #    ## Force HTTP redirect to HTTPS
+      #    forceSSL = true;
+      #    ## LetsEncrypt
+      #    useACMEHost = "romeov.me";
+      #    locations."/" = {
+      #    proxyPass = "http://127.0.0.1:8083";
+      #    proxyWebsockets = true;
+      #   };
+      # };
+      # "mlflow.mycloud-nixos-2" = {
+      #   enableACME = false;
+      #   forceSSL = false;
+      #   locations."/" = {
+      #     proxyPass = "http://100.64.0.10:8091";
+      #   };
+      # };
+      # "disentangling-sbucaptions.romeov.me" = {
+      #     enableACME = true;
+      #     forceSSL = true;
+      #     acmeRoot = null;
+      #     # useACMEHost = "romeov.me";
+      #     locations."/" = {
+      #       # tailscale internal forwarding.
+      #       proxyPass = "http://100.64.0.10:8096";
+      #       extraConfig = ''
+      #         proxy_set_header Host $host;
+      #         proxy_set_header X-Real-IP $remote_addr;
+      #       '';
+      #     };
+      # };
+      # "disentangling-sbucaptions.xyz" = {
+      #     enableACME = true;
+      #     forceSSL = true;
+      #     acmeRoot = null;
+      #     # useACMEHost = "romeov.me";
+      #     locations."/" = {
+      #       # tailscale internal forwarding.
+      #       proxyPass = "http://100.64.0.10:8096";
+      #       extraConfig = ''
+      #         proxy_set_header Host $host;
+      #         proxy_set_header X-Real-IP $remote_addr;
+      #       '';
+      #     };
+      # };
+      # "immich.romeov.me" = {
+      #     ## Force HTTP redirect to HTTPS
+      #     enableACME = true;
+      #     forceSSL = true;
+      #     acmeRoot = null;
+      #     ## LetsEncrypt
+      #     # useACMEHost = "romeov.me";
+      #     locations."/" = {
+      #        proxyPass = "http://100.64.0.10:3001";
+      #        extraConfig = ''
+      #          proxy_set_header Host $host;
+      #          proxy_set_header X-Real-IP $remote_addr;
+      #        '';
+      #     };
+      # };
+      # "gts.romeov.me" = with config.services.gotosocial.settings; {
+      #   useACMEHost = "romeov.me";
+      #   forceSSL = true;
+      #   locations = {
+      #     "/" = {
+      #       recommendedProxySettings = true;
+      #       proxyWebsockets = true;
+      #       proxyPass = "http://${bind-address}:${toString port}";
+      #     };
+      #   };
+      # };
       # "grafana.romeov.me" = {
       #   locations."/" = {
       #       proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
