@@ -3,7 +3,7 @@
   # details gathered from the active system.
   networking = {
     nameservers = [
-      "100.64.0.254"
+      # "100.64.0.254"
       "2a01:4ff:ff00::add:2"
       "2a01:4ff:ff00::add:1"
       "185.12.64.1"
