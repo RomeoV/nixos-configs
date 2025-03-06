@@ -45,11 +45,11 @@
             --kill
 
           # Move todo HTML to the right location
-          mv /home/syncthing/todo_notes/todo.html /var/www/todos/todos/index.html
+          cp /home/syncthing/todo_notes/todo.html /var/www/todos/todos/index.html
 
           # Set appropriate permissions
-          chown -R nginx:nginx /var/www/todos
-          chmod -R 755 /var/www/todos
+          # chown -R nginx:nginx /var/www/todos
+          # chmod -R 765 /var/www/todos
 
           # Clean up
           rm -rf $TEMP_DIR
