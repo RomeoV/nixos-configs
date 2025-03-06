@@ -68,8 +68,8 @@
       policy.path = "/etc/headscale/tailnet_policy_file.json";
       dns = {
         base_domain = "mycloud";
-        search_domains = [ "mycloud" ];
-        nameservers.global = [ "100.64.0.254" ];
+      #   search_domains = [ "mycloud" ];
+      #   nameservers.global = [ "100.64.0.254" ];
       };
     };
   };
