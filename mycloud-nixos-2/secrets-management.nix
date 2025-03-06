@@ -8,6 +8,7 @@
       file = agenix/hetzner_private_key.age;
       owner = "root";
     };
+    agenda-password.file = agenix/agenda-password.age;
     backblaze_env_2.file = agenix/backblaze_env_2.age;
     backblaze_repo_2.file = agenix/backblaze_repo_2.age;
     backblaze_password_2.file = agenix/backblaze_password_2.age;

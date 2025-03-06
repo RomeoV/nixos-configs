@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
   # Use nginx and ACME (Let's encrypt) to enable https
   services.nginx = {
     enable = true;
@@ -53,6 +53,29 @@
            proxyWebsockets = true;
         };
       };
+      "agenda.romeov.me" = {
+        root = "/var/www/todos";
+        basicAuthFile = "/run/nginx/agenda-auth-file";
+        forceSSL = true;
+        enableACME = true;
+
+        # Redirect from / to /todos
+        locations."/" = {
+          return = "301 /todos";
+        };
+
+        # Serve the todos page
+        locations."/todos" = {
+          index = "index.html";
+          tryFiles = "$uri $uri/index.html $uri/ =404";
+        };
+
+        # Serve the agenda page
+        locations."/agenda" = {
+          index = "index.html";
+          tryFiles = "$uri $uri/index.html $uri/ =404";
+        };
+      };
       # "mlflow.${toString config.networking.hostName}" = {
       #   enableACME = false;
       #   forceSSL = false;
@@ -70,4 +93,34 @@
       credentialsFile = config.age.secrets.porkbun-secret-api-key-both.path;
     };
   };
+
+
+  systemd.services.nginx-agenda-auth-file = {
+    description = "Generate Nginx agenda auth file";
+    wantedBy = [ "nginx.service" ];
+    before = [ "nginx.service" ];
+    after = [ "agenix.service" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      User = "root";
+      Group = config.users.groups.keys.name;
+    };
+
+    script = ''
+    # Read the plaintext password
+    PASSWORD=$(cat ${config.age.secrets.agenda-password.path})
+
+    # Create auth file using htpasswd
+    mkdir -p /run/nginx
+    echo "$PASSWORD" | ${pkgs.apacheHttpd}/bin/htpasswd -i -c /run/nginx/agenda-auth-file user
+
+    # Make it readable by nginx
+    chown nginx:nginx /run/nginx/agenda-auth-file
+    chmod 400 /run/nginx/agenda-auth-file
+  '';
+  };
+
+
 }

@@ -4,6 +4,7 @@ let
     mycloud-nixos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINW3O4vGdlI7ZKhqTcuo4rFb97W3B9oquKMxoZI/ijkw root@mycloud-nixos";
     mycloud-nixos-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBTIYFWBPT6gv2Udl37nRUPULH9oBDgg5q4zZOB8vWCA root@mycloud-nixos-2";
 in {
+  "agenda-password.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
   "nextcloud_admin_pass.age".publicKeys = [ Lenovo-P1 JuiceSSH mycloud-nixos mycloud-nixos-2 ];
   "hetzner_private_key.age".publicKeys = [ Lenovo-P1 JuiceSSH mycloud-nixos mycloud-nixos-2 ];
   "backblaze_env.age".publicKeys = [ Lenovo-P1 JuiceSSH mycloud-nixos ];
