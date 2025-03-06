@@ -5,6 +5,14 @@
 
 {
 
+  users.users.syncthing = {
+    createHome = true;
+    home = "/home/syncthing";
+    homeMode = "750"; # Set home directory mode explicitly, so that other users in that group can access it.
+    # Don't remove other settings your syncthing user already has
+    isSystemUser = true;
+    group = "syncthing";
+  };
   services.syncthing = {
     enable = true;
     user = "syncthing";
