@@ -19,9 +19,10 @@
       url = "github:isd-project/isd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenda-exporter.url = "git+file:./agenda-exporter";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-mlflow, agenix, redlib, sbucaptions-webserver, isd}: {
+  outputs = inputs @ { self, nixpkgs, nixpkgs-mlflow, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter}: {
       nixosConfigurations.mycloud-nixos-2 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -44,6 +45,7 @@
           pkgs-mlflow = nixpkgs-mlflow.legacyPackages.x86_64-linux;
           agenix = agenix.packages.x86_64-linux;
           isdPkgs = isd.packages.x86_64-linux;
+          agendaExporter = agenda-exporter.packages.x86_64-linux;
           rootPath = ./.;
         };
       };
