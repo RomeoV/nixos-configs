@@ -19,7 +19,7 @@
       url = "github:isd-project/isd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agenda-exporter.url = "git+file:./agenda-exporter";
+    agenda-exporter.url = "git+ssh://git@github/RomeoV/agenda-exporter?rev=908fc286a88e14c94e3f440d64155460be4b33ea";
   };
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-mlflow, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter}: {
