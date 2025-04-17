@@ -1,5 +1,10 @@
-{ config, pkgs, ... }: {
+{ nixpkgs-unstable, config, pkgs, ... }: {
   # Use nginx and ACME (Let's encrypt) to enable https
+  users.users.nginx.extraGroups = [ config.users.groups.anubis.name ];
+  services.anubis.instances.redlib.settings.TARGET = "http://localhost:${toString config.services.redlib.port}";
+  services.anubis.package = nixpkgs-unstable.legacyPackages.${config.nixpkgs.system}.anubis;
+  services.anubis.defaultOptions.settings.DIFFICULTY = 4;
+
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
@@ -21,7 +26,7 @@
          enableACME = true;
          forceSSL = true;
          locations."/" = {
-           proxyPass = "http://localhost:${toString config.services.redlib.port}";
+           proxyPass = "http://unix:${config.services.anubis.instances.redlib.settings.BIND}";
         };
       };
       "disentangling-sbucaptions.romeov.me" = let
@@ -53,6 +58,11 @@
            proxyWebsockets = true;
         };
       };
+      # "nextcloud" = {
+      #   listen = [
+      #     { addr = "0.0.0.0"; port=8086; }
+      #   ];
+      # };
       "agenda.romeov.me" = {
         root = "/var/www/todos";
         basicAuthFile = "/run/nginx/agenda-auth-file";
