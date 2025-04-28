@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-mlflow.url = "github:NixOS/nixpkgs/3259cf03626f8fd2f54c67becd531b9276885a64";
     agenix ={
       url = "github:ryantm/agenix";
@@ -35,12 +35,12 @@
           ./mlflow-service.nix
           ./sbucaptions-webserver-service.nix
           agenix.nixosModules.default
-          "${nixpkgs-unstable}/nixos/modules/services/networking/anubis.nix"
+          # "${nixpkgs-unstable}/nixos/modules/services/networking/anubis.nix"
         ];
         specialArgs = {
           # same as `nixpkgs=nixpgs; nixpkgs-unstable=nixpkgs-unstable;`
           inherit nixpkgs;
-          inherit nixpkgs-unstable;
+          # inherit nixpkgs-unstable;
           inherit sbucaptions-webserver;
           inherit inputs;
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
