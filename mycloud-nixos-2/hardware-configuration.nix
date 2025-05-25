@@ -40,6 +40,8 @@
       "vfs-cache-mode=full"
       "vfs-cache-max-size=4G"
       "use-server-modtime"
+      "x-systemd.automount"
+      "x-systemd.mount-timeout=30"
     ];
   };
   systemd.tmpfiles.rules = [
@@ -51,28 +53,30 @@
     "L ${config.services.immich.mediaLocation}/backups - - - - /mnt/immich-library/backups"
   ];
 
-  # fileSystems."/mnt/nextcloud-storage" = {
-  #   device = "immich-object-storage:nextcloud-storage";
-  #   fsType = "rclone";
-  #   neededForBoot = false;
-  #   options = [
-  #     "nodev"  # Disallows access to special device files.
-  #     "nofail"  # Allows the system to boot even if the mount fails.
-  #     "allow_other"  # Allows users other than the owner of the mountpoint to access the mounted filesystem.
-  #     "default_permissions"  # Enables permission checking for the mounted filesystem, using the standard Unix permission rules.
-  #     # "args2env"
-  #     "uid=${toString config.users.users.nextcloud.uid}"
-  #     "gid=${toString config.users.groups.nextcloud.gid}"
-  #     "config=${config.age.secrets.rclone-config-immich-object-storage.path}"
-  #     "vfs-cache-mode=full"
-  #     "vfs-cache-max-size=4G"
-  #     "use-server-modtime"
-  #   ];
+  fileSystems."/mnt/nextcloud_storage" = {
+    device = "immich-object-storage:nextcloud-storage";
+    fsType = "rclone";
+    neededForBoot = false;
+    options = [
+      "nodev"  # Disallows access to special device files.
+      "nofail"  # Allows the system to boot even if the mount fails.
+      "allow_other"  # Allows users other than the owner of the mountpoint to access the mounted filesystem.
+      "default_permissions"  # Enables permission checking for the mounted filesystem, using the standard Unix permission rules.
+      # "args2env"
+      "uid=${toString config.users.users.nextcloud.uid}"
+      "gid=${toString config.users.groups.nextcloud.gid}"
+      "config=${config.age.secrets.rclone-config-immich-object-storage.path}"
+      "vfs-cache-mode=full"
+      "vfs-cache-max-size=4G"
+      "use-server-modtime"
+      "x-systemd.automount"
+      "x-systemd.mount-timeout=30"
+    ];
+  };
+  # systemd.services."mnt-nextcloud\\x2dstorage.mount" = {
+  #   before = [ "nextcloud-setup.service" ];
+  #   requiredBy = [ "nextcloud-setup.service" ];
   # };
-  # # systemd.services."mnt-nextcloud\\x2dstorage.mount" = {
-  # #   before = [ "nextcloud-setup.service" ];
-  # #   requiredBy = [ "nextcloud-setup.service" ];
-  # # };
 
   fileSystems."/mnt/mlflow-artifacts" = {
     device = "mlflow_artifacts:mlflow-artifacts";
@@ -85,6 +89,10 @@
       "args2env"     # pass configuraiton options as environment variables (!). rclone specific.
       "config=${config.age.secrets.mlflow-artifacts-key.path}"
       "vfs-cache-mode=writes"
+      # Tells systemd to mount the filesystem on-demand when it's first accessed, rather than during boot. This means if the network/storage isn't immediately available, boot won't hang.
+      "x-systemd.automount"
+      # Sets a 30-second timeout for the mount attempt. If the mount doesn't succeed within 30 seconds, systemd will stop trying and continue booting.
+      "x-systemd.mount-timeout=30"
     ];
   };
 

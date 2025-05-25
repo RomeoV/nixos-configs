@@ -20,4 +20,5 @@ in {
   "porkbun-secret-api-key-both.age".publicKeys = [ Lenovo-P1 mycloud-nixos mycloud-nixos-2 ];
   "github-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
   "rclone-config-immich-object-storage.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "immich-object-storage-access-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
 }

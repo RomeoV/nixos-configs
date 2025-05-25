@@ -1,5 +1,5 @@
 { config, pkgs
-  , pkgs-mlflow
+  , pkgs-unstable
   # , nixpkgs-unstable, pkgs-unstable
   , ... }:
 
@@ -46,19 +46,26 @@
   services.nextcloud = {
     enable = false;
     package = pkgs.nextcloud30;
-    hostName = "storage.romeov.me";
-    https = true;
+    hostName = "nextcloud";
+    settings.trusted_domains = ["100.64.0.10"];
+    # https = true;
     config.adminpassFile = config.age.secrets.nextcloud_admin_pass.path;
-    datadir = "/mnt/nextcloud-storage";
+    home = "/mnt/nextcloud_storage";
+    # datadir = "/mnt/nextcloud_storage";
   };
+
+  # # this doens't work. We have to go back to the datadir approach.
+  # systemd.tmpfiles.rules = [
+  #     "L+ /var/lib/nextcloud/data nextcloud nextcloud - /mnt/nextcloud_storage"
+  # ];
   users.users.nextcloud = {
     uid = 994;
     group = "nextcloud";
   };
   users.groups.nextcloud.gid = 994;
   systemd.services.nextcloud-setup = {
-    requires = [ "mnt-nextcloud\\x2dstorage.mount" ];
-    after = [ "mnt-nextcloud\\x2dstorage.mount" ];
+    requires = [ "mnt-nextcloud_storage.mount" ];
+    after = [ "mnt-nextcloud_storage.mount" ];
   };
 
   services.redlib = {
@@ -88,10 +95,11 @@
 
   services.mlflow-server = {
     enable = true;
-    python = pkgs-mlflow.python3;
+    package = pkgs-unstable.mlflow-server;
+    # python = pkgs-mlflow.python3;
     port = 8091;
     host = "0.0.0.0";  # Listen on all interfaces
-    basedir = "/mnt/mlflow-artifacts";
+    # basedir = "/mnt/mlflow-artifacts";
     # artifactRoot = "/mnt/mlflow-artifacts/mlartifacts";
     # extraArgs = [ "--backend-store-uri" "sqlite:///var/lib/mlflow/mlflow.db" ];
   };

@@ -3,8 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-mlflow.url = "github:NixOS/nixpkgs/3259cf03626f8fd2f54c67becd531b9276885a64";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs-mlflow.url = "github:NixOS/nixpkgs/3259cf03626f8fd2f54c67becd531b9276885a64";
     agenix ={
       url = "github:ryantm/agenix";
       inputs.darwin.follows = "";
@@ -22,7 +22,7 @@
     agenda-exporter.url = "git+ssh://git@github/RomeoV/agenda-exporter?rev=908fc286a88e14c94e3f440d64155460be4b33ea";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixpkgs-mlflow, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter}: {
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter}: {
       nixosConfigurations.mycloud-nixos-2 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -44,7 +44,8 @@
           inherit sbucaptions-webserver;
           inherit inputs;
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          pkgs-mlflow = nixpkgs-mlflow.legacyPackages.x86_64-linux;
+          pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+          # pkgs-mlflow = nixpkgs-mlflow.legacyPackages.x86_64-linux;
           agenix = agenix.packages.x86_64-linux;
           isdPkgs = isd.packages.x86_64-linux;
           agendaExporter = agenda-exporter.packages.x86_64-linux;
