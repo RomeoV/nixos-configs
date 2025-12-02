@@ -103,7 +103,7 @@
       pkgs.waypipe
       pkgs.redlib
       # pkgs.mlflow-server
-      pkgs.du-dust
+      pkgs.dust
       isdPkgs.isd
   ];
 
