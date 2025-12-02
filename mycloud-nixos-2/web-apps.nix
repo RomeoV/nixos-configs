@@ -88,6 +88,21 @@
     # storage-local-base-path = "/storage/gotosocial";
   };
 
+  services.audiobookshelf = {
+    enable = true;
+    # host = "127.0.0.1";
+    host = "0.0.0.0";
+    port = 8092;
+  };
+
+  services.calibre-web = {
+    enable = true;
+    listen = {
+      ip = "0.0.0.0";
+      port = 8093;
+    };
+  };
+
   services.invidious = {
       enable = false;
       port = 8090;
@@ -95,7 +110,7 @@
 
   services.mlflow-server = {
     enable = true;
-    package = pkgs-unstable.mlflow-server;
+    # package = pkgs-unstable.mlflow-server;
     # python = pkgs-mlflow.python3;
     port = 8091;
     host = "0.0.0.0";  # Listen on all interfaces

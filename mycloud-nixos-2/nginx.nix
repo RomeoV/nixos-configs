@@ -58,6 +58,18 @@
            proxyWebsockets = true;
         };
       };
+      "mycloud-nixos-2" = let
+        audiobookshelf = config.services.audiobookshelf;
+        calibre-web = config.services.calibre-web.listen;
+        immich = config.services.immich;
+      in {
+        locations."/audiobookshelf" = {
+          proxyPass = "http://${audiobookshelf.host}:${toString audiobookshelf.port}";
+           proxyWebsockets = true;
+        };
+        locations."/immich".proxyPass = "http://${immich.host}:${toString immich.port}";
+        locations."/calibre-web".proxyPass = "http://${calibre-web.ip}:${toString calibre-web.port}";
+      };
       # "nextcloud" = {
       #   listen = [
       #     { addr = "0.0.0.0"; port=8086; }
