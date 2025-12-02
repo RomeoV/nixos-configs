@@ -30,7 +30,7 @@
         # inherit nixpkgs-unstable;
         inherit sbucaptions-webserver;
         inherit inputs;
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        # pkgs = nixpkgs.legacyPackages.x86_64-linux;
         pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
         # pkgs-mlflow = nixpkgs-mlflow.legacyPackages.x86_64-linux;
         agenix = agenix.packages.x86_64-linux;
