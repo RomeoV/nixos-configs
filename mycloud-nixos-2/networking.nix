@@ -65,26 +65,29 @@
     port = 8083;
     settings = {
       serverUrl = "https://headscale.romeov.me";
+      noise.private_key_path = "/var/lib/headscale/noise_private.key";
       policy.path = "/etc/headscale/tailnet_policy_file.json";
       dns = {
         base_domain = "mycloud";
+        override_local_dns = false;  # or set to true and add nameservers below
       #   search_domains = [ "mycloud" ];
       #   nameservers.global = [ "100.64.0.254" ];
       };
     };
   };
   environment.etc."headscale/tailnet_policy_file.json".text = ''
-      { "acls": [ {
-     	    "action": "accept",
-     	    "src": ["*"],
-     	    "dst": ["*:*"]
-      } ],
-        "ssh": [ {
-            "action": "accept",
-            "src": ["romeo-p1", "pixel-6"],
-            "dst": ["mycloud-nixos", "mycloud-nixos-2"]
-        } ] }
-    '';
+  {"acls": [{
+      "action": "accept",
+      "src": ["*"],
+      "dst": ["*:*"]
+    }],
+    "ssh": [{
+      "action": "accept",
+      "src": ["youruser@"],
+      "dst": ["youruser@"],
+      "users": ["autogroup:nonroot", "root"]
+    }]}
+  '';
   # headscale sometimes takes forever to shut down...
   systemd.services.headscale.serviceConfig.TimeoutStopSec = "15s";
 }
