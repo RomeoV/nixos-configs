@@ -44,29 +44,32 @@
   };
 
   services.nextcloud = {
-    enable = false;
-    package = pkgs.nextcloud30;
-    hostName = "nextcloud";
-    settings.trusted_domains = ["100.64.0.10"];
+    enable = true;
+    package = pkgs.nextcloud32;
+    hostName = "storage.mycloud";
+    config.dbtype = "sqlite";  # just use a simple file-backed db
+    https = false;  # for vpn usage
+
+    # S3 Object Storage Configuration for Hetzner
+    config.objectstore.s3 = {
+      enable = true;
+      bucket = "nextcloud-storage";
+      hostname = "hel1.your-objectstorage.com";
+      usePathStyle = false;
+      region = "hel1";
+      verify_bucket_exists = true;
+
+      # Don't specify 'key' here - we'll use environment variable instead
+      key = "IN0XRRAR736RWGGNWB5N";
+      secretFile = config.age.secrets.nextcloud-object-storage-secret.path;
+    };
+    settings.trusted_domains = [
+      "storage.mycloud"
+    ];
     # https = true;
     config.adminpassFile = config.age.secrets.nextcloud_admin_pass.path;
-    home = "/mnt/nextcloud_storage";
-    # datadir = "/mnt/nextcloud_storage";
   };
 
-  # # this doens't work. We have to go back to the datadir approach.
-  # systemd.tmpfiles.rules = [
-  #     "L+ /var/lib/nextcloud/data nextcloud nextcloud - /mnt/nextcloud_storage"
-  # ];
-  users.users.nextcloud = {
-    uid = 994;
-    group = "nextcloud";
-  };
-  users.groups.nextcloud.gid = 994;
-  systemd.services.nextcloud-setup = {
-    requires = [ "mnt-nextcloud_storage.mount" ];
-    after = [ "mnt-nextcloud_storage.mount" ];
-  };
 
   services.redlib = {
     enable = true;

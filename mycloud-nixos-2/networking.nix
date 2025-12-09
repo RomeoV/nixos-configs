@@ -70,6 +70,18 @@
       dns = {
         base_domain = "mycloud";
         override_local_dns = false;  # or set to true and add nameservers below
+        extra_records = [
+          # {
+          #   name = "storage.mycloud";
+          #   type = "CNAME";
+          #   value = "mycloud-nixos-2.mycloud"; 
+          # }
+          {
+           name = "storage.mycloud";
+           type = "A";
+           value = "100.64.0.10";  # The IP from the dig result
+          }
+        ];
       #   search_domains = [ "mycloud" ];
       #   nameservers.global = [ "100.64.0.254" ];
       };

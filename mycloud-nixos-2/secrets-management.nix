@@ -19,5 +19,6 @@
     porkbun-secret-api-key-both.file = agenix/porkbun-secret-api-key-both.age;
     github-key.file = agenix/github-key.age;
     rclone-config-immich-object-storage.file = agenix/rclone-config-immich-object-storage.age;
+    nextcloud-object-storage-secret.file = agenix/nextcloud-object-storage-secret.age;
   };
 }

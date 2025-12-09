@@ -80,6 +80,9 @@
         basicAuthFile = "/run/nginx/agenda-auth-file";
         forceSSL = true;
         enableACME = true;
+      "storage.mycloud".listen = [
+        { addr = "100.64.0.10"; port = 80; }
+      ];
 
         # Redirect from / to /todos
         locations."/" = {

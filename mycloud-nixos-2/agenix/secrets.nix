@@ -21,4 +21,5 @@ in {
   "github-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
   "rclone-config-immich-object-storage.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
   "immich-object-storage-access-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "nextcloud-object-storage-secret.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
 }
