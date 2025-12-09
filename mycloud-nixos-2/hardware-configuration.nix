@@ -4,6 +4,7 @@
   boot.loader.grub.device = "/dev/sda";
   boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi" ];
   boot.initrd.kernelModules = [ "nvme" ];
+  boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = true;  # for making nginx listen on addresses which will only instantiate after headscale is up
   fileSystems."/" = { device = "/dev/sda1"; fsType = "ext4"; };
 
 
