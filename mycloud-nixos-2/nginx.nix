@@ -58,7 +58,9 @@
            proxyWebsockets = true;
         };
       };
-      "storage.mycloud".listen.addr = "100.64.0.10";
+      "storage.mycloud".listen = [
+        { addr = "100.64.0.10"; }
+      ];
     };
   };
   security.acme = {
