@@ -81,6 +81,11 @@
            type = "A";
            value = "100.64.0.10";  # The IP from the dig result
           }
+          {
+           name = "immich.mycloud";
+           type = "A";
+           value = "100.64.0.10";  # The IP from the dig result
+          }
         ];
       #   search_domains = [ "mycloud" ];
       #   nameservers.global = [ "100.64.0.254" ];

@@ -61,6 +61,18 @@
       "storage.mycloud".listen = [
         { addr = "100.64.0.10"; }
       ];
+      "immich.mycloud" = {
+        listen = [
+          { addr = "100.64.0.10"; port=80; }
+        ];
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.immich.port}";
+          proxyWebsockets = true;
+        };
+        extraConfig = ''
+          client_max_body_size 0;
+        '';
+      };
     };
   };
   security.acme = {
