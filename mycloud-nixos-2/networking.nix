@@ -66,7 +66,10 @@
     settings = {
       serverUrl = "https://headscale.romeov.me";
       noise.private_key_path = "/var/lib/headscale/noise_private.key";
-      policy.path = "/etc/headscale/tailnet_policy_file.json";
+      policy = {
+        path = "/etc/headscale/tailnet_policy_file.json";
+        mode = "file";
+      };
       dns = {
         base_domain = "mycloud";
         override_local_dns = false;  # or set to true and add nameservers below
@@ -100,9 +103,9 @@
     }],
     "ssh": [{
       "action": "accept",
-      "src": ["youruser@"],
-      "dst": ["youruser@"],
-      "users": ["autogroup:nonroot", "root"]
+      "src": ["autogroup:member"],
+      "dst": ["autogroup:self"],
+      "users": ["romeo"]
     }]}
   '';
   # headscale sometimes takes forever to shut down...
