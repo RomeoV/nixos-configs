@@ -27,7 +27,7 @@
          enableACME = true;
          forceSSL = true;
          locations."/" = {
-           proxyPass = "http://unix:${config.services.anubis.instances.redlib.settings.BIND}";
+           proxyPass = "/run/anubis/anubis-redlib/anubis.sock";
         };
       };
       "disentangling-sbucaptions.romeov.me" = let
