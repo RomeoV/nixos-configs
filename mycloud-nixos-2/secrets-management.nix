@@ -20,17 +20,13 @@
     github-key.file = agenix/github-key.age;
     rclone-config-immich-object-storage.file = agenix/rclone-config-immich-object-storage.age;
     nextcloud-object-storage-secret.file = agenix/nextcloud-object-storage-secret.age;
-    openclaw-anthropic-key = {
-      file = agenix/openclaw-anthropic-key.age;
-      owner = "openclaw";
+    zeroclaw-api-key = {
+      file = agenix/openclaw-anthropic-key.age;  # reusing the same encrypted key
+      owner = "zeroclaw";
     };
-    openclaw-telegram-token = {
-      file = agenix/openclaw-telegram-token.age;
-      owner = "openclaw";
-    };
-    openclaw-gateway-token = {
-      file = agenix/openclaw-gateway-token.age;
-      owner = "openclaw";
+    zeroclaw-telegram-token = {
+      file = agenix/openclaw-telegram-token.age;  # reusing the same encrypted token
+      owner = "zeroclaw";
     };
   };
 }
