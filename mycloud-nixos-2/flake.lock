@@ -189,11 +189,11 @@
         "zeroclaw-src": "zeroclaw-src"
       },
       "locked": {
-        "lastModified": 1771492163,
-        "narHash": "sha256-2mp2M4oNse+Jd+dunAZDAewtXJzLahD2Qj2M7+U61ZA=",
+        "lastModified": 1771541085,
+        "narHash": "sha256-5sFrD2+JjC6IZJEj5HsL9c5lDHF1WpC9M1qYUo2S7xg=",
         "owner": "RomeoV",
         "repo": "nix-zeroclaw",
-        "rev": "2843da993bed0bb005a01cbfb2a077aa397599ac",
+        "rev": "f58f86b64904182156360dc3f1d8abcf7433421b",
         "type": "github"
       },
       "original": {
@@ -580,16 +580,17 @@
     "zeroclaw-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1771478663,
-        "narHash": "sha256-IILalD5TRp1EWEfRVKR3PmVrgLhKC7Y8tH/QyRi+I5I=",
-        "owner": "zeroclaw-labs",
+        "lastModified": 1771534523,
+        "narHash": "sha256-GuW2uNKjd7Iy+5F5fQnwwcB3LyoCOLYV2yfCr6nrVIw=",
+        "owner": "RomeoV",
         "repo": "zeroclaw",
-        "rev": "4ecaf6070c69d4a087e509c67eeea483db23033c",
+        "rev": "bec1dc7b8c276af474c1366915a764c43912e2a9",
         "type": "github"
       },
       "original": {
-        "owner": "zeroclaw-labs",
+        "owner": "RomeoV",
         "repo": "zeroclaw",
+        "rev": "bec1dc7b8c276af474c1366915a764c43912e2a9",
         "type": "github"
       }
     }

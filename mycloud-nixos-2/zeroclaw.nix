@@ -5,8 +5,11 @@
     model = "claude-sonnet-4-6";
 
     enableCli = true;
-    extraPackages = [ pkgs.git pkgs.uv pkgs.python3 ];
-    extraAllowedCommands = [ "uv" "python3" ];
+    autonomyLevel = "full";
+    blockHighRiskCommands = false;
+    workspaceOnly = false;
+    enforceCommandAllowlist = false;
+    extraPackages = [ pkgs.uv pkgs.python3 pkgs.pimsync pkgs.khal ];
     extraEnvironment.UV_PYTHON_PREFERENCE = "only-system";
 
     telegram = {
