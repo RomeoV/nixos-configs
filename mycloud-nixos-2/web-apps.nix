@@ -26,12 +26,13 @@
     settings = {
       devices = {
         "Pixel-6" = { id = "AU6EZ3T-SS4M427-6PHHM2S-EC2VBOY-LQP2RVB-YEORIC7-UQMBEPQ-6ECGNAG"; };
+        "Pixel-9" = { id = "WATB6HW-SRETYW3-5GH5CRH-Z7ND2I5-EUVXA4A-2KBXA77-WXDZYQU-SSISFQF"; };
         "Lenovo-P1" = { id = "CJFK7D3-YBQ7CFY-7BXQLIZ-P6UDS6I-MIZR6IH-JDRT5GH-OJY3B56-4SVJQAX"; };
       };
       folders = {
         "todo_notes" = {         # Folder ID in Syncthing, also the name of folder (label) by default
           path = "/home/syncthing/todo_notes";    # Which folder to add to Syncthing
-          devices = [ "Pixel-6" "Lenovo-P1" ];      # Which devices to share the folder with
+          devices = [ "Pixel-6" "Pixel-9" "Lenovo-P1" ];      # Which devices to share the folder with
         };
       };
     };
