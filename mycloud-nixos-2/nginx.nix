@@ -27,7 +27,7 @@
          enableACME = true;
          forceSSL = true;
          locations."/" = {
-           proxyPass = "/run/anubis/anubis-redlib/anubis.sock";
+           proxyPass = "http://unix:/run/anubis/anubis-redlib/anubis.sock";
         };
       };
       "disentangling-sbucaptions.romeov.me" = let
