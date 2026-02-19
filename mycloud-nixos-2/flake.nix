@@ -20,9 +20,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenda-exporter.url = "git+ssh://git@github/RomeoV/agenda-exporter?rev=908fc286a88e14c94e3f440d64155460be4b33ea";
+    nix-openclaw = {
+      url = "github:RomeoV/nix-openclaw/userseg";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter}:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter, nix-openclaw}:
     let
       moduleArgs = {
         # same as `nixpkgs=nixpgs; nixpkgs-unstable=nixpkgs-unstable;`
@@ -51,6 +55,9 @@
           ./mlflow-service.nix
           ./sbucaptions-webserver-service.nix
           agenix.nixosModules.default
+          nix-openclaw.nixosModules.openclaw
+          { nixpkgs.overlays = [ nix-openclaw.overlays.default ]; }
+          ./openclaw.nix
           ({ _module.args = moduleArgs;  })
           # "${nixpkgs-unstable}/nixos/modules/services/networking/anubis.nix"
         ];
