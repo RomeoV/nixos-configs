@@ -1,22 +1,6 @@
-{ config, pkgs, ... }:
-let
-  himalayaConfig = pkgs.writeText "himalaya-config.toml" ''
-    [accounts.stanford]
-    email = "romeov@stanford.edu"
-    backend.type = "maildir"
-    backend.root-dir = "/var/lib/mailsync/stanford"
-  '';
-in {
+{ config, pkgs, ... }: {
   # Grant zeroclaw read-only access to synced mail
   users.users.zeroclaw.extraGroups = [ "mailread" ];
-
-  # Place himalaya config at zeroclaw's default XDG path
-  systemd.tmpfiles.rules = [
-    "d /var/lib/zeroclaw/.config/himalaya 0750 zeroclaw zeroclaw -"
-    "L+ /var/lib/zeroclaw/.config/himalaya/config.toml - - - - ${himalayaConfig}"
-  ];
-
-  environment.systemPackages = [ pkgs.himalaya ];
 
   services.zeroclaw = {
     enable = true;
@@ -28,7 +12,8 @@ in {
     blockHighRiskCommands = false;
     workspaceOnly = false;
     enforceCommandAllowlist = false;
-    extraPackages = [ pkgs.uv pkgs.python3 pkgs.pimsync pkgs.khal pkgs.himalaya ];
+    extraPackages = [ pkgs.uv pkgs.python3 pkgs.pimsync pkgs.khal ];
+    extraEnvironment.UV_PYTHON_PREFERENCE = "only-system";
 
     telegram = {
       enable = true;
