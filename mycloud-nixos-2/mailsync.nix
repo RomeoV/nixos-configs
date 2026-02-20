@@ -88,8 +88,8 @@ in {
 
   # -- Directories --
   systemd.tmpfiles.rules = [
-    "d ${stateDir}    0750 mailsync mailread -"
-    "d ${maildirPath} 0750 mailsync mailread -"
+    "d ${stateDir}    2750 mailsync mailread -"
+    "d ${maildirPath} 2750 mailsync mailread -"
     "d ${tokenDir}    0700 mailsync mailsync -"
   ];
 
