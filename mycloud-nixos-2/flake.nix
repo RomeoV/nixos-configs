@@ -58,6 +58,7 @@
           nix-zeroclaw.nixosModules.zeroclaw
           { nixpkgs.overlays = [ nix-zeroclaw.overlays.default ]; }
           ./zeroclaw.nix
+          ./mailsync.nix
           ({ _module.args = moduleArgs;  })
           # "${nixpkgs-unstable}/nixos/modules/services/networking/anubis.nix"
         ];

@@ -1,4 +1,7 @@
 { config, pkgs, ... }: {
+  # Grant zeroclaw read-only access to synced mail
+  users.users.zeroclaw.extraGroups = [ "mailread" ];
+
   services.zeroclaw = {
     enable = true;
     apiKeyFile = config.age.secrets.zeroclaw-api-key.path;

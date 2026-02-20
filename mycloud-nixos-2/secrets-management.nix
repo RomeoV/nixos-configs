@@ -28,5 +28,11 @@
       file = agenix/openclaw-telegram-token.age;  # reusing the same encrypted token
       owner = "zeroclaw";
     };
+    stanford-oauth-tokens = {
+      file = agenix/stanford-oauth-tokens.age;
+      owner = "mailsync";
+      group = "mailsync";
+      mode = "0400";
+    };
   };
 }
