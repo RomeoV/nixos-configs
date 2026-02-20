@@ -21,7 +21,7 @@ in {
   services.zeroclaw = {
     enable = true;
     apiKeyFile = config.age.secrets.zeroclaw-api-key.path;
-    model = "claude-sonnet-4-6";
+    model = "claude-haiku-4-5";
 
     enableCli = true;
     autonomyLevel = "full";
