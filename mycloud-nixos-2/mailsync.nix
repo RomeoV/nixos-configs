@@ -84,7 +84,7 @@ in {
     group = "mailsync";
     extraGroups = [ "mailread" ];
     home = stateDir;
-    createHome = true;
+    createHome = false;  # tmpfiles handles this with correct group (mailread) and setgid
     description = "Mail sync service user";
   };
 
