@@ -46,7 +46,7 @@
       email = "romeov@stanford.edu"
       folder.aliases.inbox = "Inbox"
       backend.type = "maildir"
-      backend.root-dir = "/mnt/storage-box/mail/stanford"
+      backend.root-dir = "/var/lib/mailsync/stanford"
     '';
   in [
     "d /var/lib/openclaw/.config/himalaya 0750 openclaw openclaw -"
