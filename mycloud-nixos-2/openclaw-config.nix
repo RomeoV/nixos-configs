@@ -1,31 +1,20 @@
 { config, pkgs, ... }: {
-  # Debug: run `sudo openclaw-sandbox` to get a shell inside the gateway's sandbox.
-  # Enters the service's mount/pid/net namespaces with the service's environment.
-  environment.systemPackages = let
-    sandbox = pkgs.writeShellScript "openclaw-sandbox-inner" ''
-      PID=$1; shift
-      cd /var/lib/openclaw
-      while IFS= read -r -d "" line; do
-        export "$line"
-      done < /proc/"$PID"/environ
-      if [ $# -gt 0 ]; then
-        exec ${pkgs.bash}/bin/bash --norc --noprofile "$@"
-      else
-        exec ${pkgs.bash}/bin/bash --norc --noprofile
-      fi
-    '';
-  in [
+  # Debug: `sudo openclaw-sandbox` for interactive shell,
+  # or `sudo openclaw-sandbox -c 'himalaya account list'` for one-off commands.
+  environment.systemPackages = [
     (pkgs.writeShellScriptBin "openclaw-sandbox" ''
       PID=$(systemctl show openclaw-gateway.service -p MainPID --value)
       if [ "$PID" = "0" ] || [ -z "$PID" ]; then
         echo "openclaw-gateway is not running" >&2
         exit 1
       fi
-      exec nsenter -t "$PID" -m -u -i -n -p \
-        ${pkgs.util-linux}/bin/setpriv --reuid=openclaw --regid=openclaw --init-groups \
-        ${pkgs.bash}/bin/bash ${sandbox} "$PID" "$@"
+      exec nsenter -t "$PID" -m -n \
+        -S "$(id -u openclaw)" -G "$(id -g openclaw)" -- \
+        env - $(${pkgs.coreutils}/bin/tr '\0' '\n' < /proc/"$PID"/environ | ${pkgs.gnused}/bin/sed "s/'/'\\\\''/g;s/^/'/;s/\$/'/" | ${pkgs.coreutils}/bin/tr '\n' ' ') \
+        ${pkgs.bash}/bin/bash --norc --noprofile "$@"
     '')
   ];
+
   services.openclaw = {
     enable = true;
     domain = "";           # No Caddy — Tailscale only
@@ -50,7 +39,7 @@
 
   # Tools available to the agent
   systemd.services.openclaw-gateway.path = with pkgs; [
-    bash coreutils findutils gnugrep gnused gawk gzip
+    bash which coreutils findutils gnugrep gnused gawk gzip
     nix git curl wget jq python3 uv
     himalaya khal pimsync tailscale bun
   ];
