@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   services.openclaw = {
     enable = true;
     domain = "";           # No Caddy — Tailscale only
@@ -20,6 +20,10 @@
       "exec"
     ];
   };
+
+  # Node.js needs AF_NETLINK for os.networkInterfaces()
+  systemd.services.openclaw-gateway.serviceConfig.RestrictAddressFamilies =
+    lib.mkForce [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
 
   # Mail access
   users.users.openclaw.extraGroups = [ "mailread" ];
