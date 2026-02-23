@@ -218,22 +218,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-openclaw": {
-      "locked": {
-        "lastModified": 1771349121,
-        "narHash": "sha256-ZiaQYKrgE7fIhvGXDjocLAdgEC0Jq6GDfekf4L3fA7I=",
-        "owner": "chrisportela",
-        "repo": "nixpkgs",
-        "rev": "f06e21417815267495ed78439acb9ba383b7d893",
-        "type": "github"
-      },
-      "original": {
-        "owner": "chrisportela",
-        "ref": "cp/add-moltbot",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1771207753,
@@ -296,6 +280,23 @@
         "repo": "nixpkgs",
         "rev": "19d7a635e878846a7d4d1c586884bb8245924484",
         "type": "github"
+      }
+    },
+    "openclaw-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771873853,
+        "narHash": "sha256-yDF1YKe5p3htlmsJ9SXukrNafN4roOdsS52OuTt++m0=",
+        "path": "/home/romeo/code/openclaw-nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/romeo/code/openclaw-nix",
+        "type": "path"
       }
     },
     "poetry2nix": {
@@ -401,8 +402,8 @@
         "isd": "isd",
         "nix-zeroclaw": "nix-zeroclaw",
         "nixpkgs": "nixpkgs_3",
-        "nixpkgs-openclaw": "nixpkgs-openclaw",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "openclaw-nix": "openclaw-nix",
         "redlib": "redlib",
         "sbucaptions-webserver": "sbucaptions-webserver"
       }

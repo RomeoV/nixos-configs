@@ -24,10 +24,13 @@
       url = "github:RomeoV/nix-zeroclaw";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs-openclaw.url = "github:chrisportela/nixpkgs/cp/add-moltbot";
+    openclaw-nix = {
+      url = "path:/home/romeo/code/openclaw-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter, nix-zeroclaw, nixpkgs-openclaw }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter, nix-zeroclaw, openclaw-nix }:
     let
       moduleArgs = {
         # same as `nixpkgs=nixpgs; nixpkgs-unstable=nixpkgs-unstable;`
@@ -57,15 +60,14 @@
           ./sbucaptions-webserver-service.nix
           agenix.nixosModules.default
           # nix-zeroclaw.nixosModules.zeroclaw  # Disabled - using openclaw now
+          openclaw-nix.nixosModules.default
           { nixpkgs.overlays = [
               # nix-zeroclaw.overlays.default  # Disabled - using openclaw now
-              (final: prev: {
-                openclaw = nixpkgs-openclaw.legacyPackages.x86_64-linux.openclaw or nixpkgs-openclaw.packages.x86_64-linux.openclaw;
-              })
+              openclaw-nix.overlays.default
             ];
           }
           # ./zeroclaw.nix  # Disabled - keeping config for reference
-          ./openclaw.nix
+          ./openclaw-config.nix
           ./mailsync.nix
           ({ _module.args = moduleArgs;  })
           # "${nixpkgs-unstable}/nixos/modules/services/networking/anubis.nix"
