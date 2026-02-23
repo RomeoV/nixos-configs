@@ -31,6 +31,7 @@
   # Mail access
   users.users.openclaw.extraGroups = [ "mailread" ];
   users.users.openclaw.shell = pkgs.bash;
+  systemd.services.openclaw-gateway.serviceConfig.SupplementaryGroups = [ "mailread" ];
   systemd.services.openclaw-gateway.serviceConfig.BindReadOnlyPaths = [
     "/var/lib/mailsync/stanford"
     "/mnt/storage-box/mail/stanford"
