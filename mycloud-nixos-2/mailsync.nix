@@ -32,7 +32,7 @@ let
     chmod +x $out/bin/mutt_oauth2.py
   '';
 
-  passCmd = "${pkgs.python3}/bin/python3 ${mutt-oauth2}/bin/mutt_oauth2.py ${tokenFile} --decryption-pipe cat";
+  passCmd = "${pkgs.python3}/bin/python3 ${mutt-oauth2}/bin/mutt_oauth2.py ${tokenFile} --encryption-pipe cat --decryption-pipe cat";
 
   mbsyncrc = pkgs.writeText "mbsyncrc-stanford" ''
     IMAPAccount stanford
