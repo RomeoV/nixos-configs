@@ -19,7 +19,7 @@ let
   clientId = "08162f7c-0fd2-4200-a84a-f25a4db0b584";
   clientSecret = "TxRBilcHdC6WGBee]fs?QR:SJ8nI[g82";
 
-  saslPath = "${pkgs.cyrus-sasl-xoauth2}/lib/sasl2:${pkgs.cyrus_sasl}/lib/sasl2";
+  saslPath = "${pkgs.cyrus-sasl-xoauth2}/lib/sasl2";
 
   # Patch mutt_oauth2.py: fix scope to office365.com, drop POP/SMTP
   mutt-oauth2 = pkgs.runCommand "mutt-oauth2-patched" { } ''
