@@ -111,6 +111,8 @@ in {
       Group = "mailsync";
       SupplementaryGroups = [ "mailread" ];
       ExecStart = syncScript;
+      # mbsync creates maildir files with 0600; fix group read for mailread
+      ExecStartPost = "${pkgs.findutils}/bin/find ${realMailPath} -type f ! -perm -g+r -exec chmod g+r {} +";
       WorkingDirectory = stateDir;
       Nice = 10;
 
