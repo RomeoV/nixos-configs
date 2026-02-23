@@ -289,8 +289,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1771875509,
-        "narHash": "sha256-XcgAxCH5FLELAgAi4NadtPsLY6RsZTmfvE23bY8qOX0=",
+        "lastModified": 1771876635,
+        "narHash": "sha256-Ym7i3O6dgkEA8WzbjUZPZsTy8/uC7XMe9aLhZ5wFWe4=",
         "path": "/home/romeo/code/openclaw-nix",
         "type": "path"
       },
