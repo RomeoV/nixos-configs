@@ -3,13 +3,16 @@
   # Enters the service's mount/pid/net namespaces with the service's environment.
   environment.systemPackages = let
     sandbox = pkgs.writeShellScript "openclaw-sandbox-inner" ''
-      PID=$1
+      PID=$1; shift
       cd /var/lib/openclaw
-      # Load the service's environment
       while IFS= read -r -d "" line; do
         export "$line"
       done < /proc/"$PID"/environ
-      exec ${pkgs.bash}/bin/bash
+      if [ $# -gt 0 ]; then
+        exec ${pkgs.bash}/bin/bash --norc --noprofile "$@"
+      else
+        exec ${pkgs.bash}/bin/bash --norc --noprofile
+      fi
     '';
   in [
     (pkgs.writeShellScriptBin "openclaw-sandbox" ''
@@ -20,7 +23,7 @@
       fi
       exec nsenter -t "$PID" -m -u -i -n -p \
         ${pkgs.util-linux}/bin/setpriv --reuid=openclaw --regid=openclaw --init-groups \
-        ${pkgs.bash}/bin/bash ${sandbox} "$PID"
+        ${pkgs.bash}/bin/bash ${sandbox} "$PID" "$@"
     '')
   ];
   services.openclaw = {
