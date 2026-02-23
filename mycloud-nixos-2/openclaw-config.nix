@@ -57,7 +57,6 @@
   users.users.openclaw.shell = pkgs.bash;
   systemd.services.openclaw-gateway.serviceConfig.SupplementaryGroups = [ "mailread" ];
   systemd.services.openclaw-gateway.serviceConfig.BindReadOnlyPaths = [
-    "/var/lib/mailsync/stanford"
     "/mnt/storage-box/mail/stanford"
   ];
 
@@ -69,7 +68,7 @@
       email = "romeov@stanford.edu"
       folder.aliases.inbox = "Inbox"
       backend.type = "maildir"
-      backend.root-dir = "/var/lib/mailsync/stanford"
+      backend.root-dir = "/mnt/storage-box/mail/stanford"
     '';
   in [
     "d /var/lib/openclaw/.config/himalaya 0750 openclaw openclaw -"
