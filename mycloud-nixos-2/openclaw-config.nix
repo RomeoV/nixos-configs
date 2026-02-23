@@ -21,36 +21,16 @@
     ];
   };
 
-  # Upstream module bugs: wrong ExecStart, missing EnvironmentFile/secrets,
-  # missing AF_NETLINK, missing tool PATH and HOME.
-  systemd.services.openclaw-gateway = {
-    path = with pkgs; [
-      bash coreutils findutils gnugrep gnused gawk gzip
-      nix git curl wget jq python3 uv
-      himalaya khal pimsync tailscale bun
-    ];
-    serviceConfig = {
-      ExecStart = lib.mkForce "${pkgs.openclaw}/bin/openclaw gateway";
-      RestrictAddressFamilies = lib.mkForce [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
-      EnvironmentFile = [
-        config.age.secrets.openclaw-api-key.path
-        config.age.secrets.openclaw-telegram-token.path
-      ];
-      BindReadOnlyPaths = [
-        "/var/lib/mailsync/stanford"
-        "/mnt/storage-box/mail/stanford"
-      ];
-    };
-    environment = {
-      HOME = "/var/lib/openclaw";
-      OPENCLAW_CONFIG_PATH = "/var/lib/openclaw/openclaw.json";
-      NIX_PATH = "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos";
-    };
-  };
+  # Node.js needs AF_NETLINK for os.networkInterfaces()
+  systemd.services.openclaw-gateway.serviceConfig.RestrictAddressFamilies =
+    lib.mkForce [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
 
   # Mail access
   users.users.openclaw.extraGroups = [ "mailread" ];
-  users.users.openclaw.shell = pkgs.bash;  # Need a real shell for command execution
+  systemd.services.openclaw-gateway.serviceConfig.BindReadOnlyPaths = [
+    "/var/lib/mailsync/stanford"
+    "/mnt/storage-box/mail/stanford"
+  ];
 
   # Himalaya config for mail reading
   systemd.tmpfiles.rules = let
