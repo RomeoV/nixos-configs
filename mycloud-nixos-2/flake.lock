@@ -189,11 +189,11 @@
         "zeroclaw-src": "zeroclaw-src"
       },
       "locked": {
-        "lastModified": 1771541085,
-        "narHash": "sha256-5sFrD2+JjC6IZJEj5HsL9c5lDHF1WpC9M1qYUo2S7xg=",
+        "lastModified": 1771578002,
+        "narHash": "sha256-lR8yEgCN5irHJebGxa1YEltwPcTU9JrG2vA150wk+4k=",
         "owner": "RomeoV",
         "repo": "nix-zeroclaw",
-        "rev": "f58f86b64904182156360dc3f1d8abcf7433421b",
+        "rev": "f9145ac241f5b8982e6ed2c81745d5f2ad4e2c65",
         "type": "github"
       },
       "original": {
@@ -214,6 +214,22 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-openclaw": {
+      "locked": {
+        "lastModified": 1771349121,
+        "narHash": "sha256-ZiaQYKrgE7fIhvGXDjocLAdgEC0Jq6GDfekf4L3fA7I=",
+        "owner": "chrisportela",
+        "repo": "nixpkgs",
+        "rev": "f06e21417815267495ed78439acb9ba383b7d893",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chrisportela",
+        "ref": "cp/add-moltbot",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -385,6 +401,7 @@
         "isd": "isd",
         "nix-zeroclaw": "nix-zeroclaw",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-openclaw": "nixpkgs-openclaw",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "redlib": "redlib",
         "sbucaptions-webserver": "sbucaptions-webserver"
@@ -580,17 +597,17 @@
     "zeroclaw-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1771534523,
-        "narHash": "sha256-GuW2uNKjd7Iy+5F5fQnwwcB3LyoCOLYV2yfCr6nrVIw=",
+        "lastModified": 1771541080,
+        "narHash": "sha256-0FWhlyZmcgYqCZg54Wn9lOo0Pbdnsp9/ccuQeVj3tSI=",
         "owner": "RomeoV",
         "repo": "zeroclaw",
-        "rev": "bec1dc7b8c276af474c1366915a764c43912e2a9",
+        "rev": "fc1b32c167c8cac53a628b2801f75e0eb1d26458",
         "type": "github"
       },
       "original": {
         "owner": "RomeoV",
+        "ref": "main",
         "repo": "zeroclaw",
-        "rev": "bec1dc7b8c276af474c1366915a764c43912e2a9",
         "type": "github"
       }
     }

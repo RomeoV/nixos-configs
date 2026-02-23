@@ -10,7 +10,7 @@
 
   nix.settings.experimental-features = "nix-command flakes";
   # nix.allowedUsers = [ "@wheel" ];
-  nix.settings.allowed-users = [ "root" ];
+  nix.settings.allowed-users = [ "root" "openclaw" ];
 
   nixpkgs.config.allowUnfree = true;
 

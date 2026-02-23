@@ -19,7 +19,7 @@ in {
   ];
 
   services.zeroclaw = {
-    enable = true;
+    enable = false;  # DISABLED - using openclaw now
     apiKeyFile = config.age.secrets.zeroclaw-api-key.path;
     model = "claude-haiku-4-5";
 

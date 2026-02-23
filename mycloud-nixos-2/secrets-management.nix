@@ -20,13 +20,14 @@
     github-key.file = agenix/github-key.age;
     rclone-config-immich-object-storage.file = agenix/rclone-config-immich-object-storage.age;
     nextcloud-object-storage-secret.file = agenix/nextcloud-object-storage-secret.age;
-    zeroclaw-api-key = {
-      file = agenix/openclaw-anthropic-key.age;  # reusing the same encrypted key
-      owner = "zeroclaw";
+    # zeroclaw secrets removed - using openclaw now
+    openclaw-api-key = {
+      file = agenix/openclaw-anthropic-key.age;  # Same file as zeroclaw used
+      owner = "openclaw";
     };
-    zeroclaw-telegram-token = {
-      file = agenix/openclaw-telegram-token.age;  # reusing the same encrypted token
-      owner = "zeroclaw";
+    openclaw-telegram-token = {
+      file = agenix/openclaw-telegram-token.age;  # Same file as zeroclaw used
+      owner = "openclaw";
     };
     stanford-oauth-tokens = {
       file = agenix/stanford-oauth-tokens.age;
