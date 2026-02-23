@@ -37,8 +37,8 @@
     ];
   };
 
-  # Tools available to the agent
-  systemd.services.openclaw-gateway.path = with pkgs; [
+  # Tools available to the agent (via user profile so the exec tool can find them)
+  users.users.openclaw.packages = with pkgs; [
     bash which coreutils findutils gnugrep gnused gawk gzip
     nix git curl wget jq python3 uv
     himalaya khal pimsync tailscale bun
