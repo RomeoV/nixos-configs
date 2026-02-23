@@ -1,4 +1,28 @@
 { config, pkgs, ... }: {
+  # Debug: run `sudo openclaw-sandbox` to get a shell inside the gateway's sandbox.
+  # Enters the service's mount/pid/net namespaces with the service's environment.
+  environment.systemPackages = let
+    sandbox = pkgs.writeShellScript "openclaw-sandbox-inner" ''
+      PID=$1
+      cd /var/lib/openclaw
+      # Load the service's environment
+      while IFS= read -r -d "" line; do
+        export "$line"
+      done < /proc/"$PID"/environ
+      exec ${pkgs.bash}/bin/bash
+    '';
+  in [
+    (pkgs.writeShellScriptBin "openclaw-sandbox" ''
+      PID=$(systemctl show openclaw-gateway.service -p MainPID --value)
+      if [ "$PID" = "0" ] || [ -z "$PID" ]; then
+        echo "openclaw-gateway is not running" >&2
+        exit 1
+      fi
+      exec nsenter -t "$PID" -m -u -i -n -p \
+        ${pkgs.util-linux}/bin/setpriv --reuid=openclaw --regid=openclaw --init-groups \
+        ${pkgs.bash}/bin/bash ${sandbox} "$PID"
+    '')
+  ];
   services.openclaw = {
     enable = true;
     domain = "";           # No Caddy — Tailscale only
