@@ -11,7 +11,9 @@ let
   stateDir = "/var/lib/mailsync";
   tokenDir = "${stateDir}/tokens";
   tokenFile = "${tokenDir}/stanford.tokens";
-  maildirPath = "${stateDir}/stanford";
+  # Mail now stored on storage box, symlinked from stateDir
+  realMailPath = "/mnt/storage-box/mail/stanford";
+  maildirPath = "${stateDir}/stanford";  # This will be a symlink
 
   # Thunderbird's well-known public client credentials (intentionally public)
   clientId = "08162f7c-0fd2-4200-a84a-f25a4db0b584";
@@ -88,9 +90,13 @@ in {
 
   # -- Directories --
   systemd.tmpfiles.rules = [
-    "d ${stateDir}    2750 mailsync mailread -"
-    "d ${maildirPath} 2750 mailsync mailread -"
-    "d ${tokenDir}    0700 mailsync mailsync -"
+    "d ${stateDir}         2750 mailsync mailread -"
+    "d ${tokenDir}         0700 mailsync mailsync  -"
+    # Real mail directory on storage box
+    "d /mnt/storage-box/mail           2750 mailsync mailread -"
+    "d ${realMailPath}                 2750 mailsync mailread -"
+    # Symlink from state dir to storage box
+    "L+ ${maildirPath}     -    -       -          - ${realMailPath}"
   ];
 
   # -- Service --
@@ -115,7 +121,10 @@ in {
       PrivateDevices = true;
       NoNewPrivileges = true;
 
-      ReadWritePaths = [ stateDir ];
+      ReadWritePaths = [
+        stateDir
+        "/mnt/storage-box/mail"  # Allow writing to mail on storage box
+      ];
 
       ProtectKernelTunables = true;
       ProtectKernelModules = true;
