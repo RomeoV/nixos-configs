@@ -25,7 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     openclaw-nix = {
-      url = "path:/home/romeo/code/openclaw-nix";
+      url = "github:romeov/openclaw-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
