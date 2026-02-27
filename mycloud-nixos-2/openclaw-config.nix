@@ -19,7 +19,7 @@
       "read" "write" "edit"
       "web_search" "web_fetch"
       "message" "tts"
-      "exec"
+      "exec" "emacs"
     ];
   };
 
