@@ -1,8 +1,9 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, pkgs-unstable, ... }: {
   imports = [ ./openclaw-sandbox.nix ];
 
   services.openclaw = {
     enable = true;
+    package = pkgs-unstable.openclaw;
     domain = "";           # No Caddy — Tailscale only
     openFirewall = false;
 
@@ -50,6 +51,10 @@
       backend.root-dir = "/var/lib/mailsync/stanford"
     '';
   in [
+    # Allow syncthing (in openclaw group) to traverse to .openclaw/workspace
+    "d /var/lib/openclaw              0750 openclaw openclaw -"
+    "d /var/lib/openclaw/.openclaw    0750 openclaw openclaw -"
+    "d /var/lib/openclaw/.openclaw/workspace 2770 openclaw openclaw -"
     "d /var/lib/openclaw/.config/himalaya 0750 openclaw openclaw -"
     "L+ /var/lib/openclaw/.config/himalaya/config.toml - - - - ${himalayaConfig}"
   ];

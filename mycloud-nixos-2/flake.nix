@@ -39,7 +39,10 @@
         inherit sbucaptions-webserver;
         inherit inputs;
         # pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+        pkgs-unstable = import nixpkgs-unstable {
+          system = "x86_64-linux";
+          config.permittedInsecurePackages = [ "openclaw-2026.2.26" ];
+        };
         # pkgs-mlflow = nixpkgs-mlflow.legacyPackages.x86_64-linux;
         agenix = agenix.packages.x86_64-linux;
         isdPkgs = isd.packages.x86_64-linux;
