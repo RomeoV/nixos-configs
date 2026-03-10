@@ -62,6 +62,11 @@
       "storage.mycloud".listen = [
         { addr = "100.64.0.10"; port=80; }
       ];
+      "freshrss.mycloud" = {
+        listen = [
+          { addr = "100.64.0.10"; port = 80; }
+        ];
+      };
       "immich.mycloud" = {
         listen = [
           { addr = "100.64.0.10"; port=80; }

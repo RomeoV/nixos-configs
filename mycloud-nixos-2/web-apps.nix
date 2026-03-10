@@ -134,6 +134,14 @@
   };
   systemd.services.paperless.serviceConfig.TimeoutStopSec = "15s";
 
+  services.freshrss = {
+    enable = true;
+    baseUrl = "http://freshrss.mycloud";
+    defaultUser = "admin";
+    passwordFile = config.age.secrets.freshrss-admin-password.path;
+    virtualHost = "freshrss.mycloud";
+  };
+
   services.immich = {
     enable = true;
     machine-learning.enable = true;

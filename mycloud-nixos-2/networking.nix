@@ -85,6 +85,11 @@
            value = "100.64.0.10";  # The IP from the dig result
           }
           {
+           name = "freshrss.mycloud";
+           type = "A";
+           value = "100.64.0.10";
+          }
+          {
            name = "immich.mycloud";
            type = "A";
            value = "100.64.0.10";  # The IP from the dig result
