@@ -106,12 +106,29 @@
       "src": ["*"],
       "dst": ["*:*"]
     }],
-    "ssh": [{
+    "tagOwners": {
+      "tag:bazzite": ["romeo@"]
+    },
+    "ssh": [
+    {
       "action": "accept",
       "src": ["autogroup:member"],
       "dst": ["autogroup:self"],
-      "users": ["romeo"]
-    }]}
+      "users": ["romeo", "root"]
+    },
+    {
+      "action": "accept",
+      "src": ["autogroup:member"],
+      "dst": ["tag:bazzite"],
+      "users": ["merel"]
+    },
+    {
+      "action": "accept",
+      "src": ["romeo@"],
+      "dst": ["tag:bazzite"],
+      "users": ["romeo", "root"]
+    }
+    ]}
   '';
   # headscale sometimes takes forever to shut down...
   systemd.services.headscale.serviceConfig.TimeoutStopSec = "15s";
