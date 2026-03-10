@@ -9,9 +9,9 @@
     createHome = true;
     home = "/home/syncthing";
     homeMode = "750"; # Set home directory mode explicitly, so that other users in that group can access it.
-    # Don't remove other settings your syncthing user already has
     isSystemUser = true;
     group = "syncthing";
+    extraGroups = [ "openclaw" ]; # Read access to /var/lib/openclaw for syncing
   };
   services.syncthing = {
     enable = true;
@@ -34,9 +34,25 @@
           path = "/home/syncthing/todo_notes";    # Which folder to add to Syncthing
           devices = [ "Pixel-6" "Pixel-9" "Lenovo-P1" ];      # Which devices to share the folder with
         };
+        "openclaw_workspace" = {         # Folder ID in Syncthing, also the name of folder (label) by default
+          path = "/var/lib/openclaw/.openclaw/workspace";    # Which folder to add to Syncthing
+          devices = [ "Pixel-6" "Pixel-9" "Lenovo-P1" ];      # Which devices to share the folder with
+          versioning = {
+            type = "staggered";
+            params = {
+              maxAge = "30";
+            };
+          };
+        };
       };
     };
   };
+
+  # UMask strips permissions from new files. Digits: special-owner-group-other.
+  # Default 0022 strips group+other write → files are 0644 (rw-r--r--).
+  # We use 0002 to only strip other-write → files are 0664 (rw-rw-r--),
+  # so openclaw can write to files via setgid group inheritance.
+  systemd.services.syncthing.serviceConfig.UMask = "0002";
 
   services.sbucaptions-webserver = {
     enable = true;
