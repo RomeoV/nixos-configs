@@ -104,6 +104,7 @@
       pkgs.redlib
       # pkgs.mlflow-server
       pkgs.dust
+      pkgs.jq
       isdPkgs.isd
   ];
 
