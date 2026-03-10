@@ -154,7 +154,7 @@
     enable = true;
     baseUrl = "http://freshrss.mycloud";
     defaultUser = "admin";
-    passwordFile = config.age.secrets.freshrss-admin-password.path;
+    authType = "none";
     virtualHost = "freshrss.mycloud";
   };
 
