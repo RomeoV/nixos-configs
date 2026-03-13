@@ -152,10 +152,12 @@
 
   services.freshrss = {
     enable = true;
+    package = pkgs-unstable.freshrss;
     baseUrl = "http://freshrss.mycloud";
     defaultUser = "admin";
     authType = "none";
     virtualHost = "freshrss.mycloud";
+    api.enable = true;
   };
 
   services.immich = {

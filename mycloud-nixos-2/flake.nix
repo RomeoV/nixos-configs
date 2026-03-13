@@ -74,6 +74,8 @@
           ./mailsync.nix
           ({ _module.args = moduleArgs;  })
           # "${nixpkgs-unstable}/nixos/modules/services/networking/anubis.nix"
+          { disabledModules = [ "services/web-apps/freshrss.nix" ]; }
+          "${nixpkgs-unstable}/nixos/modules/services/web-apps/freshrss.nix"
         ];
       };
     };
