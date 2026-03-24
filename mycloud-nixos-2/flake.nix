@@ -28,9 +28,13 @@
       url = "github:romeov/openclaw-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter, nix-zeroclaw, openclaw-nix }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter, nix-zeroclaw, openclaw-nix, deploy-rs }:
     let
       moduleArgs = {
         # same as `nixpkgs=nixpgs; nixpkgs-unstable=nixpkgs-unstable;`
@@ -50,6 +54,19 @@
         rootPath = ./.;
       };
     in {
+      apps.x86_64-linux.deploy-rs = deploy-rs.apps.x86_64-linux.default;
+
+      deploy.nodes.mycloud-nixos-2 = {
+        hostname = "hetzner2";
+        sshUser = "root";
+        profiles.system = {
+          user = "root";
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.mycloud-nixos-2;
+        };
+      };
+
+      checks.x86_64-linux = deploy-rs.lib.x86_64-linux.deployChecks self.deploy;
+
       nixosConfigurations.mycloud-nixos-2 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
