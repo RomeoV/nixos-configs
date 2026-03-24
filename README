@@ -1,11 +1,12 @@
+## Deploy
 
-## Deploy from non-NixOS computer
-Just run 
+From within the flake devshell (`direnv allow` or `nix develop`):
 
 ```sh
-nix-shell -p '(nixos{}).nixos-rebuild'
-nixos-rebuild switch --flake .#mycloud-nixos-2 --target-host hetzner2
+cd mycloud-nixos-2
+./deploy.sh
 ```
-If you run into cache errors, add the flag `--option eval-cache false`.
 
+This runs `nix run .#deploy-rs -- .#mycloud-nixos-2`.
 
+If you run into cache errors, add `--option eval-cache false`.

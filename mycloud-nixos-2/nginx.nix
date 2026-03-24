@@ -9,6 +9,7 @@
     enable = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
+    recommendedGzipSettings = true;
     clientMaxBodySize = "40M";
     virtualHosts = {
       "immich.romeov.me" = {
@@ -72,6 +73,7 @@
           { addr = "100.64.0.10"; port = 80; }
         ];
         root = "/var/lib/blog/www";
+        extraConfig = "gzip_static on;";
       };
       "immich.mycloud" = {
         listen = [

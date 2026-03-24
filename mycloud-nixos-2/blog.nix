@@ -6,6 +6,7 @@ let
 
   postReceiveHook = pkgs.writeShellScript "post-receive" ''
     set -e
+    unset GIT_DIR
     export PATH="${lib.makeBinPath [ pkgs.git pkgs.zola pkgs.coreutils ]}:$PATH"
     echo "Deploying blog..."
     rm -rf ${workDir}
@@ -13,7 +14,9 @@ let
     cd ${workDir}
     git submodule update --init --recursive
     cd ${workDir}/zola
-    zola build --base-url http://blog.mycloud --output-dir ${wwwDir}
+    # zola 0.21 expects config.toml, but the blog uses zola.toml
+    ln -sf zola.toml config.toml
+    zola build --base-url http://blog.mycloud --output-dir ${wwwDir} --force
     echo "Blog deployed successfully!"
   '';
 in {
