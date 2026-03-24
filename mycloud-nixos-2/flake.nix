@@ -76,6 +76,7 @@
           ./secrets-management.nix
           ./web-apps.nix
           ./nginx.nix
+          ./blog.nix
           ./mlflow-service.nix
           ./sbucaptions-webserver-service.nix
           agenix.nixosModules.default

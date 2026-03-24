@@ -67,6 +67,12 @@
           { addr = "100.64.0.10"; port = 80; }
         ];
       };
+      "blog.mycloud" = {
+        listen = [
+          { addr = "100.64.0.10"; port = 80; }
+        ];
+        root = "/var/lib/blog/www";
+      };
       "immich.mycloud" = {
         listen = [
           { addr = "100.64.0.10"; port=80; }

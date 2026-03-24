@@ -90,6 +90,11 @@
            value = "100.64.0.10";
           }
           {
+           name = "blog.mycloud";
+           type = "A";
+           value = "100.64.0.10";
+          }
+          {
            name = "immich.mycloud";
            type = "A";
            value = "100.64.0.10";  # The IP from the dig result
