@@ -57,7 +57,7 @@
       apps.x86_64-linux.deploy-rs = deploy-rs.apps.x86_64-linux.default;
 
       deploy.nodes.mycloud-nixos-2 = {
-        hostname = "hetzner2";
+        hostname = "mycloud2";
         sshUser = "root";
         profiles.system = {
           user = "root";

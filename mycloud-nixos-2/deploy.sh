@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 # nix flake update agenda-exporter --override-input agenda-exporter ./agenda-exporter
-nix run .#deploy-rs -- .#mycloud-nixos-2 "$@"
+nix run .#deploy-rs -- .#mycloud2 "$@"
