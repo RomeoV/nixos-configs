@@ -28,7 +28,7 @@
   users.users.openclaw.packages = with pkgs; [
     bash which coreutils findutils gnugrep gnused gawk gzip
     nix git curl wget jq python3 uv
-    himalaya khal pimsync tailscale bun
+    himalaya khal pimsync tailscale typst bun
     cron
   ];
 
