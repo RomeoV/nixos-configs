@@ -92,6 +92,7 @@
         customRC = ''set nowrap'';
       };
     };
+    nix-ld.enable = true;
   };
 
   environment.systemPackages = [
