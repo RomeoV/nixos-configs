@@ -29,6 +29,10 @@
       file = agenix/openclaw-telegram-token.age;  # Same file as zeroclaw used
       owner = "openclaw";
     };
+    storage-box-cifs-credentials = {
+      file = agenix/storage-box-cifs-credentials.age;
+      owner = "root";
+    };
     stanford-oauth-tokens = {
       file = agenix/stanford-oauth-tokens.age;
       owner = "mailsync";
