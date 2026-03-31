@@ -104,6 +104,7 @@ in {
     description = "Sync Stanford mail via mbsync + OAuth2";
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
+    unitConfig.RequiresMountsFor = "/mnt/storage-box";
 
     serviceConfig = {
       Type = "oneshot";

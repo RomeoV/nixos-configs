@@ -35,6 +35,7 @@
   # Mail access
   users.users.openclaw.extraGroups = [ "mailread" ];
   users.users.openclaw.shell = pkgs.bash;
+  systemd.services.openclaw-gateway.unitConfig.RequiresMountsFor = "/mnt/storage-box";
   systemd.services.openclaw-gateway.serviceConfig.SupplementaryGroups = [ "mailread" ];
   systemd.services.openclaw-gateway.serviceConfig.BindReadOnlyPaths = [
     "/mnt/storage-box/mail/stanford"
