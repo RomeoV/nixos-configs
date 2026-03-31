@@ -100,6 +100,7 @@
       pkgs.helix
       pkgs.headscale
       pkgs.rclone
+      pkgs.cifs-utils
       pkgs.bottom
       pkgs.waypipe
       pkgs.redlib
@@ -108,6 +109,13 @@
       pkgs.jq
       isdPkgs.isd
   ];
+
+    fonts.packages = with pkgs; [
+    source-serif-pro source-sans-pro source-code-pro
+    inter fira fira-code roboto roboto-slab
+    libertinus eb-garamond lato merriweather
+    carlito liberation_ttf corefonts
+    ];
 
   services.netdata.enable = false;
 

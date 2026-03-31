@@ -8,21 +8,6 @@
   fileSystems."/" = { device = "/dev/sda1"; fsType = "ext4"; };
 
 
-  environment.etc."rclone-mnt.conf".text = ''
-    [storage-box]
-    type = sftp
-    host = u380790.your-storagebox.de
-    user = u380790
-    port = 23
-    key_file = ''+config.age.secrets.hetzner_private_key.path+''
-
-    shell_type = unix
-    md5sum_command = md5 -r
-    sha1sum_command = sha1 -r
-'';
-  # we have to move the backblaze config into a age file because the key must be provided plain-text,
-  # i.e. we can't pass something like `secrets.mlflow-artifacts-key.path` to the file.
-
   # We end up storing everything for immich by default in /var/lib/immich, but then symlink some dirs from there to this mount!
   # This is because the immich module doesn't separate between something like =homeDir= and =dataDir=.
   fileSystems."/mnt/immich-library" = {
@@ -68,6 +53,19 @@
       # Tells systemd to mount the filesystem on-demand when it's first accessed, rather than during boot. This means if the network/storage isn't immediately available, boot won't hang.
       "x-systemd.automount"
       # Sets a 30-second timeout for the mount attempt. If the mount doesn't succeed within 30 seconds, systemd will stop trying and continue booting.
+      "x-systemd.mount-timeout=30"
+    ];
+  };
+
+  fileSystems."/mnt/storage-box" = {
+    device = "//u380790.your-storagebox.de/backup";
+    fsType = "cifs";
+    neededForBoot = false;
+    options = [
+      "credentials=${config.age.secrets.storage-box-cifs-credentials.path}"
+      "_netdev"
+      "nofail"
+      "seal"          # encrypt traffic (SMB 3.0)
       "x-systemd.mount-timeout=30"
     ];
   };
