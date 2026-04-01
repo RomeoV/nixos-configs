@@ -7,6 +7,18 @@
   boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = true;  # for making nginx listen on addresses which will only instantiate after headscale is up
   fileSystems."/" = { device = "/dev/sda1"; fsType = "ext4"; };
 
+  environment.etc."rclone-storage-box.conf".text = ''
+[storage-box]
+type = sftp
+host = u380790.your-storagebox.de
+user = u380790
+port = 23
+key_file = ${config.age.secrets.hetzner_private_key.path}
+
+shell_type = unix
+md5sum_command = md5 -r
+sha1sum_command = sha1 -r
+'';
 
   # We end up storing everything for immich by default in /var/lib/immich, but then symlink some dirs from there to this mount!
   # This is because the immich module doesn't separate between something like =homeDir= and =dataDir=.
@@ -58,15 +70,16 @@
   };
 
   fileSystems."/mnt/storage-box" = {
-    device = "//u380790.your-storagebox.de/backup";
-    fsType = "cifs";
+    device = "storage-box:";
+    fsType = "rclone";
     neededForBoot = false;
     options = [
-      "credentials=${config.age.secrets.storage-box-cifs-credentials.path}"
-      "_netdev"
+      "nodev"
       "nofail"
-      "seal"          # encrypt traffic (SMB 3.0)
-      "noperm"        # skip client-side permission checks; server authenticates via credentials
+      "allow_other"
+      "config=/etc/rclone-storage-box.conf"
+      "vfs-cache-mode=writes"
+      "x-systemd.automount"
       "x-systemd.mount-timeout=30"
     ];
   };
