@@ -115,6 +115,9 @@
     port = 8092;
   };
   systemd.services.audiobookshelf.unitConfig.RequiresMountsFor = "/mnt/storage-box";
+  systemd.tmpfiles.rules = [
+    "L+ /var/lib/audiobookshelf/audiobooks - - - - /mnt/storage-box/audiobookshelf/audiobooks"
+  ];
 
   services.calibre-web = {
     enable = true;

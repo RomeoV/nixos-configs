@@ -66,6 +66,7 @@
       "_netdev"
       "nofail"
       "seal"          # encrypt traffic (SMB 3.0)
+      "noperm"        # skip client-side permission checks; server authenticates via credentials
       "x-systemd.mount-timeout=30"
     ];
   };
