@@ -84,6 +84,12 @@ sha1sum_command = sha1 -r
     ];
   };
 
+  fileSystems."/mnt/mail-storage" =
+    { device = "/dev/disk/by-id/scsi-0HC_Volume_105304987";
+      fsType = "ext4";
+      neededForBoot = false;
+    };
+
   fileSystems."/sbucaptions-storage" =
     { device = "/dev/disk/by-id/scsi-0HC_Volume_101330357";
       fsType = "ext4";

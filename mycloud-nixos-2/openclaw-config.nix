@@ -35,10 +35,10 @@
   # Mail access
   users.users.openclaw.extraGroups = [ "mailread" ];
   users.users.openclaw.shell = pkgs.bash;
-  systemd.services.openclaw-gateway.unitConfig.RequiresMountsFor = "/mnt/storage-box";
+  systemd.services.openclaw-gateway.unitConfig.RequiresMountsFor = "/mnt/mail-storage";
   systemd.services.openclaw-gateway.serviceConfig.SupplementaryGroups = [ "mailread" ];
   systemd.services.openclaw-gateway.serviceConfig.BindReadOnlyPaths = [
-    "/mnt/storage-box/mail/stanford"
+    "/mnt/mail-storage/stanford"
   ];
 
   # Himalaya config for mail reading
@@ -49,7 +49,7 @@
       email = "romeov@stanford.edu"
       folder.aliases.inbox = "Inbox"
       backend.type = "maildir"
-      backend.root-dir = "/var/lib/mailsync/stanford"
+      backend.root-dir = "/mnt/mail-storage/stanford"
     '';
   in [
     # Allow syncthing (in openclaw group) to traverse to .openclaw/workspace

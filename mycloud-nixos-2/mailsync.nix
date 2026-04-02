@@ -1,20 +1,20 @@
 # NixOS module for syncing Stanford mail via mbsync + OAuth2.
 #
 # - Runs as isolated `mailsync` system user with systemd hardening.
-# - Mail is readable by the `mailread` group (for zeroclaw, etc.).
+# - Mail is readable by the `mailread` group (for openclaw, etc.).
 # - OAuth2 tokens are private to `mailsync` (0700 tokens dir).
 # - Initial token is seeded from an agenix secret; once seeded the
 #   service maintains its own copy (mutt_oauth2.py refreshes in-place).
+# - Mail is stored on a local SSD volume for fast access.
+# - Backed up via restic (configured in system-configuration.nix).
 { config, lib, pkgs, ... }:
 
 let
   stateDir = "/var/lib/mailsync";
   tokenDir = "${stateDir}/tokens";
   tokenFile = "${tokenDir}/stanford.tokens";
-  # Mail now stored on storage box, symlinked from stateDir
-  realMailPath = "/mnt/storage-box/mail/stanford";
-  maildirPath = "${stateDir}/stanford";  # This will be a symlink
-
+  # Mail on local SSD volume for fast access
+  maildirPath = "/mnt/mail-storage/stanford";
   # Thunderbird's well-known public client credentials (intentionally public)
   clientId = "08162f7c-0fd2-4200-a84a-f25a4db0b584";
   clientSecret = "TxRBilcHdC6WGBee]fs?QR:SJ8nI[g82";
@@ -92,19 +92,15 @@ in {
   systemd.tmpfiles.rules = [
     "d ${stateDir}         2750 mailsync mailread -"
     "d ${tokenDir}         0700 mailsync mailsync  -"
-    # Real mail directory on storage box
-    "d /mnt/storage-box/mail           2750 mailsync mailread -"
-    "d ${realMailPath}                 2750 mailsync mailread -"
-    # Symlink from state dir to storage box
-    "L+ ${maildirPath}     -    -       -          - ${realMailPath}"
+    "d ${maildirPath}      2750 mailsync mailread -"
   ];
 
-  # -- Service --
+  # -- Sync service --
   systemd.services.mailsync-stanford = {
     description = "Sync Stanford mail via mbsync + OAuth2";
-    after = [ "network-online.target" ];
+    after = [ "network-online.target" "mnt-mail\\x2dstorage.mount" ];
     wants = [ "network-online.target" ];
-    unitConfig.RequiresMountsFor = "/mnt/storage-box";
+    unitConfig.RequiresMountsFor = "/mnt/mail-storage";
 
     serviceConfig = {
       Type = "oneshot";
@@ -114,8 +110,8 @@ in {
       ExecStart = syncScript;
       # mbsync creates files as 0600 and dirs without setgid; fix for mailread group
       ExecStartPost = pkgs.writeShellScript "fix-mail-perms" ''
-        ${pkgs.findutils}/bin/find ${realMailPath} -type d ! -perm -g+sx -exec chmod g+sx {} +
-        ${pkgs.findutils}/bin/find ${realMailPath} -type f ! -perm -g+r -exec chmod g+r {} +
+        ${pkgs.findutils}/bin/find ${maildirPath} -type d ! -perm -g+sx -exec chmod g+sx {} +
+        ${pkgs.findutils}/bin/find ${maildirPath} -type f ! -perm -g+r -exec chmod g+r {} +
       '';
       WorkingDirectory = stateDir;
       Nice = 10;
@@ -129,7 +125,7 @@ in {
 
       ReadWritePaths = [
         stateDir
-        "/mnt/storage-box/mail"  # Allow writing to mail on storage box
+        "/mnt/mail-storage"
       ];
 
       ProtectKernelTunables = true;
@@ -165,7 +161,7 @@ in {
     };
   };
 
-  # -- Timer --
+  # -- Sync timer --
   systemd.timers.mailsync-stanford = {
     description = "Sync Stanford mail every 5 minutes";
     wantedBy = [ "timers.target" ];
@@ -174,4 +170,5 @@ in {
       RandomizedDelaySec = "30s";
     };
   };
+
 }

@@ -129,6 +129,7 @@
 
       paths = [
         "/mnt/storage-box/immich"
+        "/mnt/mail-storage"
         "/var/lib"
       ];
 
