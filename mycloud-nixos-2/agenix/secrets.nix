@@ -23,6 +23,7 @@ in {
   "immich-object-storage-access-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
   "nextcloud-object-storage-secret.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
   "openclaw-anthropic-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "openclaw-openrouter-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
   "openclaw-telegram-token.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
   "openclaw-gateway-token.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
   "stanford-oauth-tokens.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];

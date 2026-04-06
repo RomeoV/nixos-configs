@@ -7,7 +7,7 @@
     domain = "";           # No Caddy — Tailscale only
     openFirewall = false;
 
-    modelProvider = "anthropic";
+    modelProvider = "openrouter";
     modelApiKeyFile = config.age.secrets.openclaw-api-key.path;
 
     telegram = {

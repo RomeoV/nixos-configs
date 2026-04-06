@@ -22,7 +22,7 @@
     nextcloud-object-storage-secret.file = agenix/nextcloud-object-storage-secret.age;
     # zeroclaw secrets removed - using openclaw now
     openclaw-api-key = {
-      file = agenix/openclaw-anthropic-key.age;  # Same file as zeroclaw used
+      file = agenix/openclaw-openrouter-key.age;
       owner = "openclaw";
     };
     openclaw-telegram-token = {
