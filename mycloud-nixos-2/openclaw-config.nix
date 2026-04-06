@@ -1,9 +1,9 @@
-{ config, pkgs, pkgs-unstable, ... }: {
+{ config, pkgs, pkgs-small, lib, ... }: {
   imports = [ ./openclaw-sandbox.nix ];
 
   services.openclaw = {
     enable = true;
-    package = pkgs-unstable.openclaw;
+    package = pkgs-small.openclaw;
     domain = "";           # No Caddy — Tailscale only
     openFirewall = false;
 
@@ -36,6 +36,7 @@
   users.users.openclaw.extraGroups = [ "mailread" ];
   users.users.openclaw.shell = pkgs.bash;
   systemd.services.openclaw-gateway.unitConfig.RequiresMountsFor = "/mnt/mail-storage";
+  systemd.services.openclaw-gateway.serviceConfig.Restart = lib.mkForce "always";
   systemd.services.openclaw-gateway.serviceConfig.SupplementaryGroups = [ "mailread" ];
   systemd.services.openclaw-gateway.serviceConfig.BindReadOnlyPaths = [
     "/mnt/mail-storage/stanford"

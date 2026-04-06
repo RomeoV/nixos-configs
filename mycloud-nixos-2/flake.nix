@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     # nixpkgs-mlflow.url = "github:NixOS/nixpkgs/3259cf03626f8fd2f54c67becd531b9276885a64";
     agenix ={
       url = "github:ryantm/agenix";
@@ -34,7 +35,7 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter, nix-zeroclaw, openclaw-nix, deploy-rs }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixpkgs-small, agenix, redlib, sbucaptions-webserver, isd, agenda-exporter, nix-zeroclaw, openclaw-nix, deploy-rs }:
     let
       moduleArgs = {
         # same as `nixpkgs=nixpgs; nixpkgs-unstable=nixpkgs-unstable;`
@@ -43,9 +44,10 @@
         inherit sbucaptions-webserver;
         inherit inputs;
         # pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        pkgs-unstable = import nixpkgs-unstable {
+        pkgs-unstable = import nixpkgs-unstable { system = "x86_64-linux"; };
+        pkgs-small = import nixpkgs-small {
           system = "x86_64-linux";
-          config.permittedInsecurePackages = [ "openclaw-2026.2.26" ];
+          config.permittedInsecurePackages = [ "openclaw-2026.4.2" ];
         };
         # pkgs-mlflow = nixpkgs-mlflow.legacyPackages.x86_64-linux;
         agenix = agenix.packages.x86_64-linux;
