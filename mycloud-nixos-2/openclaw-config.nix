@@ -7,8 +7,9 @@
     domain = "";           # No Caddy — Tailscale only
     openFirewall = false;
 
-    modelProvider = "openrouter";
-    modelApiKeyFile = config.age.secrets.openclaw-api-key.path;
+    # Model provider + API key managed imperatively via `openclaw models` CLI.
+    # The NixOS module's modelApiKeyFile/EnvironmentFile plumbing is broken
+    # (raw key, no KEY=value format), so auth lives in auth-profiles.json.
 
     telegram = {
       enable = true;
