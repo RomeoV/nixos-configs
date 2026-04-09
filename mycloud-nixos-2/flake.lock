@@ -343,17 +343,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1771876635,
-        "narHash": "sha256-Id0+haXlEzjHxU4EC0Hs2+bd6YRW7bhcKc7m0vuIjlI=",
-        "owner": "romeov",
-        "repo": "openclaw-nix",
-        "rev": "fa4da01404553f0a7bfdb9f547d2404ecdab59ea",
-        "type": "github"
+        "lastModified": 1775691103,
+        "narHash": "sha256-spLnUSkj+cdmM8cu7RKEpsr8M66hQdYU0aVf+HETzJI=",
+        "ref": "refs/heads/main",
+        "rev": "c08f51dba427878da2fc74948da802e7d75807c9",
+        "revCount": 10,
+        "type": "git",
+        "url": "file:///home/romeo/Documents/hetzner-servers/worktrees/hetzner2/openclaw-nix"
       },
       "original": {
-        "owner": "romeov",
-        "repo": "openclaw-nix",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/romeo/Documents/hetzner-servers/worktrees/hetzner2/openclaw-nix"
       }
     },
     "poetry2nix": {

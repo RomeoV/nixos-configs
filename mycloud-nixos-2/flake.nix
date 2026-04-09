@@ -26,7 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     openclaw-nix = {
-      url = "github:romeov/openclaw-nix";
+      url = "git+file:///home/romeo/Documents/hetzner-servers/worktrees/hetzner2/openclaw-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     deploy-rs = {

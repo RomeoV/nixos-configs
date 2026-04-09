@@ -75,6 +75,15 @@
         root = "/var/lib/blog/www";
         extraConfig = "gzip_static on;";
       };
+      "openclaw.mycloud" = {
+        listen = [
+          { addr = "100.64.0.10"; port = 80; }
+        ];
+        locations."/" = {
+          proxyPass = "http://localhost:18789";
+          proxyWebsockets = true;
+        };
+      };
       "immich.mycloud" = {
         listen = [
           { addr = "100.64.0.10"; port=80; }

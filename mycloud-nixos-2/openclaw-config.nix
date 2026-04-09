@@ -21,13 +21,13 @@
       "read" "write" "edit"
       "web_search" "web_fetch"
       "message" "tts"
-      "exec" "emacs"
+      "exec"
     ];
   };
 
   # Tools available to the agent (via user profile so the exec tool can find them)
   users.users.openclaw.packages = with pkgs; [
-    bash which coreutils findutils gnugrep gnused gawk gzip
+    bash emacs which coreutils findutils gnugrep gnused gawk gzip
     nix git curl wget jq python3 uv
     himalaya khal pimsync tailscale typst bun
     cron

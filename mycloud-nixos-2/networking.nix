@@ -99,6 +99,11 @@
            type = "A";
            value = "100.64.0.10";  # The IP from the dig result
           }
+          {
+           name = "openclaw.mycloud";
+           type = "A";
+           value = "100.64.0.10";
+          }
         ];
       #   search_domains = [ "mycloud" ];
       #   nameservers.global = [ "100.64.0.254" ];

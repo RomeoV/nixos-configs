@@ -3,7 +3,6 @@
 , config
 , rootPath
 , isdPkgs
-, agendaExporter
 , lib
 , ... }: {
   system.stateVersion = "24.05";
@@ -141,60 +140,9 @@
     };
   };
 
-  users.users.agenda-exporter = {
-    isSystemUser = true;
-    group = "agenda-exporter";
-    description = "User for exporting org todos to HTML";
-    extraGroups = [ "syncthing" ];
-  };
-  # Create a matching group
-  users.groups.agenda-exporter = {};
-
   systemd.tmpfiles.rules = [
-    "d /var/www/todos/todos 0755 agenda-exporter agenda-exporter -"
-    "d /var/www/todos/agenda 0755 agenda-exporter agenda-exporter -"
     "d /home/syncthing 0750 syncthing syncthing -"
     "d /home/syncthing/todo_notes 0770 syncthing syncthing -"
   ];
-
-  systemd.services.export-agenda = {
-    description = "Export todos from org to HTML";
-    startAt = "5min";
-
-    unitConfig = {
-      StartLimitIntervalSec = 60;
-      StartLimitBurst = 3;
-    };
-
-    serviceConfig = {
-      Type = "oneshot";
-      User = "agenda-exporter";
-      RestartSec = "30sec";
-      Restart = "on-failure";
-      ProtectSystem = "strict";
-      ProtectHome = false;  # Allow access to /home
-      ReadWritePaths = [
-        "/var/www/todos"
-        "/home/syncthing/todo_notes"
-      ];
-      PrivateTmp = true;  # This gives the service its own isolated /tmp
-    };
-
-    # Use the executable path directly from your app definition
-    script = ''
-      ${lib.getExe agendaExporter.default}
-    '';
-  };
-  systemd.paths.export-agenda = {
-    description = "Watch for changes in todo files";
-    wantedBy = [ "multi-user.target" ];
-
-    # Specify which file(s) to watch
-    pathConfig = {
-      PathChanged = "/home/syncthing/todo_notes/todo.org";
-      # Set a timeout to prevent rapid triggers
-      Unit = "export-agenda.service";
-    };
-  };
 
 }
