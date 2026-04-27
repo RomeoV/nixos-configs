@@ -14,7 +14,6 @@
 
   nix.settings.allowed-users = [ "root" ];
 
-  nixpkgs.config.permittedInsecurePackages = [ "nextcloud-31.0.14" ];
 
   system.autoUpgrade = {
     enable = true;
@@ -98,7 +97,7 @@
 
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud31;
+    package = pkgs.nextcloud32;
     hostName = "storage.romeov.me";
     https = true;
     config.dbtype = "sqlite";  # implicit default before 25.05
