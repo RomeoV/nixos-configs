@@ -1,2 +1,10 @@
 .aider*
 .direnv
+.env
+result
+
+# OpenTofu
+infra/.terraform/
+infra/*.tfstate
+infra/*.tfstate.backup
+infra/.terraform.lock.hcl

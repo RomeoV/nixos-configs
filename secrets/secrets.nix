@@ -1,0 +1,48 @@
+let
+  # Operator keys.
+  # Lenovo-P1 holds an RSA key (passphrase-protected, on unencrypted disk —
+  # passphrase is the at-rest defense). Do not add a passphraseless key here
+  # without also enabling FDE, or every future secret quietly degrades.
+  Lenovo-P1 = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDIzDCdxCAPnbdzwkKpp/9AUGMyABSPj/vZffRQoojdHh6Ct+9fZ60vYOS9NaQy9bqdagC0bHrrBvELiTqbAj5E3I1E7Mfp2BXjI/ig+NTlp0SIoaXnlLRNxnb+TSEDuAdqMdgwjxuy63T5PK04e7AH24NQ8J9sF16QAu0A0VurZEzPTLVZIoFCr/qmxZLnsJELdAtmnxCf+ZlBSs+v0qWOibOQ1mgKecii+0hRPSDpmY62FI++AzNoeVJ4j0ObSC/hpLMYkF5DJSkwaD+4+7CDLFhHdIQ5AzZNZp4gS2IESGUVTbUhXHm0YOr/xj66ZLqDzA16F+dSkKrnfRyTGrjdeWNsMTy42W42wEK1FhbHfsg4AQtT7S3kyiKS0lUFPdH34Q6iiTShTtySDCPW46hEp97sYshZ2aSDAIKYRty3mODPZlM12LL6z1bgbte6bsI3JN0nbIULemfgVqlZAHRDpCv05muEi4IPzYdDxMutAN8zNcMz3IyVoRQ/2bw2kds=";
+  JuiceSSH = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEcP5JDW+JKSD04YGd+giu8oGCVGKjh7ZSap0UbNUYhP JuiceSSH";
+
+  operators = [ Lenovo-P1 JuiceSSH ];
+
+  # Machine host keys (from ssh-keyscan -t ed25519)
+  mycloud-nixos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINW3O4vGdlI7ZKhqTcuo4rFb97W3B9oquKMxoZI/ijkw root@mycloud-nixos";
+  mycloud-nixos-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBTIYFWBPT6gv2Udl37nRUPULH9oBDgg5q4zZOB8vWCA root@mycloud-nixos-2";
+
+  all-machines = [ mycloud-nixos mycloud-nixos-2 ];
+in {
+  # Shared secrets
+  "nextcloud_admin_pass.age".publicKeys = operators ++ all-machines;
+  "hetzner_private_key.age".publicKeys = operators ++ all-machines;
+  "porkbun-secret-api-key-both.age".publicKeys = operators ++ [ mycloud-nixos mycloud-nixos-2 ];
+
+  # mycloud-nixos backups
+  "backblaze_env.age".publicKeys = operators ++ [ mycloud-nixos ];
+  "backblaze_password.age".publicKeys = operators ++ [ mycloud-nixos ];
+  "backblaze_repo.age".publicKeys = operators ++ [ mycloud-nixos mycloud-nixos-2 ];
+
+  # mycloud-nixos-2 backups
+  "backblaze_env_2.age".publicKeys = operators ++ [ mycloud-nixos-2 ];
+  "backblaze_password_2.age".publicKeys = operators ++ [ mycloud-nixos-2 ];
+  "backblaze_repo_2.age".publicKeys = operators ++ [ mycloud-nixos-2 ];
+
+  # mycloud-nixos-2 specific
+  "agenda-password.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "mlflow-artifacts-key.age".publicKeys = operators ++ all-machines;
+  "paperless-admin-password.age".publicKeys = [ Lenovo-P1 mycloud-nixos mycloud-nixos-2 ];
+  "syncthing-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "syncthing-cert.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "github-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "rclone-config-immich-object-storage.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "immich-object-storage-access-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "nextcloud-object-storage-secret.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "openclaw-anthropic-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "openclaw-openrouter-key.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "openclaw-telegram-token.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "openclaw-gateway-token.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "stanford-oauth-tokens.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+  "storage-box-cifs-credentials.age".publicKeys = [ Lenovo-P1 mycloud-nixos-2 ];
+}
