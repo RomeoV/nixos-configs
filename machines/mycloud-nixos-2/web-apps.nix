@@ -114,7 +114,14 @@
     host = "0.0.0.0";
     port = 8092;
   };
-  systemd.services.audiobookshelf.unitConfig.RequiresMountsFor = "/mnt/storage-box";
+  # Don't pull the storage-box mount up eagerly at boot — let the automount
+  # handle it lazily on first access. Audiobookshelf will block on the symlink
+  # under /var/lib/audiobookshelf/audiobooks the first time it's read, which
+  # triggers the automount cleanly after network-online is reached.
+  systemd.services.audiobookshelf = {
+    wants = [ "mnt-storage\\x2dbox.automount" "network-online.target" ];
+    after = [ "mnt-storage\\x2dbox.automount" "network-online.target" ];
+  };
   systemd.tmpfiles.rules = [
     "L+ /var/lib/audiobookshelf/audiobooks - - - - /mnt/storage-box/audiobookshelf/audiobooks"
   ];

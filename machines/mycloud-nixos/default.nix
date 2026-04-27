@@ -14,6 +14,8 @@
 
   nix.settings.allowed-users = [ "root" ];
 
+  nixpkgs.config.permittedInsecurePackages = [ "nextcloud-31.0.14" ];
+
   system.autoUpgrade = {
     enable = true;
     allowReboot = true;
@@ -75,7 +77,8 @@
     port = 8083;
     settings = {
       serverUrl = "https://headscale.romeov.me";
-      acl_policy_path = "/etc/headscale/tailnet_policy_file.json";
+      dns.base_domain = "mycloud";
+      policy.path = "/etc/headscale/tailnet_policy_file.json";
     };
   };
   systemd.services.headscale.environment.HEADSCALE_EXPERIMENTAL_FEATURE_SSH = "1";
@@ -95,9 +98,10 @@
 
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud30;
+    package = pkgs.nextcloud31;
     hostName = "storage.romeov.me";
     https = true;
+    config.dbtype = "sqlite";  # implicit default before 25.05
     config.adminpassFile = config.age.secrets.nextcloud_admin_pass.path;
     home = "/storage/nextcloud";
   };

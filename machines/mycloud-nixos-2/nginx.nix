@@ -27,7 +27,7 @@ in {
       "redlib.romeov.me" = {
         enableACME = true;
         forceSSL = true;
-        locations."/".proxyPass = "http://unix:/run/anubis/anubis-redlib/anubis.sock";
+        locations."/".proxyPass = "http://unix:/run/anubis/anubis-redlib.sock";
       };
       "disentangling-sbucaptions.romeov.me" = let port = toString config.services.sbucaptions-webserver.port; in {
         enableACME = true;

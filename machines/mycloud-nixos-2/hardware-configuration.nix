@@ -71,6 +71,8 @@ sha1sum_command = sha1 -r
       "vfs-cache-mode=writes"
       "x-systemd.automount"
       "x-systemd.mount-timeout=30"
+      "x-systemd.requires=network-online.target"
+      "x-systemd.after=network-online.target"
     ];
   };
 
