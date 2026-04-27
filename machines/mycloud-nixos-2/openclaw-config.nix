@@ -30,7 +30,7 @@
     bash emacs which coreutils findutils gnugrep gnused gawk gzip
     nix git curl wget jq python3 uv
     himalaya khal pimsync tailscale typst bun
-    cron
+    cron whisper-cpp ffmpeg
   ];
 
   # Mail access
